@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Renan B. de Freitas,Vinicus D. O. Gonçalves, Willian M. Pereira">
+	<meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>Ohm: Site do Jogo</title>
+    <link rel="shortcut icon" href="css/imagens/logo2.ico">
+    <link rel="stylesheet" type="text/css" href="css/css.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">		
+    <script src="js/js.js"></script>
+
+</head>
+<body id="topo">
+    <div class="corpo">
+    <div class="logo">
+            <img src="css/imagens/logo2.ico" class="imgem1 img" alt=""> 
+            <h1>Ohm</h1>
+            <img src="css/imagens/kitty.png" class="imgem2 img" alt="Kitty" title="Kitty">
+    </div>
+    <div class="nav_bar">
+        <a href="#historia" class="menu_a"><div class="menu">História</div></a>
+        <a href="#descricao" class="menu_a"><div class="menu">Descrição</div></a>
+        <a href="#desenvolvedores" class="menu_a"><div class="menu">Desenvolvedores</div></a>
+        <a href="#conhecimentos" class="menu_a"><div class="menu">Conhecimentos</div></a>
+        <div class="menu login menu_a">
+            <div class="menu"><p onclick="Mudarestado('loginD')">Login</p>
+                <div class="login_form" id="loginD">
+                    <fieldset id="login" class="visi login">
+                      <form>
+                          <div class="inputL">
+                              <label>Login</label>
+                              <input type="text" name="txtlogin" id="loginL">
+                          </div>
+                          <div class="inputL">
+                              <label>Senha</label>
+                              <input type="password" name="pwdsenha" id="senhaL">
+                          </div>
+                          <div class="esqueci">
+                              <a onclick="esqueci()" class="link">Esqueci minha Senha?</a>
+                          </div>
+                          <div class="button">
+                              <input type="button" value="Login" onclick="validarLogin()">
+                              <input type="reset" value="Limpar">
+                          </div>
+                        </form>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div id="cadas" class="menu cadas menu_a">
+            <div class="menu"><p onclick="Mudarestado('cadastroD')">Cadastro</p>
+                <div class="cadastro" id="cadastroD">
+                    <fieldset class="visi">
+                      <form id="cadastro">
+                            <div class="input">
+                                <label>Nome:</label>
+                                <input type="text" name="txtnome" id="nome">
+                            </div>
+                            <div class="input">
+                                <label>Login:</label>
+                                <input type="text" name="txtlogin" id="loginC">
+                            </div>
+                            <div class="input">
+                                <label>E-mail:</label>
+                                <input type="text" name="txtemail" id="email">
+                            </div>
+                            <div class="input">
+                                <label>Nascimento:</label>
+                                <input type="text" name="txtnascimento" id="nascimento">
+                                </div>
+                            <div class="input">
+                                <label>Senha:</label>
+                                <input type="password" name="pwdsenha" id="senhaC">
+                            </div>
+                            <div class="input">
+                                <label>Confirmar Senha:</label>
+                                <input type="password" name="pwdconfirSenha" id="conSe">
+                            </div>
+                            <div class="button">
+                                <input type="button" value="Cadastrar" onclick="validarCadastro()">
+                                <input type="reset" value="Limpar">
+                            </div>
+                        </form>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="padrao">
+        <img src="css/imagens/Josh.png" class="img1 img" alt="Josh" title="Josh">
+        <div class="div" id="historia">
+            <h3>História</h3>
+            <p>Durante a noite as estrelas fulguram, mas nesta noite uma delas brilhou mais do que o normal. Tão rapida quanto a perca da inocência, uma estrela cruza os céus e enaltece suas companheiras. O estrondo de sua queda não abala ninguém, a não ser um velho solitário, vivendo numa fábrica solitária. Estava abandonada por todos, menos pro senhor idade. Cercada pelas densas paredes da fabrica desativada, a estrela revela-se ser uma espaçonave danificada, e dela uma criatura sem corpo esvai-se, era um Alien. Ele descobre que o planeta no qual caiu chama-se Terra, e agora precisará produzir a tecnologia que necessita para consertar sua nave e voltar pra casa, mas será que ele conseguirá isso? Terá ajuda? Isso cabe a voce descobrir!</p>
+        </div>
+        <span class="limpaFloat"></span>
+        <img src="css/imagens/personagem5_i.png" class="img2 img" alt="Uma das versões do personagem principal" title="Uma das versões do personagem principal">
+        <div class="div" id="descricao">
+            <h3>Descrição</h3>
+            <p>O jogo retrata a história de um alienígena que tenta voltar ao seu planeta natal, mas percebe que so conseguirá atingir tal feito se conseguir produzir uma determinada energia, por isso, todo o jogo não passa de um jogo estilo "incremental", onde o jogador produz energia e a vende para conseguir dinheiro, que pode ser gasto com máquinas automáticas e em melhorias para elas, conforme o tempo de jogo, o alienígena, vulgo jogador, poderá descobrir novas formas de produção de energia e também converter seu amontoado de energia na moeda especial do jogo, que é utilizada para comprar melhorias especias de máquinas, que são melhores do que as melhorias disponibilizadas através do dinheiro normal.</p>
+        </div>
+        <span class="limpaFloat"></span>
+        <img src="css/imagens/Alicia.png" class="img1 img" alt="Alicia" title="Alicia">
+        <div class="div" id="desenvolvedores">
+            <h3>Desenvolvedores</h3>
+            <p>
+				Renan Budal de Freitas: Possui 17 anos, é um jovem inteligente e bastante criativo e viciado em RPG, em alguns momentos demonstra comportamentos bipolares, mas ainda não tentou matar nínguem.<br>
+				Vinicius Dall Olivo Gonçalves: Possui 17 anos, é um jovem inteligente e vicíado em anime, de vez em quando da uma viajada legal mas ele ainda apresenta comportamentos aceitaveis.<br>
+				Willian Maico Pereira: Possui 17 anos e sabe desenhar pelo PixelArt, em seu tempo livre gosta de praticar o motocross ou jogar.
+			</p>
+        </div>
+        <span class="limpaFloat"></span>
+        <img src="css/imagens/personagem_p_invertido.png" class="img2 img" alt="Personagem Principal" title="Personagem Principal">
+        <div class="div" id="conhecimentos">
+            <h3>Conhecimentos</h3>
+            <h4>Linguagens Utilizadas</h4>
+			<p>Java <br> Javascript <br> SQL <br> HTML <br> CSS</p>
+        </div>
+        <span class="limpaFloat"></span>
+        <div class="topo">
+            <a href="#topo">Topo</a>
+        </div>
+    </div>
+    <div class="esqueci_senha" id="esqueci_senha">
+        <p>Adicione se E-mail para receber via E-mail seu login e sua nova senha.</p>
+        <label>E-mail:</label>
+        <input  type="text" name="txtemail_esq" id="email_esq" maxlength="50">
+        <button type="button" name="btnenviar" onclick="esqueciSenha()">Enviar</button>
+    </div>
+    <div id="msg"></div>
+    </div>
+    <hr class="footer_hr">
+    <footer>
+        Direitos Autorais reservados há: <br> Renan B. de Freitas, Vinicius D'. O. Gonçalves, Willian M. Pereira. <br> Ano de 2018.
+    </footer>
+</body>
+</html>
