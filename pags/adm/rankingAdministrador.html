@@ -1,0 +1,47 @@
+<div class="padrao">
+  <div class="div">
+      <h2>Ranking</h2>
+      <div class="tabela" id="ranking_adm">
+          <table>
+            <thead>
+              <tr>
+                <th>Ranking</th>
+                <th>Nome</th>
+                <th>Pontos</th>
+                <th colspan="2">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01</td>
+                <td>PlayerTop1</td>
+                <td>2493</td>
+                <td>
+                  <a class="denuncia" onclick="denunciar('PlayerTop1')">Denunciar</a>
+                </td>
+                <td>
+                  <a class="visualizar" onclick="visualizar(1)">Visualizar</a>
+                </td>
+              </tr>
+              <tr>
+                <td>50</td>
+                <td>Player50</td>
+                <td>2293</td>
+                <td>
+                  <a class="denuncia" onclick="denunciar('Player50')">Denunciar</a>
+                </td>
+                <td>
+                  <a class="visualizar" onclick="visualizar()">Visualizar</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="imgs_tabela">
+            <img src="../../css/imagens/seta_i.png" class="img_tabela" alt="Voltar ranking" title="Voltar ranking">
+            <img src="../../css/imagens/seta.png" class="img_tabela" alt="Avançar ranking" title="Avançar ranking">
+          </div>
+      </div>
+  </div>
+  <div id="msg"></div>
+  <div id="visualizar"></div>
+</div>

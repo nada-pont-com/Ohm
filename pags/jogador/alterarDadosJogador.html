@@ -1,0 +1,41 @@
+<div class="padrao"> <!-- Modificado 08/08/2018 -->
+	<h1>Alterar Dados</h1>
+	<div class="alterarDados_jogador">
+		<fieldset>
+			<form id="alterar">
+				<div class="input">
+					<label>Nome:</label> <input type="text" name="txtnome" id="nome">
+				</div>
+				<div class="input">
+					<label>Login:</label> <input type="text" name="txtlogin" id="login"
+						readonly>
+				</div>
+				<div class="input">
+					<label>E-mail:</label> <input type="text" name="txtemail"
+						id="email">
+				</div>
+				<div class="input">
+					<label>Nascimento:</label> <input type="text" name="txtnascimento"
+						id="nascimento">
+				</div>
+				<div class="input">
+					<label>Senha Atual:</label> 
+					<input type="password"	name="txtsenhaAtual" id="senhaAt">
+				</div>
+				<div class="input">
+					<label>Senha:</label> <input type="password" name="txtsenha"
+						id="senha">
+				</div>
+				<div class="input">
+					<label>Confirmar Senha:</label> <input type="password"
+						name="txtconfirSenha" id="conSe">
+				</div>
+				<div class="joga_btt">
+					<input type="button" class="alterar_btt" value="Alterar"
+						onclick="alterar()"> <input type="reset" value="Limpar">
+				</div>
+			</form>
+		</fieldset>
+	</div>
+	<div id="msg"></div>
+</div>

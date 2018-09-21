@@ -1,0 +1,51 @@
+<div class="padrao">
+    <div class="div index_adm">
+        <div class="buttonAdm">
+            <input type="button" name="cadastraAdm" id="1" value="Cadastrar Administrador" onclick="link_mainAdm(0)">
+            <input type="button" name="alterarDados" id="2" value="Alterar Dados" onclick="link_mainAdm(1)">
+        </div>
+        <div class="tabela" id="denuncias">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Login</th>
+                        <th>Denuncia</th>
+                        <th colspan="2">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PlayerTop1</td>
+                        <td>Hacker</td>
+                        <td>
+                            <a class="linkA denuncia" onclick="deletar()">Deletar Conta</a>
+                        </td>
+                        <td>
+                            <a class="linkA denuncia" onclick="remover()">Remover Denuncia</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Player50</td>
+                        <td>Desrespeito</td>
+                        <td>
+                            <a class="linkA denuncia" onclick="deletar()">Deletar Conta</a>
+                        </td>
+                        <td>
+                            <a class="linkA denuncia" onclick="remover()">Remover Denuncia</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="pessoais_online">
+            <h3>Total de pessoas online jogando: 10</h3>
+        </div>
+        <div id="pesquisa">
+            <input type="text" name="txtbusca" id="busca">
+            <input class="buscar" type="button" value="buscar" onclick="carregarDados('0','main','2')">
+        </div>
+        <div class="tabela" id="visualizarBusca"></div>
+    </div>
+    <div id="visualizar"></div>
+    <div id="msg"></div>
+</div>

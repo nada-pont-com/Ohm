@@ -1,0 +1,41 @@
+<div class="padrao">
+    <h1>Cadastrar Adm</h1>
+    <div class="cadastro_adm">
+        <fieldset>
+            <form id="cadastro">
+                <div class="input">
+                    <label>Nome:</label>
+                    <input type="text" name="txtnome" id="nome">
+                </div>
+                <div class="input">
+                    <label>Login:</label>
+                    <input type="text" name="txtlogin" id="loginC">
+                </div>
+                <div class="input">
+                        <label>E-mail:</label>
+                        <input type="text" name="txtemail" id="email">
+                </div>
+                <div class="input">
+                    <label>Nascimento:</label>
+                    <input type="text" name="txtnascimento" id="nascimento">
+                </div>
+                <div class="input">
+                    <label>Senha:</label>
+                    <input type="password" name="pwdsenha" id="senhaC">
+                </div>
+                <div class="input">
+                    <label>Confirmar Senha:</label>
+                    <input type="password" name="pwdconfirSenha" id="conSe">
+                </div>
+                <div id="permissaoAdm">
+                    <input type="hidden" name="adm" id="permisao" value="permisao">
+                </div>
+                <div class="adm_btt">
+                    <input type="button" name="adm" class="cadastrar_btt" value="Cadastrar" onclick="validarCadastro()">
+                    <input type="reset" value="Limpar">
+                </div>
+            </form>
+        </fieldset>
+    </div>
+</div>
+<div id="msg"></div>
