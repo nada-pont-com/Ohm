@@ -315,8 +315,11 @@ jogo = function(){
             this.input.on("gameobjectdown",function(pointer,gameObject){
                 for(let i = 0;i < sceneMaquinasMenu.length;i++){
                     if(sceneMaquinasMenu[i]==gameObject){
-                        var fase  = new fases;
-                        fase.comprarMaquina(i+1);
+                        if(venderComprar=="comprar"){
+                            var fase  = new fases;
+                            fase.comprarMaquina(i+1);
+                        }else if(venderComprar=="vender"){
+                        }
                     }
                 }
             },this);
