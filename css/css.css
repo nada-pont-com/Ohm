@@ -1,0 +1,462 @@
+/*
+<------------Data de criação: 29/05/2018
+
+<------------Data de Atualização: 25/06/2018
+
+<------------Início do CSS do geral
+*/
+
+body{
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    background-image: url("imagens/logo.png");
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+}
+
+.corpo{
+    background-color: rgba(100, 255, 255, 0.1);
+}
+
+.logo{
+    width: 100%;
+    display: flex;
+    text-align: center;
+}
+
+.logo h1{
+    text-align: center;    
+    margin: 50px 0px;
+    width: 62.5%;
+}
+
+.logo .imgem1{
+    margin: 25px 0 0px 12.5%; 
+}
+.logo .imgem2{
+    margin: 25px 12.5% 0px 0px; 
+}
+
+p{
+    margin: 0;
+}
+
+.img{
+    width: 100px;
+    height: 100px;
+}
+
+.menu{
+    display: inline-block;
+    margin: 0px 3%;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.menu_a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.menu_a:hover{
+    transition: 2s;
+    color: rgba(184, 8, 8, 0.91);
+}
+
+
+.menu div{
+    background-color: transparent;
+}
+
+
+.nav_bar{
+    padding: 3px 0px; 
+    box-shadow: inset 0 0 0 1px #000000;
+    text-align: center;
+    font-size: 145%;
+    min-height: 27px;
+}
+
+.padrao{
+    padding: 25px 0px;
+    min-height: 374px;
+}
+
+.div{
+    box-shadow: 0px 0px 0px 1px #000000;
+    margin: 25px 25% 25px;
+    padding: 2px 5px 2px;
+    width: auto;
+    background-color: rgba(100, 255, 255, 0.1);
+}
+.padrao h3, .padrao h2{
+    text-align: center;
+}
+
+.padrao .img2{
+    float: right;
+    margin-right: 70px;
+}
+
+.padrao .img1{
+    float: left;
+    margin-left: 70px;
+}
+
+.padrao .img1, .padrao .img2{
+    height: 250px;
+    width: 250px;
+}
+
+
+
+h4{
+    text-align: center;
+}
+
+
+.limpaFloat{
+    clear: both;
+    display: block;
+}
+
+.topo{
+    position: fixed;
+    padding: 1px;
+    right: 50px;
+    bottom: 30px;
+    background: rgba(100, 255, 255, 0.1);
+    font-size: 18px;
+    box-shadow:  0px 0px 0px 1px #000;
+}
+
+.topo a{
+    text-decoration: none;
+    color: #000000;
+}
+
+#msg , .esqueci_senha{
+    display: none;
+}
+
+footer{
+    padding: 10px;
+    background-color: rgba(100, 255, 255, 0.1);
+}
+
+.footer_hr{
+    margin: 0%;
+    width: 100%;
+    border-width: 1px 0px;
+}
+
+/*
+<------------Fim do CSS do geral
+*/
+/* 
+<------------Início do CSS do dados pessoais adm
+*/
+.dados_pessoais table{
+    font-size: 110%;
+    margin: auto;
+}
+ 
+.dados_pessoais td{
+    padding: 0 10px;
+}
+
+
+.div.dados_pessoais{
+    margin-left: 35%;
+    margin-right: 35%;
+}
+
+.dadosPBtn{
+    cursor: pointer;
+}
+
+/* 
+<------------ Fim do CSS do dados pessoais adm
+*/
+
+/*
+<------------- Início CSS do cadastroAdm
+*/
+.cadastro_adm{
+    margin-right: 35.5%;
+    margin-left: 35.5%;
+    background-color: rgba(100, 255, 255, 0.1);
+}
+  
+.cadastrar_btt{
+    margin-right: 53px;
+}
+
+#permissaoAdm{
+    display: none;
+}
+  /*
+<------------- Fim CSS do cadastroAdm 
+*/
+
+/* 
+<------------- Início CSS do alterar dados
+*/
+.alterarDados_adm{
+    margin-right: 35.5%;
+    margin-left: 35.5%;
+    background-color: rgba(100, 255, 255, 0.1);
+}
+
+/* 
+<------------- Fim CSS do alterar dados
+*/
+
+/*
+<------------- Início CSS do alterar_dados_adm e do cadastroAdm 
+*/
+h1{
+    text-align: center;
+}
+
+fieldset .input input{
+    margin-left: 130px;
+    width: 200px;
+}
+
+.adm_btt{
+    margin-top: 15px;
+}
+
+.adm_btt input{
+    cursor: pointer;
+}
+
+/*
+<------------- Fim CSS do alterar_dados_adm e do cadastroAdm 
+*/
+/*
+<------------ Início do CSS do indexAdministrador
+*/
+.padrao .buttonAdm{
+    text-align: center;
+    padding: 10px 0px;
+}
+.padrao .buttonAdm input{
+    margin: 0px 75px;
+    cursor: pointer;
+}
+
+.index_adm table{
+    margin: auto;
+}
+.index_adm #pesquisa{
+    text-align: center;
+}
+
+.index_adm #pesquisa .buscar{
+    cursor: pointer;
+}
+
+#visualizarBusca table{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+/*
+<------------ Fim do CSS do  indexAdministrador
+*/
+
+/* 
+<------------ Início do CSS do rank adm
+*/
+
+
+#visualizar,#denunciar{
+    display: none;
+}
+
+.tabela table td, .tabela table th{
+    border-width: 1px;
+    border-style: solid;
+    border-color: #000000;
+    padding: 2px 5px;
+}
+
+.visualizar{
+    cursor: pointer;
+}
+
+.visualizar:hover{
+    transition: 2s;
+    color: rgba(184, 8, 8, 0.91);
+}
+
+/*
+<------------ Fim do CSS do rank adm
+*/
+
+/* 
+<------------ Início do CSS do alterar dados do jogador
+*/
+
+.joga .menu{
+    margin: 0 1%;
+}
+
+.alterarDados_jogador{
+    margin-right: 35.5%;
+    margin-left: 35.5%;
+    background-color: rgba(100, 255, 255, 0.1);
+}
+
+.joga_btt{
+    margin-top: 15px;
+}
+
+.joga_btt input{
+    cursor: pointer;
+}
+
+.alterar_btt{
+    margin-right: 71px;
+}
+
+  
+/* 
+<------------ Fim do CSS voltado ao alterar dados do jogador
+*/
+
+/* 
+<------------Início do CSS voltado ao rank jog
+*/
+.btn_cr{
+    float: right;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.tabela table{
+    margin:auto;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #000000;
+}
+
+.imgs_tabela{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.img_tabela{
+    margin: 2px;
+	height: 22px;
+    width: 25px;
+    cursor: pointer;
+}
+.denuncia{
+    cursor: pointer;
+    margin-right: 10px;
+}
+.denuncia:hover{
+    transition: 2s;
+    color: rgba(184, 8, 8, 0.91);
+}
+
+/*
+<------------Fim do CSS voltado ao rank jog
+*/
+
+/* 
+<------------ Início do CSS do dados pessoias do  jogador
+*/
+
+.linkButton{
+    -webkit-appearance: button;
+    color: #000000;
+    text-decoration: none;
+    padding: 1px 6px;
+    /* 
+    margin-left: 10px;
+    */
+    font: 400 13.3333px Arial;
+    border-style: outset;
+    border-width: 2px;
+}
+
+.div.dados_pessoais {
+    margin-left: 35%;
+    margin-right: 35%;
+}
+
+/* 
+<------------ Fim do CSS do dados pessoias do  jogador
+*/
+
+/* 
+<------------ Início do CSS do jogo
+*/
+.padrao #jogo{
+    text-align: center;
+    margin: 20px 50px;
+    height: 580px;
+}
+/* 
+<------------ Fim do CSS do jogo
+*/
+
+
+/* 
+<-------------- Início  do css do index do visitante
+*/
+.cadas p, .login p{
+    margin: 0px;
+}
+
+.cadastro{
+    position: absolute;
+    right: 50px;
+    color: #000000;
+    display: none;
+}
+.login_form{
+    display: none;
+    color: #000000;
+    position: absolute;
+    right: 150px;
+}
+
+.link{
+    color: rgb(15, 56, 56);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+fieldset.visi{
+    background-color: #ffffff;
+    cursor: default;
+}
+
+.visi .input input{
+    margin-left: 190px;
+}
+
+fieldset .inputL input{
+	margin-left: 110px;
+}
+
+fieldset label{
+	position: absolute;
+	margin-top: 4px;
+}
+
+fieldset .button, fieldset .esqueci{
+    margin: 0px auto;
+    text-align: left;
+}
+
+fieldset div{
+    margin-bottom: 5px;
+    cursor: default;
+}
