@@ -319,6 +319,8 @@ jogo = function(){
                             var fase  = new fases;
                             fase.comprarMaquina(i+1);
                         }else if(venderComprar=="vender"){
+                            var fase = new fases;
+                            fase.venderMaquina(i+1);
                         }
                     }
                 }
@@ -330,13 +332,13 @@ jogo = function(){
                         let valor = maquinas[i+1].valor;
                         if(venderComprar == "vender"){
                             if(maquinas[i+1].quantidade != 0){
-                                valor = valor*0.45;
+                                valor = (valor*100)/150;
                                 valor  = parseInt(valor - (valor*0.25));
                             }else{
                                 valor = "Não é posivel vender";
                             }
                         }
-                        txtValor.setText("Valor: "+valor);
+                        txtValor.setText("Valor: "+parseInt(valor));
                         //console.log(this.input.activePointer);
                     }
                 }
@@ -742,11 +744,11 @@ jogo = function(){
                     }
                 }
             }
-            var validador = cliente.dinheiro-maquinas[id].valor;
+            var validador = cliente.dinheiro-parseInt(maquinas[id].valor);
             let valor = maquinas[id].valor;
             if(validador>-1){
                 cliente.dinheiro = validador;
-                maquinas[id].valor = parseInt(valor+(valor*1.25));
+                maquinas[id].valor = valor+(valor*0.5);
                 if(maquinas[id].quantidade != undefined){
                     maquinas[id].quantidade++; 
                 }else{
@@ -755,6 +757,18 @@ jogo = function(){
                 }
                 txtQuantidadeMaquinas[id-1].setText("Quantidade: "+maquinas[id].quantidade);
                 
+            }
+        }
+
+        
+        venderMaquina(id){
+            var validador = maquinas[id].quantidade;
+            if(validador != 0){
+                maquinas[id].quantidade--;
+                var valor = maquinas[id].valor;
+                valor = (valor*100)/150;
+                valor = valor - (valor*0.25);
+                cliente.dinheiro = parseInt(valor);
             }
         }
 
