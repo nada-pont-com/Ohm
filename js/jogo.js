@@ -21,7 +21,7 @@ dadosJogo = function(){
             }
         },
         error:function(info){
-            alert("Erro ao carregar o jogo");
+            alert("Erro ao carregar o jogo!");
         }
     });
 }
