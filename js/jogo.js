@@ -47,6 +47,11 @@ buscaMaquinas = function(){
                             maquinas2.clientes_id = maquinasDados[i].clientes_id;
                             maquinas2.multiplicador = maquinasDados[i].multiplicador;
                             maquinas2.quantidade = maquinasDados[i].quantidade;
+                            let valor = maquinasL[i].valor;
+                            for(let i = 0;i<maquinasDados[i].quantidade;i++){
+                                valor = valor+(valor*0.5);
+                            }
+                            maquinas2.valor = valor;
                             maquinas[i] = maquinas2;
                             numeroMaquinas++;
                         }
