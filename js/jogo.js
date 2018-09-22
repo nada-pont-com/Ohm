@@ -325,11 +325,11 @@ jogo = function(){
             this.input.on("gameobjectdown",function(pointer,gameObject){
                 for(let i = 0;i < sceneMaquinasMenu.length;i++){
                     if(sceneMaquinasMenu[i]==gameObject){
+                        var fase = new fases;
                         if(venderComprar=="comprar"){
-                            var fase  = new fases;
                             fase.comprarMaquina(i+1);
                         }else if(venderComprar=="vender"){
-                            var fase = new fases;
+                            
                             fase.venderMaquina(i+1);
                         }
                     }
@@ -344,6 +344,7 @@ jogo = function(){
                             if(maquinas[i+1].quantidade != 0){
                                 valor = (valor*100)/150;
                                 valor  = parseInt(valor - (valor*0.25));
+                                this.vender(valor);
                             }else{
                                 valor = "Não é posivel vender";
                             }
@@ -439,7 +440,7 @@ jogo = function(){
             },1,this);
         }
 
-        menuComprarVender(referencia){
+        menuComprarVender(){
             if(menuComprarVenderAD){
                 menuComprarVenderAD = false;//quando o menu tá desativo
             }else{ // Quando o valor vem true signigica que o menu está ativado, e quando vir false o menu esta dessativado;
@@ -470,14 +471,6 @@ jogo = function(){
                     }
                 }
             },this);
-        }
-
-        comprar(){
-
-        }
-
-        vender(){
-
         }
 	}
 
@@ -763,7 +756,6 @@ jogo = function(){
                     maquinas[id].quantidade++; 
                 }else{
                     maquinas[id].quantidade = 1;
-                    this.carregaMaquina(id);
                 }
                 txtQuantidadeMaquinas[id-1].setText("Quantidade: "+maquinas[id].quantidade);
                 
@@ -780,19 +772,6 @@ jogo = function(){
                 valor = valor - (valor*0.25);
                 cliente.dinheiro = parseInt(valor);
             }
-        }
-
-        carregaMaquina(id){
-            maquinas[id].clientes_id = cliente.id;
-            sceneMaquinas[id].x = x;
-            sceneMaquinas[id].y = y;
-            x += 146;
-            if(x==1430){
-                x = 1284;
-                y += 165;
-            }
-            sceneMaquinas[id].setScale(0.1);
-            sceneMaquinas[id].setInteractive();
         }
     }
     // ---------------- configuração do jogo ------------------------------------------------------------------
