@@ -87,6 +87,7 @@ buscaBaterias = function(){
                             baterias2.clientes_id = bateriasDados[i].clientesId;
                             baterias2.quantidade = bateriasDados[i].quantidade;
                             let valor = bateriasL[i].valor;
+                            
                             console.log(bateriasDados[i]);
                             if(bateriasDados[i].quantidade!=undefined){
                                 for(let i2 = 0;i2 < bateriasDados[i].quantidade;i2++){
