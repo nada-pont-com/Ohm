@@ -87,8 +87,11 @@ buscaBaterias = function(){
                             baterias2.clientes_id = bateriasDados[i].clientesId;
                             baterias2.quantidade = bateriasDados[i].quantidade;
                             let valor = bateriasL[i].valor;
-                            for(let i = 0;i<bateriasDados[i].quantidade;i++){
-                                valor = valor+(valor*0.5);
+                            console.log(bateriasDados[i]);
+                            if(bateriasDados[i].quantidade!=undefined){
+                                for(let i2 = 0;i2 < bateriasDados[i].quantidade;i2++){
+                                    valor = valor+(valor*0.5);
+                                }
                             }
                             baterias2.valor = valor;
                             baterias[i] = baterias2;
@@ -564,8 +567,7 @@ jogo = function(){
 			this.load.image("menuMaquinas","../../css/imagensJogo/menuMaquinas.png");
 			this.load.image("setaMenuMaquinas","../../css/imagensJogo/setaMenuMaquinas.png");
             //console.log(frameBateria);
-            /* Para carregar as baterias, mas a varivel bateria não existe!!!;
-			*/
+            // Para carregar as baterias
             for (let i = 0; i < baterias.length; i++) {
 				console.log("../../css/imagensJogo/bateria"+baterias[i].id+".png");
                 this.load.spritesheet("bateria"+baterias[i].id,"../../css/imagensJogo/bateria"+baterias[i].id+".png",frameBateria[baterias[i].id-1]);
