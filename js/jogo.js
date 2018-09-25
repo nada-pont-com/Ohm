@@ -109,6 +109,10 @@ buscaBaterias = function(){
 		}
 	});
 }
+
+buscaPesquisas = function(){
+    
+}
 dadosJogo();
 jogo = function(){
     
@@ -774,6 +778,10 @@ jogo = function(){
                 valor = valor - (valor*0.25);
                 cliente.dinheiro = parseInt(valor);
             }
+        }
+
+        pesquisar(id){
+
         }
     }
     // ---------------- configuração do jogo ------------------------------------------------------------------
