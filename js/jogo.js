@@ -570,6 +570,7 @@ jogo = function(){
             this.load.image("fabrica1","../../css/imagensJogo/fabrica"+cliente.fase+".png");
 			this.load.image("menuMaquinas","../../css/imagensJogo/menuMaquinas.png");
 			this.load.image("setaMenuMaquinas","../../css/imagensJogo/setaMenuMaquinas.png");
+			this.load.image("venderEnergia","../../css/imagensJogo/venderEnergia.png");
             //console.log(frameBateria);
             // Para carregar as baterias
             for (let i = 0; i < baterias.length; i++) {
@@ -693,7 +694,7 @@ jogo = function(){
             this.input.on('pointerout', function () {
                 txtDesc.setText("");
             });
-            let teste = this.add.text(150,100,"Botão").setInteractive();
+            let teste = this.add.image(150,100,"venderEnergia").setInteractive();
 
 			this.maquinasAutomaticas();
         }
