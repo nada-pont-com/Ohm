@@ -48,7 +48,8 @@ buscaMaquinas = function(){
                             maquinas2.multiplicador = maquinasDados[i].multiplicador;
                             maquinas2.quantidade = maquinasDados[i].quantidade;
                             let valor = maquinasL[i].valor;
-                            for(let i = 0;i<maquinasDados[i].quantidade;i++){
+                            console.log(maquinasL[i]);
+                            for(let i2 = 0;i2<maquinasDados[i].quantidade;i2++){
                                 valor = valor+(valor*0.5);
                             }
                             maquinas2.valor = valor;
@@ -355,7 +356,6 @@ jogo = function(){
                             if(maquinas[i+1].quantidade != 0){
                                 valor = (valor*100)/150;
                                 valor  = parseInt(valor - (valor*0.25));
-                                this.vender(valor);
                             }else{
                                 valor = "Não é posivel vender";
                             }
@@ -631,13 +631,16 @@ jogo = function(){
                 }
             }
             
-            this.add.image(572,0,"recurso");
+            var recursos = this.add.image(572,0,"recurso");
+
             
-            this.add.image(500,0,"dinheiro").setOrigin(0,0);
+            recursos.setDisplayOrigin(recursos.width/2,0);
             
-            this.add.image(428,0,"energia").setOrigin(0,0);
+            this.add.image(500,0,"dinheir").setOrigin(0,0);
             
-            this.add.image(630,0,"armazenamento").setOrigin(0,0);
+            this.add.image(428,0,"energi").setOrigin(0,0);
+            
+            this.add.image(630,0,"armazenament").setOrigin(0,0);
             
             this.add.image(572,290, "fundo").setOrigin(0,0);
             
@@ -714,7 +717,7 @@ jogo = function(){
             this.input.on('pointerout', function () {
                 txtDesc.setText("");
             });
-            let teste = this.add.image(150,100,"venderEnergia").setInteractive();
+            let teste = this.add.image(125,170,"venderEnergia").setInteractive();
 
 			this.maquinasAutomaticas();
         }
@@ -798,6 +801,7 @@ jogo = function(){
                 valor = (valor*100)/150;
                 valor = valor - (valor*0.25);
                 cliente.dinheiro = parseInt(valor);
+                txtQuantidadeMaquinas[id-1].setText("Quantidade: "+maquinas[id].quantidade);
             }
         }
         
