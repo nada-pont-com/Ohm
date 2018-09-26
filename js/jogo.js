@@ -111,7 +111,11 @@ buscaBaterias = function(){
 }
 
 buscaPesquisas = function(){
-    
+    $.ajax({
+        type:"POST",
+        data: cliente,
+
+    });
 }
 dadosJogo();
 jogo = function(){
@@ -627,7 +631,8 @@ jogo = function(){
                 }
             }
             
-            this.add.image(572,0,"recurso").setOrigin(0,0);
+            this.recursos =this.add.image(572,0,"recurso");
+            this.recursos.setOrigin(0,this.recursos.width/2);
             
             this.add.image(500,0,"dinheiro").setOrigin(0,0);
             
