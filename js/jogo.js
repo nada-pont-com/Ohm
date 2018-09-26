@@ -99,6 +99,7 @@ buscaBaterias = function(){
                     }
                 }
                 console.log(baterias);
+                buscaPesquisas();
                 jogo();
             }else{
                 alert(dados.msg);
@@ -114,7 +115,10 @@ buscaPesquisas = function(){
     $.ajax({
         type:"POST",
         data: cliente,
-
+        url: caminho+"BuscaPesquisa",
+        success: function(dados){
+            console.log(dados);
+        }
     });
 }
 dadosJogo();
