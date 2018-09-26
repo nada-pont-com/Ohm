@@ -631,8 +631,7 @@ jogo = function(){
                 }
             }
             
-            this.recursos =this.add.image(572,0,"recurso");
-            this.recursos.setOrigin(0,this.recursos.width/2);
+            this.add.image(572,0,"recurso");
             
             this.add.image(500,0,"dinheiro").setOrigin(0,0);
             
@@ -751,10 +750,10 @@ jogo = function(){
             let energia = cliente.energia;
             for(let i = 0;i<energia;i++){
                 let validador = 0;
-                validador = cliente.energia-4;
+                validador = cliente.energia-2;
                 if(validador>=0){
-                    cliente.energia-=4;
-                    cliente.dinheiro+=100 ;
+                    cliente.energia-=2;
+                    cliente.dinheiro+=1;
                 }else{
                     break;
                 }
