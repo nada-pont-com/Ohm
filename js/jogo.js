@@ -359,7 +359,6 @@ jogo = function(){
                             if(maquinas[i+1].quantidade != 0){
                                 valor = (valor*100)/150;
                                 valor  = parseInt(valor - (valor*0.25));
-                                this.vender(valor);
                             }else{
                                 valor = "Não é posivel vender";
                             }
@@ -636,6 +635,7 @@ jogo = function(){
             }
             
             var recursos = this.add.image(572,0,"recurso");
+
             
             recursos.setDisplayOrigin(recursos.width/2,0);
             
@@ -720,7 +720,7 @@ jogo = function(){
             this.input.on('pointerout', function () {
                 txtDesc.setText("");
             });
-            let teste = this.add.image(150,100,"venderEnergia").setInteractive();
+            let teste = this.add.image(125,170,"venderEnergia").setInteractive();
 
 			this.maquinasAutomaticas();
         }
@@ -756,10 +756,10 @@ jogo = function(){
             let energia = cliente.energia;
             for(let i = 0;i<energia;i++){
                 let validador = 0;
-                validador = cliente.energia-4;
+                validador = cliente.energia-2;
                 if(validador>=0){
-                    cliente.energia-=4;
-                    cliente.dinheiro+=100 ;
+                    cliente.energia-=2;
+                    cliente.dinheiro+=1;
                 }else{
                     break;
                 }
@@ -804,6 +804,7 @@ jogo = function(){
                 valor = (valor*100)/150;
                 maquinas[id].valor = valor;
                 valor = valor - (valor*0.25);
+                txtQuantidadeMaquinas[id-1].setText("Quantidade: "+maquinas[id].quantidade);
                 cliente.dinheiro += parseInt(valor);
             }
         }
