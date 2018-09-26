@@ -115,7 +115,7 @@ buscaPesquisas = function(){
 }
 dadosJogo();
 jogo = function(){
-    
+   
     class inicio extends Phaser.Scene{
         constructor(){
             super({key:"inicio"});
@@ -559,7 +559,7 @@ jogo = function(){
     var numeroFrame = {1:4,2:4,3:9};
     var casoEspecial = {0:-1,1:0};
     var setaMenu, menuMaquinas, menuMaquinaAD;
-
+    
     //---------------------------------fases-----------------------------------------------------------------------
     class fases extends Phaser.Scene{
         constructor(){
@@ -567,6 +567,11 @@ jogo = function(){
         }
 
         preload(){
+        	this.load.image("recurso", "../../css/imagensJogo/recursos.png");
+        	this.load.image("dinheiro", "../../css/imagensJogo/dinheiro.png");
+        	this.load.image("energia", "../../css/imagensJogo/energia.png");
+        	this.load.image("armazenamento", "../../css/imagensJogo/armazenamento.png");
+        	this.load.image("fundo", "../../css/imagensJogo/fundoMaquina.png");
             this.load.image("fabrica1","../../css/imagensJogo/fabrica"+cliente.fase+".png");
 			this.load.image("menuMaquinas","../../css/imagensJogo/menuMaquinas.png");
 			this.load.image("setaMenuMaquinas","../../css/imagensJogo/setaMenuMaquinas.png");
@@ -621,6 +626,17 @@ jogo = function(){
                     sceneMaquinas[i-1].anims.play("maquinaAnimi"+maquinas[i].id);
                 }
             }
+            
+            this.add.image(572,0,"recurso").setOrigin(0,0);
+            
+            this.add.image(500,0,"dinheiro").setOrigin(0,0);
+            
+            this.add.image(428,0,"energia").setOrigin(0,0);
+            
+            this.add.image(630,0,"armazenamento").setOrigin(0,0);
+            
+            this.add.image(572,290, "fundo").setOrigin(0,0);
+            
             this.input.on("gameobjectdown",function(pointer,gameObject){
                 switch(gameObject){
                     case this.maquinaEspecial:
@@ -780,6 +796,8 @@ jogo = function(){
                 cliente.dinheiro = parseInt(valor);
             }
         }
+        
+
 
         pesquisar(id){
 
