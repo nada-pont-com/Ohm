@@ -48,7 +48,6 @@ buscaMaquinas = function(){
                             maquinas2.multiplicador = maquinasDados[i].multiplicador;
                             maquinas2.quantidade = maquinasDados[i].quantidade;
                             let valor = maquinasL[i].valor;
-                            console.log(maquinasL[i]);
                             for(let i2 = 0;i2<maquinasDados[i].quantidade;i2++){
                                 valor = valor+(valor*0.5);
                             }
@@ -100,6 +99,7 @@ buscaBaterias = function(){
                     }
                 }
                 console.log(baterias);
+                buscaPesquisas();
                 jogo();
             }else{
                 alert(dados.msg);
@@ -115,7 +115,10 @@ buscaPesquisas = function(){
     $.ajax({
         type:"POST",
         data: cliente,
-
+        url: caminho+"BuscaPesquisas",
+        success: function(dados){
+            console.log(dados);
+        }
     });
 }
 dadosJogo();
@@ -799,9 +802,10 @@ jogo = function(){
                 maquinas[id].quantidade--;
                 var valor = maquinas[id].valor;
                 valor = (valor*100)/150;
+                maquinas[id].valor = valor;
                 valor = valor - (valor*0.25);
-                cliente.dinheiro = parseInt(valor);
                 txtQuantidadeMaquinas[id-1].setText("Quantidade: "+maquinas[id].quantidade);
+                cliente.dinheiro += parseInt(valor);
             }
         }
         
