@@ -635,14 +635,15 @@ jogo = function(){
                 }
             }
             
-            this.recursos =this.add.image(572,0,"recurso");
-            this.recursos.setOrigin(0,this.recursos.width/2);
+            var recursos = this.add.image(572,0,"recurso");
             
-            this.add.image(500,0,"dinheiro").setOrigin(0,0);
+            recursos.setDisplayOrigin(recursos.width/2,0);
             
-            this.add.image(428,0,"energia").setOrigin(0,0);
+            this.add.image(500,0,"dinheir").setOrigin(0,0);
             
-            this.add.image(630,0,"armazenamento").setOrigin(0,0);
+            this.add.image(428,0,"energi").setOrigin(0,0);
+            
+            this.add.image(630,0,"armazenament").setOrigin(0,0);
             
             this.add.image(572,290, "fundo").setOrigin(0,0);
             
