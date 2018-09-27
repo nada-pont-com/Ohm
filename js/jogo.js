@@ -134,9 +134,9 @@ jogo = function(){
         }
     }
 
-	var venderComprar, pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, menuComp, menuComprar, conf, melho,seta,setaMenuComprar,setaComp, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina"};//variaveis para menu e a intro;
+	var venderComprar, pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, pesMenu, menuComp, menuComprar, conf, melho,seta,setaMenuComprar,setaComp, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina"};//variaveis para menu e a intro;
 	var texto1,texto2; //texto para o proximaFasa
-    var menuAD,menuCompAD,menuComprarVenderAD; //serve para disser se o menu esta ativo ou não;
+    var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD; //serve para disser se o menu esta ativo ou não;
     var comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = [];
 	class intro extends Phaser.Scene{
 		constructor (){
@@ -235,7 +235,7 @@ jogo = function(){
             this.load.image('setaMenuComprar','../../css/imagensJogo/setaMenuCompra.png');
             this.load.image('menuComprar','../../css/imagensJogo/menuCompra.png');
             this.load.image('comprarMenu','../../css/imagensJogo/comprarMenu.png');         
-
+            this.load.image('pesMenu','../../css/imagensJogo/menuPesquisas.png');         
             this.load.spritesheet('comprarMaquina','../../css/imagensJogo/comprarMaquinas.png',{ frameWidth: 61, frameHeight:  77});
             this.load.spritesheet('venderMaquina','../../css/imagensJogo/venderMaquinas.png',{ frameWidth: 100, frameHeight:  159});
 			this.load.spritesheet('compra','../../css/imagensJogo/compra.png', { frameWidth: 46, frameHeight: 46 });
@@ -312,7 +312,7 @@ jogo = function(){
                         this.menuComp();
 					break;
                     case pesq:
-                        console.log("pesq");
+                        this.menuPesq();
 					break;
 					case melho:
 					console.log("melho");
@@ -486,6 +486,32 @@ jogo = function(){
                 }
             },this);
         }
+        
+        menuPesq(){
+        	 if(pesMenuAD){
+             	pesMenuAD = false;
+             }else{
+             	pesMenuAD = true;
+             	var intervaloPes = setInterval(function(){
+             		if(pesMenuAD){
+                        if(pesMenu.x<0){
+                        	pesMenu.x++;
+                            setaComp.x++;
+                        }else{
+                            clearInterval(intervalo);
+                        }
+                    }else{
+                        if(pesMenu.x>-136){
+                        	pesMenu.x--;
+                            setaComp.x--;
+                        }else{
+                            clearInterval(intervalo);
+                        }
+                    }
+             	},0,this)
+             }
+        }
+        
 	}
 
     class proximaCena extends Phaser.Scene{
@@ -639,11 +665,11 @@ jogo = function(){
             
             recursos.setDisplayOrigin(recursos.width/2,0);
             
-            this.add.image(500,0,"dinheir").setOrigin(0,0);
+            this.add.image(450,0,"dinheiro").setOrigin(0,0);
             
-            this.add.image(428,0,"energi").setOrigin(0,0);
+            this.add.image(375,0,"energia").setOrigin(0,0);
             
-            this.add.image(630,0,"armazenament").setOrigin(0,0);
+            this.add.image(700,0,"armazenamento").setOrigin(0,0);
             
             this.add.image(572,290, "fundo").setOrigin(0,0);
             
@@ -684,7 +710,7 @@ jogo = function(){
                         },0,this);
                     break;
                     case pesq:
-                        console.log("teste");
+                       
                     break;
                     case teste:
                     this.converter();
