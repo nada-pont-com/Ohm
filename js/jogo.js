@@ -118,6 +118,16 @@ buscaPesquisas = function(){
         url: caminho+"BuscaPesquisas",
         success: function(dados){
             console.log(dados);
+            if(dados.msg==undefined){
+                var pesquisasL = dados[1];
+                var pesquisasDados = dados[0];
+                for (let i = 0; i < dados[1].length; i++) {
+                    var pesquisas2 = new Object;
+                    pesquisas2 = pesquisasL[i];
+                }
+                console.log(pesquisasL);
+                console.log(pesquisasDados);
+            }
         }
     });
 }
