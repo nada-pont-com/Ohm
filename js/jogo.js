@@ -724,7 +724,7 @@ jogo = function(){
             
             this.add.image(700,0,"armazenamento").setOrigin(0,0);
             
-            this.add.image(572,290, "fundo").setOrigin(0,0);
+            this.add.image(505,120, "fundo").setOrigin(0,0);
             
             this.input.on("gameobjectdown",function(pointer,gameObject){
                 switch(gameObject){
@@ -799,7 +799,7 @@ jogo = function(){
             this.input.on('pointerout', function () {
                 txtDesc.setText("");
             });
-            let teste = this.add.image(125,170,"venderEnergia").setInteractive();
+            let teste = this.add.image(604,430,"venderEnergia").setInteractive();
 
 			this.maquinasAutomaticas();
         }
