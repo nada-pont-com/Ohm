@@ -945,7 +945,7 @@ jogo = function(){
             let validador = cliente.dinheiro-pesquisas[id].valor;
 
             if(validador>=0){
-
+                cliente.dinheiro =- pesquisas[id].valor;
             }
         }
     }
