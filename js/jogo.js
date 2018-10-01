@@ -676,6 +676,7 @@ jogo = function(){
 			menuMaquinas = this.add.image(1144,0,"menuMaquinas").setOrigin(0,0);//298
             setaMenu = this.add.image(1124,290,"setaMenuMaquinas").setDisplayOrigin(0,19);
             setaMenu.setInteractive();
+            pesquisas[0].estado = "iniciado";
             this.pesquisas();
 			this.scene.launch("menu");
             this.maquinaEspecial = this.add.sprite(100,100,"maquina1").setOrigin(0,0);
@@ -906,11 +907,13 @@ jogo = function(){
 
         pesquisas(){
             var tempo = [];
+            var temp = new Object;
             for(let i = 0;i<pesquisas.length;i++){
                 var tempo2 = this.tempo(pesquisas[i].tempo);
-                tempo[i].hora = tempo2[0];
-                tempo[i].min = tempo2[1];
-                tempo[i].seg = tempo2[2];
+                temp.hora = tempo2[0];
+                temp.min = tempo2[1];
+                temp.seg = tempo2[2];
+                tempo[i] = temp;
                 if(pesquisas[i].estado=="iniciado"){
                     var intervalo = setInterval(function(){
                         tempo[i].seg--;
@@ -922,10 +925,14 @@ jogo = function(){
                             tempo[i].min = 59;
                             tempo[i].hora--;
                         }
+                        if(tempo[i].hora == 0 && tempo[i].min == 0 && tempo[i].seg ==0){
+                            pesquisas[i].estado = "finalizada";
+                        }
+                        pesquisas[i].tempo = tempo;
                         if(pesquisas[i].estado=="finalizada"){
                             clearInterval(intervalo);
                         }
-                    },1000,this)
+                    },1000,this);
                 }
             }
         }
