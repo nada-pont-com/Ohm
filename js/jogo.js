@@ -149,9 +149,9 @@ jogo = function(){
         }
     }
 
-	var venderComprar, pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, pesMenu, menuComp, menuComprar, conf, melho,seta,setaMenuComprar,setaComp, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina"};//variaveis para menu e a intro;
+	var venderComprar, pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, pesMenu, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina"};//variaveis para menu e a intro;
 	var texto1,texto2; //texto para o proximaFasa
-    var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD; //serve para disser se o menu esta ativo ou não;
+    var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD,confMenuAD; //serve para disser se o menu esta ativo ou não;
     var comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = [];
 	class intro extends Phaser.Scene{
 		constructor (){
@@ -167,7 +167,6 @@ jogo = function(){
 		}
 	
 		create(){
-			
 			
 			var referencia = 1;
 			texto = this.add.text(572, 290, "Os sistemas da nave começam a falhar, \n na tela surgem centenas de avisos sobre um erro no motor espaço-temporal, \n  o buraco de minhoca por onde estava viajando torna-se instável, \n   e por fim a nave cái, num planeta desconhecido e cheio de vida... \n    A criatura observa que caiu numa construção abandonada, \n     e sua nave, cujo nome da IA é Xiquita, alerta-o sobre a presença de formas de vida."); 
@@ -247,6 +246,7 @@ jogo = function(){
             this.load.image('menuConfi','../../css/imagensJogo/menuConfi.png');
             this.load.image('menuComp','../../css/imagensJogo/menuComp.png');
             this.load.image('setaMenu','../../css/imagensJogo/setaMenu.png');
+            this.load.image('menuConfi','../../css/imagensJogo/menuConfi.png');
             this.load.image('setaMenuComprar','../../css/imagensJogo/setaMenuCompra.png');
             this.load.image('menuComprar','../../css/imagensJogo/menuCompra.png');
             this.load.image('comprarMenu','../../css/imagensJogo/comprarMenu.png');         
@@ -257,17 +257,18 @@ jogo = function(){
 			this.load.spritesheet('config','../../css/imagensJogo/configuracao.png', { frameWidth: 82, frameHeight: 74 });
 			this.load.spritesheet('pesquisa','../../css/imagensJogo/pesquisa.png', { frameWidth: 49, frameHeight: 77 });
 			this.load.spritesheet('melhoria','../../css/imagensJogo/melhoria.png', { frameWidth: 70, frameHeight: 70 });
-		//	this.load.spriteSheet('melhoria','../../css/imagens/melhoria.png', { frameWidth: 32, frameHeight: 48 });
-			//this.load.spritesheet('compra','../css/imagens/compra.png', { frameWidth: 32, frameHeight: 48 });
-			//this.load.spriteSheet('config','../../css/imagens/configuracao.png', { frameWidth: 32, frameHeight: 48 });
-			//this.load.spritesheet('pesquisa','../css/imagens/pesquisa.png', { frameWidth: 32, frameHeight: 48 });
+		
 		}
 		
 		create(){
             setaMenuComprar = this.add.image(0,290,"setaMenuComprar").setDisplayOrigin(0,19);
             setaComp = this.add.image( 0, 290, 'setaMenu').setDisplayOrigin(0,19);
+            setaPes = this.add.image( 0, 290, 'setaMenu').setDisplayOrigin(0,19);
+            setaConf = this.add.image( 0, 290, 'setaMenu').setDisplayOrigin(0,19);
             seta = this.add.image( 0, 290, 'setaMenu').setDisplayOrigin(0,19);
             setaComp.setInteractive();
+            setaPes.setInteractive();
+            setaConf.setInteractive();
 			men = this.add.image( -136, 0, 'menu');
 			men.setOrigin(0,0);
 			conf = this.add.sprite(-68.5, 100, 'config').setScale(1);
@@ -275,10 +276,11 @@ jogo = function(){
 			pesq = this.add.sprite(-68.5, 367, 'pesquisa').setScale(1);
 			melho = this.add.sprite(-68.5, 495, 'melhoria').setScale(1);
             menuComp = this.add.image(-136,0,"menuComp").setOrigin(0,0);
+            confMenu = this.add.image(-136,0,"menuConfi").setOrigin(0,0);
             comprar = this.add.sprite(-68.5,158,"comprarMaquina").setScale(2);
             vender = this.add.sprite(-68.5,422,"venderMaquina");
             menuComprar = this.add.image(-136,0,"menuComprar").setOrigin(0,0);
-            
+            pesMenu = this.add.image(-136,0,"pesMenu").setOrigin(0,0);
             
             let y = 50,x = -68,y2 = 100;
             for(let i = 1;i <maquinas.length; i++){
@@ -307,6 +309,8 @@ jogo = function(){
             }
             setaMenuComprar.setInteractive();
             menuComp.setInteractive();
+            confMenu.setInteractive();
+            pesMenu.setInteractive();
             vender.setInteractive();
             comprar.setInteractive();
 			seta.setInteractive();
@@ -319,7 +323,8 @@ jogo = function(){
 				//console.log(gameObject);
 				switch (gameObject) {
 					case conf:
-					console.log("conf");
+						this.menu();
+						this.menuConf();
 					break;
                     case comp:
                     case setaComp:
@@ -327,6 +332,8 @@ jogo = function(){
                         this.menuComp();
 					break;
                     case pesq:
+                    case setaPes:
+                    	this.menu();
                         this.menuPesq();
 					break;
 					case melho:
@@ -505,27 +512,55 @@ jogo = function(){
         menuPesq(){
         	 if(pesMenuAD){
              	pesMenuAD = false;
-             }else{
+           }else{
              	pesMenuAD = true;
-             	var intervalo = setInterval(function(){
-             		if(pesMenuAD){
-                        if(pesMenu.x<0){
-                        	pesMenu.x++;
-                            setaComp.x++;
-                        }else{
-                            clearInterval(intervalo);
-                        }
-                    }else{
-                        if(pesMenu.x>-136){
-                        	pesMenu.x--;
-                            setaComp.x--;
-                        }else{
-                            clearInterval(intervalo);
-                        }
-                    }
-             	},0,this)
-             }
+               
+        	 var intervalo = setInterval(function(){
+          		if(pesMenuAD){
+                     if(pesMenu.x<0){
+                     	pesMenu.x++;
+                        setaPes.x++;
+                     }else{
+                         clearInterval(intervalo);
+                     }
+                 }else{
+                     if(pesMenu.x>-136){
+                     	pesMenu.x--;
+                         setaPes.x--;
+                     }else{
+                         clearInterval(intervalo);
+                     }
+                 }
+          	},1,this)
+        	 
         }
+        
+        menuConf(){
+       	 if(confMenuAD){
+       		confMenuAD = false;
+            }else{
+            	confMenuAD = true;
+            }
+       	 
+       	 var intervalo = setInterval(function(){
+         		if(confMenuAD){
+                    if(confMenu.x<0){
+                    	confMenu.x++;
+                       setaConf.x++;
+                    }else{
+                        clearInterval(intervalo);
+                    }
+                }else{
+                    if(confMenu.x>-136){
+                    	confMenu.x--;
+                    	setaConf.x--;
+                    }else{
+                        clearInterval(intervalo);
+                    }
+                }
+         	},1,this)
+       	 
+       }
         
 	}
 
