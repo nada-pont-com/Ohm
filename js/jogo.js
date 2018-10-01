@@ -150,7 +150,7 @@ jogo = function(){
         }
     }
 
-	var venderComprar, pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, pesMenu, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina"};//variaveis para menu e a intro;
+	var venderComprar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, pesMenu, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina", 6:"resetarF", 7:"resetarJ"};//variaveis para menu e a intro;
 	var texto1,texto2; //texto para o proximaFasa
     var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD,confMenuAD; //serve para disser se o menu esta ativo ou não;
     var comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = [];
