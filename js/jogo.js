@@ -150,7 +150,7 @@ jogo = function(){
         }
     }
 
-	var venderComprar, pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, pesMenu, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina"};//variaveis para menu e a intro;
+	var venderComprar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, pesMenu, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina", 6:"resetarF", 7:"resetarJ"};//variaveis para menu e a intro;
 	var texto1,texto2; //texto para o proximaFasa
     var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD,confMenuAD; //serve para disser se o menu esta ativo ou não;
     var comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = [];
@@ -282,7 +282,10 @@ jogo = function(){
             confMenu = this.add.image(-136,0,"menuConfi").setOrigin(0,0);
             comprar = this.add.sprite(-68.5,158,"comprarMaquina").setScale(2);
             vender = this.add.sprite(-68.5,422,"venderMaquina");
+            resetaF = this.add.sprite(-68.5, 232,"resetarF");
+            resetaJ = this.add.sprite(-68.5, 100,"resetarJ");
             menuComprar = this.add.image(-136,0,"menuComprar").setOrigin(0,0);
+
             pesMenu = this.add.image(-136,0,"pesMenu").setOrigin(0,0);
             
             let y = 50,x = -68,y2 = 100;
@@ -292,13 +295,13 @@ jogo = function(){
                 txtQuantidadeMaquinas[i-1] = this.add.text(x,y2+40,"Quantidade: "+maquinas[i].quantidade,{fontSize:"13px"});
                 txtQuantidadeMaquinas[i-1].setDisplayOrigin(txtQuantidadeMaquinas[i-1].width/2,txtQuantidadeMaquinas[i-1].height/2);
                 sceneMaquinasMenu[i-1] = this.add.sprite(x,y2,"maquina"+maquinas[i].id);
-                sceneMaquinasMenu[i-1].setScale(2);
+                sceneMaquinasMenu[i-1].setScale(1);
                 sceneMaquinasMenu[i-1].setInteractive();
                 y2 += 134;
             }
             var txtValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
 
-			for (let i = 0; i < 6; i++) {
+			for (let i = 0; i < 8; i++) {
 				let i2 = 1;
 				if(i==0){
 					i2 = 2;
@@ -321,6 +324,8 @@ jogo = function(){
 			comp.setInteractive();
 			pesq.setInteractive();
 			melho.setInteractive();
+			resetaF.setInteractive();
+			resetaJ.setInteractive();
 			
 			this.input.on("gameobjectdown", function(pointer,gameObject){
 				//console.log(gameObject);
@@ -409,6 +414,10 @@ jogo = function(){
             vender.anims.play("venderMaquina",true);
 
             comprar.anims.play("comprarMaquina",true);
+            
+            resetaF.anims.play("resetarF",true);
+            
+            resetaJ.anims.play("resetarJ",true);
 
             /* var fase  = new fases;
             fase.comprarMaquina(10); */
@@ -535,8 +544,7 @@ jogo = function(){
                          clearInterval(intervalo);
                      }
                  }
-          	},1,this);
-        	 
+          	},1,this);     	 
         }
         
         menuConf(){
@@ -551,6 +559,8 @@ jogo = function(){
                     if(confMenu.x<0){
                     	confMenu.x++;
                        setaConf.x++;
+                       resetaF.x++;
+                       resetaJ.x++;
                     }else{
                         clearInterval(intervalo);
                     }
@@ -558,6 +568,8 @@ jogo = function(){
                     if(confMenu.x>-136){
                     	confMenu.x--;
                     	setaConf.x--;
+                    	resetaF.x--;
+                        resetaJ.x--;
                     }else{
                         clearInterval(intervalo);
                     }
@@ -638,7 +650,7 @@ jogo = function(){
 
     //-------------------------variaveis da fases -----------------------------------------------------------------
     var armazenamento = 0;
-    var frameWH = [{frameWidth: 46, frameHeight: 58},{frameWidth: 23, frameHeight: 29},{frameWidth: 740, frameHeight: 1148 }];
+    var frameWH = [{frameWidth: 46, frameHeight: 58},{frameWidth: 46, frameHeight: 58},{frameWidth: 740, frameHeight: 1148 }];
     var frameBateria = [{frameWidth: 1633, frameHeight: 814},{frameWidth: 690, frameHeight: 370}];
     var txt;
     var sceneMaquinas = [];
@@ -941,7 +953,12 @@ jogo = function(){
         }
 
         pesquisar(id){
+            
+            let validador = cliente.dinheiro-pesquisas[id].valor;
 
+            if(validador>=0){
+
+            }
         }
     }
     // ---------------- configuração do jogo ------------------------------------------------------------------
