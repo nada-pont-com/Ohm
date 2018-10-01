@@ -515,7 +515,7 @@ jogo = function(){
              	pesMenuAD = false;
            }else{
              	pesMenuAD = true;
-               
+           }  
         	 var intervalo = setInterval(function(){
           		if(pesMenuAD){
                      if(pesMenu.x<0){
@@ -559,7 +559,7 @@ jogo = function(){
                         clearInterval(intervalo);
                     }
                 }
-         	},1,this)
+         	},1,this);
        	 
        }
         
