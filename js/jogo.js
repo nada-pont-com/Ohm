@@ -638,7 +638,7 @@ jogo = function(){
 
     //-------------------------variaveis da fases -----------------------------------------------------------------
     var armazenamento = 0;
-    var frameWH = [{frameWidth: 23, frameHeight: 29},{frameWidth: 23, frameHeight: 29},{frameWidth: 740, frameHeight: 1148 }];
+    var frameWH = [{frameWidth: 46, frameHeight: 58},{frameWidth: 23, frameHeight: 29},{frameWidth: 740, frameHeight: 1148 }];
     var frameBateria = [{frameWidth: 1633, frameHeight: 814},{frameWidth: 690, frameHeight: 370}];
     var txt;
     var sceneMaquinas = [];
@@ -802,7 +802,7 @@ jogo = function(){
             this.input.on('pointerout', function () {
                 txtDesc.setText("");
             });
-            let teste = this.add.image(604,430,"venderEnergia").setInteractive();
+            let teste = this.add.image(570,430,"venderEnergia").setInteractive();
 
 			this.maquinasAutomaticas();
         }
