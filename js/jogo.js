@@ -5,6 +5,7 @@ var maquinas = [];
 var producao = 0;
 var validaCarregamentoM = false;
 var baterias = [];
+var pesquisas = [];
 var numeroMaquinas = 0;
 dadosJogo = function(){
     $.ajax({
@@ -118,6 +119,20 @@ buscaPesquisas = function(){
         url: caminho+"BuscaPesquisas",
         success: function(dados){
             console.log(dados);
+            if(dados.msg==undefined){
+                var pesquisasL = dados[1];
+                var pesquisasDados = dados[0];
+                for (let i = 0; i < dados[1].length; i++) {
+                    var pesquisas2 = new Object;
+                    pesquisas2 = pesquisasDados[i];
+                    pesquisas2.tempo = pesquisasL[i].tempo;
+                    pesquisas2.clientes_id = pesquisasL[i].clientes_id;
+                    pesquisas2.estado = pesquisasL[i].estado;
+
+                }
+                console.log(pesquisasL);
+                console.log(pesquisasDados);
+            }
         }
     });
 }
@@ -497,10 +512,9 @@ jogo = function(){
         menuPesq(){
         	 if(pesMenuAD){
              	pesMenuAD = false;
-             }else{
+           }else{
              	pesMenuAD = true;
-             }
-        	 
+               
         	 var intervalo = setInterval(function(){
           		if(pesMenuAD){
                      if(pesMenu.x<0){
@@ -661,6 +675,7 @@ jogo = function(){
 			menuMaquinas = this.add.image(1144,0,"menuMaquinas").setOrigin(0,0);//298
             setaMenu = this.add.image(1124,290,"setaMenuMaquinas").setDisplayOrigin(0,19);
             setaMenu.setInteractive();
+            this.pesquisas();
 			this.scene.launch("menu");
             this.maquinaEspecial = this.add.sprite(100,100,"maquina1").setOrigin(0,0);
             x = 1214;
@@ -871,7 +886,48 @@ jogo = function(){
             }
         }
         
+        tempo(tempo){
+            var time = tempo.split(" ");
+            let data;
+            if(time[1]){
+                data = time[0];
+                tempo = time[1];
+            }else{
+                tempo = time[0];
+            }
+            tempo = tempo.split(":");
+            if(data!=undefined){
+                data = data.split("-");
+                return data,tempo;
+            }
+            return tempo;
+        }
 
+        pesquisas(){
+            var tempo = [];
+            for(let i = 0;i<pesquisas.length;i++){
+                var tempo2 = this.tempo(pesquisas[i].tempo);
+                tempo[i].hora = tempo2[0];
+                tempo[i].min = tempo2[1];
+                tempo[i].seg = tempo2[2];
+                if(pesquisas[i].estado=="iniciado"){
+                    var intervalo = setInterval(function(){
+                        tempo[i].seg--;
+                        if(tempo[i].seg==-1){
+                            tempo[i].seg = 59;
+                            tempo[i].min--;
+                        }
+                        if(tempo[i].min==-1){
+                            tempo[i].min = 59;
+                            tempo[i].hora--;
+                        }
+                        if(pesquisas[i].estado=="finalizada"){
+                            clearInterval(intervalo);
+                        }
+                    },1000,this)
+                }
+            }
+        }
 
         pesquisar(id){
 
