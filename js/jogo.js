@@ -536,6 +536,7 @@ jogo = function(){
                      }
                  }
           	},1,this);
+        	 
         }
         
         menuConf(){
@@ -940,7 +941,12 @@ jogo = function(){
         }
 
         pesquisar(id){
+            
+            let validador = cliente.dinheiro-pesquisas[id].valor;
 
+            if(validador>=0){
+
+            }
         }
     }
     // ---------------- configuração do jogo ------------------------------------------------------------------
