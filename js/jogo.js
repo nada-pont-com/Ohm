@@ -946,6 +946,7 @@ jogo = function(){
 
             if(validador>=0){
                 cliente.dinheiro =- pesquisas[id].valor;
+                
             }
         }
     }
