@@ -101,7 +101,6 @@ buscaBaterias = function(){
                 }
                 console.log(baterias);
                 buscaPesquisas();
-                jogo();
             }else{
                 alert(dados.msg);
             }
@@ -128,10 +127,12 @@ buscaPesquisas = function(){
                     pesquisas2.tempo = pesquisasL[i].tempo;
                     pesquisas2.clientes_id = pesquisasL[i].clientes_id;
                     pesquisas2.estado = pesquisasL[i].estado;
-
+                    pesquisas[i] = pesquisas2;
                 }
+                console.log(pesquisas);
                 console.log(pesquisasL);
                 console.log(pesquisasDados);
+                jogo();
             }
         }
     });
