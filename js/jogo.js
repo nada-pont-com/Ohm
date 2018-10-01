@@ -536,7 +536,6 @@ jogo = function(){
                      }
                  }
           	},1,this);
-        	 
         }
         
         menuConf(){
