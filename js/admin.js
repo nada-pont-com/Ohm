@@ -366,6 +366,7 @@ $(document).ready(function(){
     //Serve para denunciar um jogador e para mostrar o modal que permite o adm denunciar e dizer qual o motivo da denuncia.
     denunciar =  function(login){
         var denuncia = $("#denuncia").val();
+        console.log(login);
         if(denuncia=="" || denuncia==undefined){
             var html= "Denuncia: <input type=\"text\" name=\"denuncia\" id=\"denuncia\">";
             var cfg = {
@@ -381,6 +382,7 @@ $(document).ready(function(){
                             $(this).dialog("close");
                         }else{
                             $(this).dialog("close");
+                            html = "Denuncia: <input type=\"text\" name=\"denuncia\" id=\"denuncia\">";
                             html = "Denuncia não pode ficar vazia <br>"+html;
                             $("#msg").html(html);
                             $("#msg").dialog(cfg);
@@ -401,6 +403,17 @@ $(document).ready(function(){
                 url: caminho + "CriarDenuncia",
                 success:function(denuncia){
                     $("#denuncia").val("");
+                    var cfg = {
+                        modal:true,
+                        title:"",
+                        width: 350,
+                        heigth: 500,
+                        buttons:{
+                            "OK":function(){
+                                $(this).dialog("close");
+                            }
+                        }
+                    }
                 },
                 error:function(info){
     
@@ -415,6 +428,7 @@ $(document).ready(function(){
             type: "POST",
             url: caminho + "VisualizarDenuncia",
             success:function(denuncias){
+                console.log(denuncias);
                 var tabela = gerarTabelaDenuncias(denuncias,data);
                 $("#denuncias").html(tabela);
             }
@@ -467,6 +481,7 @@ $(document).ready(function(){
         "</table>";
         html+="<div class='imgs_tabela'><img src='../../css/imagens/seta_i.png' class='img_tabela' alt='Voltar ranking' title='Voltar ranking' onclick='carregarDados(\""+(cont-1)+"\",\"main\",\"1\")'>"+
               "<img src='../../css/imagens/seta.png' class='img_tabela' alt='Avançar ranking' title='Avançar ranking' onclick='carregarDados(\""+(cont+1)+"\",\"main\",\"1\")'></div>";
+        console.log(html);
         return html;
     }
     
