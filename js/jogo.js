@@ -252,6 +252,8 @@ jogo = function(){
             this.load.image('menuComprar','../../css/imagensJogo/menuCompra.png');
             this.load.image('comprarMenu','../../css/imagensJogo/comprarMenu.png');         
             this.load.image('pesMenu','../../css/imagensJogo/menuPesquisas.png');         
+            this.load.spritesheet('resetarJ','../../css/imagensJogo/resetarJ.png', {frameWidth:143, frameHeight:106});
+            this.load.spritesheet('resetarF','../../css/imagensJogo/resetarF.png', {frameWidth:189, frameHeight:152});
             this.load.spritesheet('comprarMaquina','../../css/imagensJogo/comprarMaquinas.png',{ frameWidth: 61, frameHeight:  77});
             this.load.spritesheet('venderMaquina','../../css/imagensJogo/venderMaquinas.png',{ frameWidth: 100, frameHeight:  159});
 			this.load.spritesheet('compra','../../css/imagensJogo/compra.png', { frameWidth: 46, frameHeight: 46 });
@@ -324,6 +326,7 @@ jogo = function(){
 				//console.log(gameObject);
 				switch (gameObject) {
 					case conf:
+					case setaConf:
 						this.menu();
 						this.menuConf();
 					break;
@@ -532,7 +535,7 @@ jogo = function(){
                          clearInterval(intervalo);
                      }
                  }
-          	},1,this)
+          	},1,this);
         	 
         }
         
