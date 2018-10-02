@@ -148,10 +148,10 @@ jogo = function(){
         }
     }
 
-	var venderComprar,pausar, menuMel, setaMel, salvar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, menuPesq, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina"}, animsI3 = {0:"pausar", 1:"salvar"};//variaveis para menu e a intro;
+	var venderComprar,pausar, menuMel, setaMel, salvar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, menuPesq, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina",6:"resetarJ",7:"resetarF"}, animsI3 = {0:"pausar", 1:"salvar"};//variaveis para menu e a intro;
 	var texto1,texto2; //texto para o proximaFasa
     var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD,confMenuAD, menuMelAD; //serve para disser se o menu esta ativo ou não;
-    var comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = [];
+    var comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = []; pesquisarMenu = []; scenePesquisasMenu = [];
 	class intro extends Phaser.Scene{
 		constructor (){
 			super({ key: 'intro' });	
@@ -305,7 +305,7 @@ jogo = function(){
                 sceneMaquinasMenu[i-1].setInteractive();
                 y2 += 134;
             }
-
+            /*
             let py = 50 , px = -68,py2 = 100;
             for(let i = 0;i <pesquisas.length; i++){
                 pesquisarMenu[i] = this.add.image(-132,py,"comprarMenu").setOrigin(0,0);
@@ -314,7 +314,7 @@ jogo = function(){
                 scenePesquisasMenu[i].setScale(1);
                 scenePesquisasMenu[i].setInteractive();
                 py2 += 134;
-            }
+            }*/
             var txtValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
 
 			for (let i = 0; i < 8; i++) {
@@ -784,7 +784,18 @@ jogo = function(){
             this.armazenamentoBaterias();
             this.maquinaEspecial.setScale(2);
             this.maquinaEspecial.setInteractive();
-            txt = this.add.text(16,16,"Dinheiro: "+cliente.dinheiro+"   Energia: " + cliente.energia+"  Armazenamento: "+armazenamento,{fontSize:"32px",fontFamily:"Arial",fill:"#000"});
+            var recursos = this.add.image(572,0,"recurso");
+            
+            recursos.setDisplayOrigin(recursos.width/2,0);
+            
+            this.add.image(120,7,"dinheiro").setOrigin(0,0);
+            
+            this.add.image(300,7,"energia").setOrigin(0,0);
+            
+            this.add.image(700,7,"armazenamento").setOrigin(0,0);
+            
+            txt = this.add.text(100,5,"Dinheiro: "+cliente.dinheiro+"   Energia: " + cliente.energia+"  Armazenamento: "+armazenamento,{fontSize:"32px",fontFamily:"Arial",fill:"#000"});
+            
             var txtDesc = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"}).setPadding(5);
             for (let i = 0; i < maquinas.length; i++) {
                 let  i2 = 0;
@@ -802,16 +813,7 @@ jogo = function(){
                 }
             }
             
-            var recursos = this.add.image(572,0,"recurso");
-
             
-            recursos.setDisplayOrigin(recursos.width/2,0);
-            
-            this.add.image(450,0,"dinheiro").setOrigin(0,0);
-            
-            this.add.image(375,0,"energia").setOrigin(0,0);
-            
-            this.add.image(700,0,"armazenamento").setOrigin(0,0);
             
             
             
