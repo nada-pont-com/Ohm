@@ -921,31 +921,58 @@ jogo = function(){
             return tempo;
         }
 
-        pesquisas(){
-            var tempo = [];
+        pesquisas(id){
             var temp = new Object;
-            for(let i = 0;i<pesquisas.length;i++){
-                var tempo2 = this.tempo(pesquisas[i].tempo);
+            if(id==undefined){
+                var tempo = [];
+                for(let i = 0;i<pesquisas.length;i++){
+                    var tempo2 = this.tempo(pesquisas[i].tempo);
+                    temp.hora = tempo2[0];
+                    temp.min = tempo2[1];
+                    temp.seg = tempo2[2];
+                    tempo[i] = temp;
+                    if(pesquisas[i].estado=="iniciada"){
+                        var intervalo = setInterval(function(){
+                            tempo[i].seg--;
+                            if(tempo[i].seg==-1){
+                                tempo[i].seg = 59;
+                                tempo[i].min--;
+                            }
+                            if(tempo[i].min==-1){
+                                tempo[i].min = 59;
+                                tempo[i].hora--;
+                            }
+                            if(tempo[i].hora == 0 && tempo[i].min == 0 && tempo[i].seg ==0){
+                                pesquisas[i].estado = "finalizada";
+                            }
+                            pesquisas[i].tempo = tempo;
+                            if(pesquisas[i].estado=="finalizada"){
+                                clearInterval(intervalo);
+                            }
+                        },1000,this);
+                    }
+                }
+            }else{
+                var tempo2 = this.tempo(pesquisas[id].tempo);
                 temp.hora = tempo2[0];
                 temp.min = tempo2[1];
                 temp.seg = tempo2[2];
-                tempo[i] = temp;
-                if(pesquisas[i].estado=="iniciado"){
+                if(pesquisas[id].estado=="iniciada"){
                     var intervalo = setInterval(function(){
-                        tempo[i].seg--;
-                        if(tempo[i].seg==-1){
-                            tempo[i].seg = 59;
-                            tempo[i].min--;
+                        temp.seg--;
+                        if(temp.seg==-1){
+                            temp.seg = 59;
+                            temp.min--;
                         }
-                        if(tempo[i].min==-1){
-                            tempo[i].min = 59;
-                            tempo[i].hora--;
+                        if(temp.min==-1){
+                            temp.min = 59;
+                            temp.hora--;
                         }
-                        if(tempo[i].hora == 0 && tempo[i].min == 0 && tempo[i].seg ==0){
-                            pesquisas[i].estado = "finalizada";
+                        if(temp.hora == 0 && temp.min == 0 && temp.seg ==0){
+                            pesquisas[id].estado = "finalizada";
                         }
-                        pesquisas[i].tempo = tempo;
-                        if(pesquisas[i].estado=="finalizada"){
+                        pesquisas[id].tempo = tempo;
+                        if(pesquisas[id].estado=="finalizada"){
                             clearInterval(intervalo);
                         }
                     },1000,this);
@@ -954,12 +981,15 @@ jogo = function(){
         }
 
         pesquisar(id){
-            
-            let validador = cliente.dinheiro-pesquisas[id].valor;
+            if(pesquisas[id].estado=="n iniciada"){
 
-            if(validador>=0){
-                cliente.dinheiro =- pesquisas[id].valor;
+                let validador = cliente.dinheiro-pesquisas[id].valor;
                 
+                if(validador>=0){
+                    cliente.dinheiro =- pesquisas[id].valor;
+                    pesquisas[id].estado="iniciada";
+                    this.pesquisas();
+                }
             }
         }
     }
