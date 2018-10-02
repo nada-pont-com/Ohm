@@ -253,7 +253,7 @@ jogo = function(){
             this.load.image('comprarMenu','../../css/imagensJogo/comprarMenu.png');         
             this.load.image('pesMenu','../../css/imagensJogo/menuPesquisas.png');         
             this.load.spritesheet('resetarJ','../../css/imagensJogo/resetarJ.png', {frameWidth:143, frameHeight:106});
-            this.load.spritesheet('resetarF','../../css/imagensJogo/resetarF.png', {frameWidth:189, frameHeight:152});
+            this.load.spritesheet('resetarF','../../css/imagensJogo/resetarF.png', {frameWidth:116, frameHeight:96});
             this.load.spritesheet('comprarMaquina','../../css/imagensJogo/comprarMaquinas.png',{ frameWidth: 61, frameHeight:  77});
             this.load.spritesheet('venderMaquina','../../css/imagensJogo/venderMaquinas.png',{ frameWidth: 100, frameHeight:  159});
 			this.load.spritesheet('compra','../../css/imagensJogo/compra.png', { frameWidth: 46, frameHeight: 46 });
@@ -695,7 +695,8 @@ jogo = function(){
             pesquisas[0].estado = "iniciado";
             this.pesquisas();
 			this.scene.launch("menu");
-            this.maquinaEspecial = this.add.sprite(100,100,"maquina1").setOrigin(0,0);
+			this.add.image(505,120, "fundo").setOrigin(0,0);
+            this.maquinaEspecial = this.add.sprite(522,200,"maquina1").setOrigin(0,0);
             x = 1214;
             y = 141;
             for (let i = 1; i < maquinas.length; i++) {
@@ -740,7 +741,7 @@ jogo = function(){
             
             this.add.image(700,0,"armazenamento").setOrigin(0,0);
             
-            this.add.image(572,290, "fundo").setOrigin(0,0);
+            
             
             this.input.on("gameobjectdown",function(pointer,gameObject){
                 switch(gameObject){
@@ -815,7 +816,7 @@ jogo = function(){
             this.input.on('pointerout', function () {
                 txtDesc.setText("");
             });
-            let teste = this.add.image(125,170,"venderEnergia").setInteractive();
+            let teste = this.add.image(570,430,"venderEnergia").setInteractive();
 
 			this.maquinasAutomaticas();
         }
