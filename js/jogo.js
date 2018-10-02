@@ -121,6 +121,7 @@ buscaPesquisas = function(){
             if(dados.msg==undefined){
                 var pesquisasL = dados[1];
                 var pesquisasDados = dados[0];
+             
                 for (let i = 0; i < dados[1].length; i++) {
                     var pesquisas2 = new Object;
                     pesquisas2 = pesquisasDados[i];
@@ -129,9 +130,6 @@ buscaPesquisas = function(){
                     pesquisas2.estado = pesquisasL[i].estado;
                     pesquisas[i] = pesquisas2;
                 }
-                console.log(pesquisas);
-                console.log(pesquisasL);
-                console.log(pesquisasDados);
                 jogo();
             }
         }
@@ -150,9 +148,9 @@ jogo = function(){
         }
     }
 
-	var venderComprar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, pesMenu, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina", 6:"resetarF", 7:"resetarJ"};//variaveis para menu e a intro;
+	var venderComprar,pausar, menuMel, setaMel, salvar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, menuPesq, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina"}, animsI3 = {0:"pausar", 1:"salvar"};//variaveis para menu e a intro;
 	var texto1,texto2; //texto para o proximaFasa
-    var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD,confMenuAD; //serve para disser se o menu esta ativo ou não;
+    var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD,confMenuAD, menuMelAD; //serve para disser se o menu esta ativo ou não;
     var comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = [];
 	class intro extends Phaser.Scene{
 		constructor (){
@@ -250,8 +248,10 @@ jogo = function(){
             this.load.image('menuConfi','../../css/imagensJogo/menuConfi.png');
             this.load.image('setaMenuComprar','../../css/imagensJogo/setaMenuCompra.png');
             this.load.image('menuComprar','../../css/imagensJogo/menuCompra.png');
+            this.load.image('menuMelhorias','../../css/imagensJogo/menuMelhorias.png');
             this.load.image('comprarMenu','../../css/imagensJogo/comprarMenu.png');         
-            this.load.image('pesMenu','../../css/imagensJogo/menuPesquisas.png');         
+            this.load.image('menuPesquisas','../../css/imagensJogo/menuPesquisas.png');         
+            this.load.image('pesquisarMenu','../../css/imagensJogo/pesquisarMenu.png');         
             this.load.spritesheet('resetarJ','../../css/imagensJogo/resetarJ.png', {frameWidth:143, frameHeight:106});
             this.load.spritesheet('resetarF','../../css/imagensJogo/resetarF.png', {frameWidth:116, frameHeight:96});
             this.load.spritesheet('comprarMaquina','../../css/imagensJogo/comprarMaquinas.png',{ frameWidth: 61, frameHeight:  77});
@@ -260,6 +260,8 @@ jogo = function(){
 			this.load.spritesheet('config','../../css/imagensJogo/configuracao.png', { frameWidth: 82, frameHeight: 74 });
 			this.load.spritesheet('pesquisa','../../css/imagensJogo/pesquisa.png', { frameWidth: 49, frameHeight: 77 });
 			this.load.spritesheet('melhoria','../../css/imagensJogo/melhoria.png', { frameWidth: 70, frameHeight: 70 });
+			this.load.spritesheet('pausar','../../css/imagensJogo/pausar.png',{frameWidth:73, frameHeight:106});
+			this.load.spritesheet('salvar','../../css/imagensJogo/salvar.png',{frameWidth:124, frameHeight:103});
 		
 		}
 		
@@ -267,7 +269,8 @@ jogo = function(){
             setaMenuComprar = this.add.image(0,290,"setaMenuComprar").setDisplayOrigin(0,19);
             setaComp = this.add.image( 0, 290, 'setaMenu').setDisplayOrigin(0,19);
             setaPes = this.add.image( 0, 290, 'setaMenu').setDisplayOrigin(0,19);
-            setaConf = this.add.image( 0, 290, 'setaMenu').setDisplayOrigin(0,19);
+            setaConf = this.add.image( 0, 290, 'setaMenu').setDisplayOrigin(0,19); 
+            setaMel = this.add.image( 0, 290, 'setaMenu').setDisplayOrigin(0,19);
             seta = this.add.image( 0, 290, 'setaMenu').setDisplayOrigin(0,19);
             setaComp.setInteractive();
             setaPes.setInteractive();
@@ -286,8 +289,11 @@ jogo = function(){
             resetaJ = this.add.sprite(-68.5, 100,"resetarJ");
             menuComprar = this.add.image(-136,0,"menuComprar").setOrigin(0,0);
 
-            pesMenu = this.add.image(-136,0,"pesMenu").setOrigin(0,0);
-            
+            pausar = this.add.sprite(-68.5, 367,"pausar");
+            salvar = this.add.sprite(-68.5, 495,"salvar");
+            menuMel = this.add.image(-136,0,"menuMelhorias").setOrigin(0,0);      
+            menuPesq = this.add.image(-136,0,"menuPesquisas").setOrigin(0,0);
+      
             let y = 50,x = -68,y2 = 100;
             for(let i = 1;i <maquinas.length; i++){
                 comprarMenu[i-1] = this.add.image(-132,y,"comprarMenu").setOrigin(0,0);
@@ -298,6 +304,16 @@ jogo = function(){
                 sceneMaquinasMenu[i-1].setScale(1);
                 sceneMaquinasMenu[i-1].setInteractive();
                 y2 += 134;
+            }
+
+            let py = 50 , px = -68,py2 = 100;
+            for(let i = 0;i <pesquisas.length; i++){
+                pesquisarMenu[i] = this.add.image(-132,py,"comprarMenu").setOrigin(0,0);
+                py += 134;
+                scenePesquisasMenu[i] = this.add.sprite(px,py2,"maquinas"+(pesquisas[i].id)+3);
+                scenePesquisasMenu[i].setScale(1);
+                scenePesquisasMenu[i].setInteractive();
+                py2 += 134;
             }
             var txtValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
 
@@ -313,10 +329,25 @@ jogo = function(){
 					repeat : -1
 				});
             }
+			
+			for (let i = 0; i < 8; i++) {
+				let i3 = 1;
+				if(i==0){
+					i3 = 3;
+                }
+				this.anims.create({
+					key: animsI3[i],
+					frames: this.anims.generateFrameNumbers(animsI3[i], { start: 0, end: i3 }),
+					frameRate: 10,
+					repeat : -1
+				});
+            }
+			
             setaMenuComprar.setInteractive();
+            setaMel.setInteractive();
             menuComp.setInteractive();
             confMenu.setInteractive();
-            pesMenu.setInteractive();
+            menuPesq.setInteractive();
             vender.setInteractive();
             comprar.setInteractive();
 			seta.setInteractive();
@@ -326,6 +357,7 @@ jogo = function(){
 			melho.setInteractive();
 			resetaF.setInteractive();
 			resetaJ.setInteractive();
+			setaMel.setInteractive();
 			
 			this.input.on("gameobjectdown", function(pointer,gameObject){
 				//console.log(gameObject);
@@ -346,7 +378,9 @@ jogo = function(){
                         this.menuPesq();
 					break;
 					case melho:
-					console.log("melho");
+					case setaMel:
+						this.menu();
+						this.menuMelho();
 					break;
 					case seta:
                         this.menu();
@@ -394,7 +428,12 @@ jogo = function(){
                                 valor = "Não é posivel vender";
                             }
                         }
-                        txtValor.setText("Valor: "+parseInt(valor));
+                        if(parseInt(valor)==NaN){
+                            txtValor.setText("Valor: "+parseInt(valor));
+                        }else{
+                            txtValor.setText("Valor: "+valor);
+                        }
+
                         //console.log(this.input.activePointer);
                     }
                 }
@@ -418,6 +457,10 @@ jogo = function(){
             resetaF.anims.play("resetarF",true);
             
             resetaJ.anims.play("resetarJ",true);
+            
+            pausar.anims.play("pausar",true);
+            
+            salvar.anims.play("salvar",true);
 
             /* var fase  = new fases;
             fase.comprarMaquina(10); */
@@ -489,6 +532,31 @@ jogo = function(){
             },1,this);
         }
 
+        menuMelho(){
+        	if(menuMelAD){
+        		menuMelAD = false;//quando o menu tá desativo
+            }else{ // Quando o valor vem true signigica que o menu está ativado, e quando vir false o menu esta dessativado;
+            	menuMelAD = true;//quando o menu tá ativado
+            }
+            var intervalo = setInterval(function(){
+                if(menuMelAD){
+                    if(menuMel.x<0){
+                    	menuMel.x++;
+                        setaMel.x++;
+                    }else{
+                        clearInterval(intervalo);
+                    }
+                }else{
+                    if(menuMel.x>-136){
+                    	menuMel.x--;
+                    	setaMel.x--;
+                    }else{
+                        clearInterval(intervalo);
+                    }
+                }
+            },1,this);
+        }
+        
         menuComprarVender(){
             if(menuComprarVenderAD){
                 menuComprarVenderAD = false;//quando o menu tá desativo
@@ -530,15 +598,15 @@ jogo = function(){
            }  
         	 var intervalo = setInterval(function(){
           		if(pesMenuAD){
-                     if(pesMenu.x<0){
-                     	pesMenu.x++;
+                     if(menuPesq.x<0){
+                     	menuPesq.x++;
                         setaPes.x++;
                      }else{
                          clearInterval(intervalo);
                      }
                  }else{
-                     if(pesMenu.x>-136){
-                     	pesMenu.x--;
+                     if(menuPesq.x>-136){
+                     	menuPesq.x--;
                          setaPes.x--;
                      }else{
                          clearInterval(intervalo);
@@ -561,6 +629,8 @@ jogo = function(){
                        setaConf.x++;
                        resetaF.x++;
                        resetaJ.x++;
+                       salvar.x++;
+                       pausar.x++;
                     }else{
                         clearInterval(intervalo);
                     }
@@ -570,6 +640,8 @@ jogo = function(){
                     	setaConf.x--;
                     	resetaF.x--;
                         resetaJ.x--;
+                        salvar.x--;
+                        pausar.x--;
                     }else{
                         clearInterval(intervalo);
                     }
@@ -989,7 +1061,7 @@ jogo = function(){
                 if(validador>=0){
                     cliente.dinheiro =- pesquisas[id].valor;
                     pesquisas[id].estado="iniciada";
-                    this.pesquisas();
+                    this.pesquisas(pesquisas[id].id);
                 }
             }
         }
