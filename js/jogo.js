@@ -767,7 +767,8 @@ jogo = function(){
             pesquisas[0].estado = "iniciado";
             this.pesquisas();
 			this.scene.launch("menu");
-            this.maquinaEspecial = this.add.sprite(100,100,"maquina1").setOrigin(0,0);
+			this.add.image(505,120, "fundo").setOrigin(0,0);
+            this.maquinaEspecial = this.add.sprite(522,200,"maquina1").setOrigin(0,0);
             x = 1214;
             y = 141;
             for (let i = 1; i < maquinas.length; i++) {
@@ -812,7 +813,7 @@ jogo = function(){
             
             this.add.image(700,0,"armazenamento").setOrigin(0,0);
             
-            this.add.image(572,290, "fundo").setOrigin(0,0);
+            
             
             this.input.on("gameobjectdown",function(pointer,gameObject){
                 switch(gameObject){
@@ -887,7 +888,7 @@ jogo = function(){
             this.input.on('pointerout', function () {
                 txtDesc.setText("");
             });
-            let teste = this.add.image(125,170,"venderEnergia").setInteractive();
+            let teste = this.add.image(570,430,"venderEnergia").setInteractive();
 
 			this.maquinasAutomaticas();
         }
