@@ -305,7 +305,7 @@ jogo = function(){
                 sceneMaquinasMenu[i-1].setInteractive();
                 y2 += 134;
             }
-
+            /*
             let py = 50 , px = -68,py2 = 100;
             for(let i = 0;i <pesquisas.length; i++){
                 pesquisarMenu[i] = this.add.image(-132,py,"pesquisarMenu").setOrigin(0,0);
@@ -315,7 +315,7 @@ jogo = function(){
                 scenePesquisasMenu[i].setScale(0.5);
                 scenePesquisasMenu[i].setInteractive();
                 py2 += 134;
-            }
+            }*/
             var txtValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
 
 			for (let i = 0; i < 8; i++) {
@@ -793,7 +793,18 @@ jogo = function(){
             this.armazenamentoBaterias();
             this.maquinaEspecial.setScale(2);
             this.maquinaEspecial.setInteractive();
-            txt = this.add.text(16,16,"Dinheiro: "+cliente.dinheiro+"   Energia: " + cliente.energia+"  Armazenamento: "+armazenamento,{fontSize:"32px",fontFamily:"Arial",fill:"#000"});
+            var recursos = this.add.image(572,0,"recurso");
+            
+            recursos.setDisplayOrigin(recursos.width/2,0);
+            
+            this.add.image(120,7,"dinheiro").setOrigin(0,0);
+            
+            this.add.image(300,7,"energia").setOrigin(0,0);
+            
+            this.add.image(700,7,"armazenamento").setOrigin(0,0);
+            
+            txt = this.add.text(100,5,"Dinheiro: "+cliente.dinheiro+"   Energia: " + cliente.energia+"  Armazenamento: "+armazenamento,{fontSize:"32px",fontFamily:"Arial",fill:"#000"});
+            
             var txtDesc = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"}).setPadding(5);
             for (let i = 0; i < maquinas.length; i++) {
                 let  i2 = 0;
@@ -811,16 +822,7 @@ jogo = function(){
                 }
             }
             
-            var recursos = this.add.image(572,0,"recurso");
-
             
-            recursos.setDisplayOrigin(recursos.width/2,0);
-            
-            this.add.image(450,0,"dinheiro").setOrigin(0,0);
-            
-            this.add.image(375,0,"energia").setOrigin(0,0);
-            
-            this.add.image(700,0,"armazenamento").setOrigin(0,0);
             
             
             
