@@ -7,6 +7,7 @@ var validaCarregamentoM = false;
 var baterias = [];
 var pesquisas = [];
 var numeroMaquinas = 0;
+var pause = false;
 dadosJogo = function(){
     $.ajax({
         type:"POST",
@@ -359,6 +360,7 @@ jogo = function(){
 			resetaF.setInteractive();
 			resetaJ.setInteractive();
 			setaMel.setInteractive();
+			pausar.setInteractive();
 			
 			this.input.on("gameobjectdown", function(pointer,gameObject){
 				//console.log(gameObject);
@@ -367,6 +369,19 @@ jogo = function(){
 					case setaConf:
 						this.menu();
 						this.menuConf();
+					break;
+					case pausar:
+						if(pause){
+							pause = false;
+						}else{
+							pause = true;
+						}
+					break;
+					case resetaF:
+					break;
+					case resetaJ:
+					break;
+					case salvar:
 					break;
                     case comp:
                     case setaComp:
@@ -656,8 +671,7 @@ jogo = function(){
        }
         
 	}
-
-
+    
     class proximaCena extends Phaser.Scene{
         constructor(){
             super({key:"proximaCena"});
@@ -820,17 +834,14 @@ jogo = function(){
                 if(i!=0){
                     sceneMaquinas[i-1].anims.play("maquinaAnimi"+maquinas[i].id);
                 }
-            }
-            
-            
-            
-            
-            
+            }     
             this.input.on("gameobjectdown",function(pointer,gameObject){
                 switch(gameObject){
                     case this.maquinaEspecial:
-                        cliente.energia++;
-                        this.maquinaEspecial.anims.play("maquinaAnimi1",true);
+                        if(pause == false){
+                        	 cliente.energia++;
+                        	this.maquinaEspecial.anims.play("maquinaAnimi1",true);
+                        }
                     break;
                     case setaMenu:
                         if (menuMaquinaAD)
@@ -920,15 +931,20 @@ jogo = function(){
         }
 
         maquinasAutomaticas(){
-            var intervalo = setInterval(function(){
-                var ppsTotal = 0;
-                for (let i = 1; i < maquinas.length; i++) {
-                    if(maquinas[i].quantidade!=undefined){
-                        ppsTotal += (maquinas[i].pps)*(maquinas[i].quantidade);
-                    }
-                }
-                cliente.energia += ppsTotal;
-            },1000,this);
+        	
+        		 var intervalo = setInterval(function(){
+        			 if(pause == false){
+ 	                var ppsTotal = 0;
+ 	                for (let i = 1; i < maquinas.length; i++) {
+ 	                    if(maquinas[i].quantidade!=undefined){
+ 	                        ppsTotal += (maquinas[i].pps)*(maquinas[i].quantidade);
+ 	                    }
+ 	                }
+ 	                cliente.energia += ppsTotal;
+        			 }
+ 	            },1000,this);
+        	
+	           
         }
 
         converter(){
