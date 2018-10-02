@@ -7,6 +7,7 @@ var validaCarregamentoM = false;
 var baterias = [];
 var pesquisas = [];
 var numeroMaquinas = 0;
+var pause = false;
 dadosJogo = function(){
     $.ajax({
         type:"POST",
@@ -148,10 +149,10 @@ jogo = function(){
         }
     }
 
-	var venderComprar,pausar, menuMel, setaMel, salvar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, menuPesq, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina"}, animsI3 = {0:"pausar", 1:"salvar"};//variaveis para menu e a intro;
+	var venderComprar,pausar, menuMel, setaMel, salvar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, menuPesq, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina",6:"resetarJ",7:"resetarF"}, animsI3 = {0:"pausar", 1:"salvar"};//variaveis para menu e a intro;
 	var texto1,texto2; //texto para o proximaFasa
     var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD,confMenuAD, menuMelAD; //serve para disser se o menu esta ativo ou não;
-    var comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = [];
+    var comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = [], pesquisarMenu = [], scenePesquisasMenu = [];
 	class intro extends Phaser.Scene{
 		constructor (){
 			super({ key: 'intro' });	
@@ -330,7 +331,7 @@ jogo = function(){
 				});
             }
 			
-			for (let i = 0; i < 8; i++) {
+			for (let i = 0; i < 2; i++) {
 				let i3 = 1;
 				if(i==0){
 					i3 = 3;
@@ -358,6 +359,7 @@ jogo = function(){
 			resetaF.setInteractive();
 			resetaJ.setInteractive();
 			setaMel.setInteractive();
+			pausar.setInteractive();
 			
 			this.input.on("gameobjectdown", function(pointer,gameObject){
 				//console.log(gameObject);
@@ -366,6 +368,19 @@ jogo = function(){
 					case setaConf:
 						this.menu();
 						this.menuConf();
+					break;
+					case pausar:
+						if(pause){
+							pause = false;
+						}else{
+							pause = true;
+						}
+					break;
+					case resetaF:
+					break;
+					case resetaJ:
+					break;
+					case salvar:
 					break;
                     case comp:
                     case setaComp:
@@ -651,8 +666,7 @@ jogo = function(){
        }
         
 	}
-
-
+    
     class proximaCena extends Phaser.Scene{
         constructor(){
             super({key:"proximaCena"});
@@ -802,10 +816,10 @@ jogo = function(){
                 }
             }
             
-            var recursos = this.add.image(572,0,"recurso");
+         //  var recursos = this.add.image(572,0,"recurso");
 
             
-            recursos.setDisplayOrigin(recursos.width/2,0);
+           // recursos.setDisplayOrigin(recursos.width/2,0);
             
             this.add.image(450,0,"dinheiro").setOrigin(0,0);
             
@@ -818,8 +832,10 @@ jogo = function(){
             this.input.on("gameobjectdown",function(pointer,gameObject){
                 switch(gameObject){
                     case this.maquinaEspecial:
-                        cliente.energia++;
-                        this.maquinaEspecial.anims.play("maquinaAnimi1",true);
+                        if(pause == false){
+                        	 cliente.energia++;
+                        	this.maquinaEspecial.anims.play("maquinaAnimi1",true);
+                        }
                     break;
                     case setaMenu:
                         if (menuMaquinaAD)
@@ -909,15 +925,20 @@ jogo = function(){
         }
 
         maquinasAutomaticas(){
-            var intervalo = setInterval(function(){
-                var ppsTotal = 0;
-                for (let i = 1; i < maquinas.length; i++) {
-                    if(maquinas[i].quantidade!=undefined){
-                        ppsTotal += (maquinas[i].pps)*(maquinas[i].quantidade);
-                    }
-                }
-                cliente.energia += ppsTotal;
-            },1000,this);
+        	
+        		 var intervalo = setInterval(function(){
+        			 if(pause == false){
+ 	                var ppsTotal = 0;
+ 	                for (let i = 1; i < maquinas.length; i++) {
+ 	                    if(maquinas[i].quantidade!=undefined){
+ 	                        ppsTotal += (maquinas[i].pps)*(maquinas[i].quantidade);
+ 	                    }
+ 	                }
+ 	                cliente.energia += ppsTotal;
+        			 }
+ 	            },1000,this);
+        	
+	           
         }
 
         converter(){
