@@ -305,18 +305,8 @@ jogo = function(){
                 sceneMaquinasMenu[i-1].setScale(1);
                 sceneMaquinasMenu[i-1].setInteractive();
                 y2 += 134;
-            }
-            /*
-            let py = 50 , px = -68,py2 = 100;
-            for(let i = 0;i <pesquisas.length; i++){
-                pesquisarMenu[i] = this.add.image(-132,py,"pesquisarMenu").setOrigin(0,0);
-                py += 134;
-                console.log(px+"\n"+py2);
-                scenePesquisasMenu[i] = this.add.sprite(px,py2,"maquinas"+((pesquisas[i].id)+2));
-                scenePesquisasMenu[i].setScale(0.5);
-                scenePesquisasMenu[i].setInteractive();
-                py2 += 134;
-            }*/
+            } 
+           
             var txtValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
 
 			for (let i = 0; i < 8; i++) {
@@ -378,8 +368,10 @@ jogo = function(){
 						}
 					break;
 					case resetaF:
+						
 					break;
 					case resetaJ:
+						resetarJogo();
 					break;
 					case salvar:
 					break;
@@ -669,6 +661,17 @@ jogo = function(){
          	},1,this);
        	 
        }
+        
+        resetarJogo(){
+        	$.ajax({
+                type:"POST",
+                data: cliente,
+                url: caminho+"ResetarJogo",
+                success: function(dados){
+                	console.log(dados);
+                }
+        	})
+        }
         
 	}
     
