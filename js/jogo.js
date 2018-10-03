@@ -365,8 +365,10 @@ jogo = function(){
 						}
 					break;
 					case resetaF:
+						
 					break;
 					case resetaJ:
+						resetarJogo();
 					break;
 					case salvar:
 					break;
@@ -703,6 +705,17 @@ jogo = function(){
          	},1,this);
        	 
        }
+        
+        resetarJogo(){
+        	$.ajax({
+                type:"POST",
+                data: cliente,
+                url: caminho+"ResetarJogo",
+                success: function(dados){
+                	console.log(dados);
+                }
+        	})
+        }
         
 	}
     
