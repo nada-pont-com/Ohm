@@ -291,7 +291,6 @@ jogo = function(){
                 sceneMaquinasMenu[i-1].setInteractive();
                 y2 += 134;
             }
-            
             let py = 50 , px = -68,py2 = 100;
             for(let i = 0;i <pesquisas.length; i++){
                 pesquisarMenu[i] = this.add.image(-132,py,"pesquisarMenu").setOrigin(0,0);
@@ -776,7 +775,7 @@ jogo = function(){
     var armazenamento = 0;
     var frameWH = [{frameWidth: 46, frameHeight: 58},{frameWidth: 46, frameHeight: 58},{frameWidth: 740, frameHeight: 1148 }];
     var frameBateria = [{frameWidth: 1633, frameHeight: 814},{frameWidth: 690, frameHeight: 370}];
-    var txt;
+    var txtDin,txtEner,txtArm;
     var sceneMaquinas = [];
     var x,y,scale = {0:2,1:2,2:0.07};// cordenadas das maquinas e escala;
     var numeroFrame = {1:4,2:4,3:9};
@@ -846,7 +845,10 @@ jogo = function(){
             
             this.add.image(700,7,"armazenamento").setOrigin(0,0);
             
-            txt = this.add.text(100,5,"Dinheiro: "+cliente.dinheiro+"   Energia: " + cliente.energia+"  Armazenamento: "+armazenamento,{fontSize:"32px",fontFamily:"Arial",fill:"#000"});
+            txtDin = this.add.text(120,5,cliente.dinheiro,{fontSize:"32px",fontFamily:"Arial",fill:"#000"});
+            txtEner = this.add.text(300,5,cliente.energia,{fontSize:"32px",fontFamily:"Arial",fill:"#000"});
+            txtArm = this.add.text(700,5,armazenamento,{fontSize:"32px",fontFamily:"Arial",fill:"#000"});
+            
             
             var txtDesc = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"}).setPadding(5);
             for (let i = 0; i < maquinas.length; i++) {
@@ -948,7 +950,10 @@ jogo = function(){
             if(cliente.energia>armazenamento){
                 cliente.energia = armazenamento;
             }
-            txt.setText("Dinheiro: "+cliente.dinheiro+"   Energia: " + cliente.energia+"  Armazenamento: "+armazenamento);
+            txtDin.setText(cliente.dinheiro);
+            txtEner.setText(cliente.energia);
+            txtArm.setText(armazenamento);
+            
         }
 
         armazenamentoBaterias(){
