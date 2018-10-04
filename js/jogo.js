@@ -281,17 +281,7 @@ jogo = function(){
             menuMel = this.add.image(-136,0,"menuMelhorias").setOrigin(0,0);      
             menuPesq = this.add.image(-136,0,"menuPesquisas").setOrigin(0,0);
       
-            let y = 50,x = -68,y2 = 100;
-            for(let i = 1;i <maquinas.length; i++){
-                comprarMenu[i-1] = this.add.image(-132,y,"comprarMenu").setOrigin(0,0);
-                y += 134;
-                txtQuantidadeMaquinas[i-1] = this.add.text(x,y2+40,"Quantidade: "+maquinas[i].quantidade,{fontSize:"13px"});
-                txtQuantidadeMaquinas[i-1].setDisplayOrigin(txtQuantidadeMaquinas[i-1].width/2,txtQuantidadeMaquinas[i-1].height/2);
-                sceneMaquinasMenu[i-1] = this.add.sprite(x,y2,"maquina"+maquinas[i].id);
-                sceneMaquinasMenu[i-1].setScale(1);
-                sceneMaquinasMenu[i-1].setInteractive();
-                y2 += 134;
-            }
+            
             let py = 50 , px = -68,py2 = 100;
             for(let i = 0;i <pesquisas.length; i++){
                 pesquisarMenu[i] = this.add.image(-132,py,"pesquisarMenu").setOrigin(0,0);
@@ -305,6 +295,18 @@ jogo = function(){
             for(let i = 1;i <maquinas.length; i++){
                 melhorarMenu[i-1] = this.add.image(-132,my,"melhorarMenu").setOrigin(0,0);
                 my += 134;
+            }
+            let y = 50,x = -68,y2 = 100;
+            for(let i = 1;i <maquinas.length; i++){
+                comprarMenu[i-1] = this.add.image(-132,y,"comprarMenu").setOrigin(0,0);
+                y += 134;
+                txtQuantidadeMaquinas[i-1] = this.add.text(x,y2+40,"Quantidade: "+maquinas[i].quantidade,{fontSize:"13px"});
+                txtQuantidadeMaquinas[i-1].setDisplayOrigin(txtQuantidadeMaquinas[i-1].width/2,txtQuantidadeMaquinas[i-1].height/2);
+                upgrade[i-1] = false;
+                sceneMaquinasMenu[i-1] = this.add.sprite(x,y2,"maquina"+maquinas[i].id);
+                sceneMaquinasMenu[i-1].setScale(1);
+                sceneMaquinasMenu[i-1].setInteractive();
+                y2 += 134;
             }
             var txtValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
             txtPesqValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
@@ -437,7 +439,15 @@ jogo = function(){
                         }
                     }
                 }else if(identificador=="melhoriasScene"){
-                    
+                    for(let i = 0;i < sceneMaquinasMenu.length;i++){
+                        if(sceneMaquinasMenu[i]==gameObject){
+                            let valor = maquinas[i].valor*pps*25;
+                            let validador = cliente.dinheiro-valor;
+                            if(validador>=0){
+                                cliente.dinheiro += -valor;
+                            }
+                        }
+                    }
                 }
             },this);
             this.input.on("pointerover",function(pointer,gameObject){
@@ -519,6 +529,7 @@ jogo = function(){
 
             /* var fase  = new fases;
             fase.comprarMaquina(10); */
+            this.melhorias();
 		}
 		
 		update(){
@@ -720,22 +731,27 @@ jogo = function(){
        	 
        }
     
-       melhorias(){
+       melhorias(){ 
+    	   
             let intervalo = setInterval(function(){
                 for (let i = 1; i < maquinas.length; i++) {
+                    console.log(upgrade[i-1]);
                     if(!(upgrade[i-1])){
                         let pps = 0;
                         let multiplicador  = maquinas[i].multiplicador
-                        for(let i2 = 0;i<multiplicador;i++){
+                        for(let i2 = 0;i2<multiplicador;i2++){
                             pps = maquinas[i].pps+maquinas[i].pps;
                         }
                         let valiador = maquinas[i].valor*pps*25;
+                        console.log(valiador);
                         if(cliente.dinheiroGeral>=valiador){
                             upgrade[i-1] = true;
                         }
+
                     }
        
-                }
+                }   
+                
             },10000,this);
        }
 
@@ -917,8 +933,7 @@ jogo = function(){
                 switch(gameObject){
                     case this.maquinaEspecial:
                         if(pause == false){
-                        	 cliente.energia++;
-                             console.log(pesquisas);
+                        	 cliente.energia+=10000;
                              let tempo = pesquisas[0].tempo;
                         	this.maquinaEspecial.anims.play("maquinaAnimi1",true);
                         }
