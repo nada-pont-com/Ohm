@@ -148,7 +148,7 @@ jogo = function(){
 	var intervaloPesqui = false,venderComprar,pausar, menuMel, setaMel, salvar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, menuPesq, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina",6:"resetarJ",7:"resetarF"}, animsI3 = {0:"pausar", 1:"salvar"};//variaveis para menu e a intro;
 	var texto1,texto2; //texto para o proximaFasa
     var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD,confMenuAD, menuMelAD; //serve para disser se o menu esta ativo ou não;
-    var comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = [],scenePesquisasMenu = [],pesquisarMenu = [];
+    var melhorarMenu = [],comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = [],scenePesquisasMenu = [],pesquisarMenu = [];
     var txtPesqValor;
     var identificador;//Variavel que identifica qual texto ira 
 	class intro extends Phaser.Scene{
@@ -235,6 +235,7 @@ jogo = function(){
             this.load.image('setaMenuComprar','../../css/imagensJogo/setaMenuCompra.png');
             this.load.image('menuComprar','../../css/imagensJogo/menuCompra.png');
             this.load.image('menuMelhorias','../../css/imagensJogo/menuMelhorias.png');
+            this.load.image('melhorarMenu','../../css/imagensJogo/melhorarMenu.png');
             this.load.image('comprarMenu','../../css/imagensJogo/comprarMenu.png');         
             this.load.image('menuPesquisas','../../css/imagensJogo/menuPesquisas.png');         
             this.load.image('pesquisarMenu','../../css/imagensJogo/pesquisarMenu.png');
@@ -299,6 +300,11 @@ jogo = function(){
                 scenePesquisasMenu[i].setScale(0.08);
                 scenePesquisasMenu[i].setInteractive();
                 py2 += 134;
+            }
+            let my = 50;
+            for(let i = 1;i <maquinas.length; i++){
+                melhorarMenu[i-1] = this.add.image(-132,my,"melhorarMenu").setOrigin(0,0);
+                my += 134;
             }
             var txtValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
             txtPesqValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
@@ -589,6 +595,10 @@ jogo = function(){
                     if(menuMel.x<0){
                     	menuMel.x++;
                         setaMel.x++;
+                        for(let i = 1;i <maquinas.length; i++){
+                        	melhorarMenu[i-1].x++;
+                        	sceneMaquinasMenu[i-1].x++;
+                        }
                     }else{
                         clearInterval(intervalo);
                     }
@@ -596,6 +606,10 @@ jogo = function(){
                     if(menuMel.x>-136){
                     	menuMel.x--;
                     	setaMel.x--;
+                    	for(let i = 1;i <maquinas.length; i++){
+                        	melhorarMenu[i-1].x--;
+                        	sceneMaquinasMenu[i-1].x--;
+                        }
                     }else{
                         clearInterval(intervalo);
                     }
