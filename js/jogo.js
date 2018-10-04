@@ -49,7 +49,7 @@ buscaMaquinas = function(){
                             maquinas2.quantidade = maquinasDados[i].quantidade;
                             let valor = maquinasL[i].valor;
                             for(let i2 = 0;i2<maquinasDados[i].quantidade;i2++){
-                                valor = valor+(valor*0.5);
+                                valor = valor+(valor*0.05);
                             }
                             maquinas2.valor = valor;
                             maquinas[i] = maquinas2;
@@ -88,7 +88,7 @@ buscaBaterias = function(){
                             let valor = bateriasL[i].valor;
                             if(bateriasDados[i].quantidade!=undefined){
                                 for(let i2 = 0;i2 < bateriasDados[i].quantidade;i2++){
-                                    valor = valor+(valor*0.5);
+                                    valor = valor+(valor*0.05);
                                 }
                             }
                             baterias2.valor = valor;
@@ -145,7 +145,7 @@ jogo = function(){
         }
     }
 
-	var intervaloPesqui = false,venderComprar,pausar, menuMel, setaMel, salvar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, menuPesq, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina",6:"resetarJ",7:"resetarF"}, animsI3 = {0:"pausar", 1:"salvar"};//variaveis para menu e a intro;
+	var upgrade = {},intervaloPesqui = false,venderComprar,pausar, menuMel, setaMel, salvar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, menuPesq, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina",6:"resetarJ",7:"resetarF"}, animsI3 = {0:"pausar", 1:"salvar"};//variaveis para menu e a intro;
 	var texto1,texto2; //texto para o proximaFasa
     var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD,confMenuAD, menuMelAD; //serve para disser se o menu esta ativo ou não;
     var melhorarMenu = [],comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = [],scenePesquisasMenu = [],pesquisarMenu = [];
@@ -371,8 +371,10 @@ jogo = function(){
 						}
 					break;
 					case resetaF:
+						
 					break;
 					case resetaJ:
+						resetarJogo();
 					break;
 					case salvar:
 					break;
@@ -446,7 +448,7 @@ jogo = function(){
                             let valor = maquinas[i+1].valor;
                             if(venderComprar == "vender"){
                                 if(maquinas[i+1].quantidade != 0){
-                                    valor = (valor*100)/150;
+                                    valor = (valor*100)/105;
                                     valor  = parseInt(valor - (valor*0.25));
                                 }else{
                                     valor = "Não é posivel vender";
@@ -717,6 +719,37 @@ jogo = function(){
          	},1,this);
        	 
        }
+    
+       melhorias(){
+            let intervalo = setInterval(function(){
+                for (let i = 1; i < maquinas.length; i++) {
+                    if(!(upgrade[i-1])){
+                        let pps = 0;
+                        let multiplicador  = maquinas[i].multiplicador
+                        for(let i2 = 0;i<multiplicador;i++){
+                            pps = maquinas[i].pps+maquinas[i].pps;
+                        }
+                        let valiador = maquinas[i].valor*pps*25;
+                        if(cliente.dinheiroGeral>=valiador){
+                            upgrade[i-1] = true;
+                        }
+                    }
+                    let  = 1;
+                }
+            },10000,this);
+       }
+
+        
+        resetarJogo(){
+        	$.ajax({
+                type:"POST",
+                data: cliente,
+                url: caminho+"ResetarJogo",
+                success: function(dados){
+                	console.log(dados);
+                }
+        	})
+        }
         
 	}
     
@@ -1002,8 +1035,8 @@ jogo = function(){
                 validador = cliente.energia-2;
                 if(validador>=0){
                     cliente.energia-=2;
-                    cliente.dinheiro+=10000;
-                    cliente.dinheiroGeral+=10000;
+                    cliente.dinheiro++;
+                    cliente.dinheiroGeral++;
                 }else{
                     break;
                 }
@@ -1028,7 +1061,7 @@ jogo = function(){
             let valor = maquinas[id].valor;
             if(validador>-1){
                 cliente.dinheiro = validador;
-                maquinas[id].valor = valor+(valor*0.5);
+                maquinas[id].valor = valor+(valor*0.05);
                 if(maquinas[id].quantidade != undefined){
                     maquinas[id].quantidade++; 
                 }else{
@@ -1045,7 +1078,7 @@ jogo = function(){
             if(validador != 0){
                 maquinas[id].quantidade--;
                 var valor = maquinas[id].valor;
-                valor = (valor*100)/150;
+                valor = (valor*100)/105;
                 maquinas[id].valor = valor;
                 valor = valor - (valor*0.25);
                 txtQuantidadeMaquinas[id-1].setText("Quantidade: "+maquinas[id].quantidade);
