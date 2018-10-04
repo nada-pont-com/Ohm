@@ -734,7 +734,7 @@ jogo = function(){
                             upgrade[i-1] = true;
                         }
                     }
-                    let  = 1;
+       
                 }
             },10000,this);
        }
