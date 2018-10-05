@@ -1168,6 +1168,9 @@ jogo = function(){
                         }
                         pesquisas[id].tempo = tempo;
                         if(pesquisas[id].estado=="finalizada"){
+                            if(pesquisas[id].mudaFase==null){
+                                this.scene.start("proximaCena");
+                            }
                             clearInterval(intervalo);
                         }
                     },1000,this);
