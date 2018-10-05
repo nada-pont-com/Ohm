@@ -47,6 +47,7 @@ buscaMaquinas = function(){
                             maquinas2.clientes_id = maquinasDados[i].clientes_id;
                             maquinas2.multiplicador = maquinasDados[i].multiplicador;
                             maquinas2.quantidade = maquinasDados[i].quantidade;
+                            maquinas2.valorOriginal = maquinasL[i].valor;
                             let valor = maquinasL[i].valor;
                             for(let i2 = 0;i2<maquinasDados[i].quantidade;i2++){
                                 valor = valor+(valor*0.05);
@@ -441,23 +442,25 @@ jogo = function(){
                 }else if(identificador=="melhoriasScene"){
                     for(let i = 0;i < sceneMaquinasMenu.length;i++){
                         if(sceneMaquinasMenu[i]==gameObject){
-                            let valor = maquinas[i].valor*pps*25;
+                            let valor = maquinas[i+1].valorOriginal*maquinas[i+1].pps*25;
                             let validador = cliente.dinheiro-valor;
-                            if(validador>=0){
+                            if(validador>=0 && maquinas[i+1].quantidade!=0){
                                 cliente.dinheiro += -valor;
+                                maquinas[i+1].multiplicador++;
                             }
                         }
                     }
                 }
             },this);
-            this.input.on("pointerover",function(pointer,gameObject){
+            this.input.on("gameobjectover",function(pointer,gameObject){
+                console.log(gameObject);
                 if(identificador=="maquinasScene"){
-                    for(let i = 0;i < maquinas.length;i++){
-                        if(sceneMaquinasMenu[i]==gameObject[0]){
+                    for(let i = 1;i < maquinas.length;i++){
+                        if(sceneMaquinasMenu[i-1]==gameObject){
                             txtValor.setPosition(pointer.position.x,pointer.position.y);
-                            let valor = maquinas[i+1].valor;
+                            let valor = maquinas[i].valor;
                             if(venderComprar == "vender"){
-                                if(maquinas[i+1].quantidade != 0){
+                                if(maquinas[i].quantidade != 0){
                                     valor = (valor*100)/105;
                                     valor  = parseInt(valor - (valor*0.25));
                                 }else{
@@ -471,7 +474,7 @@ jogo = function(){
                     }
                 }else if(identificador=="pesquisasScene"){
                     for(let i = 0;i<pesquisas.length;i++){
-                        if(scenePesquisasMenu[i]==gameObject[0]){
+                        if(scenePesquisasMenu[i]==gameObject){
                             let validador = pesquisaValidador(i);
                             txtPesqValor.setPosition(pointer.position.x,pointer.position.y);
                             if(validador){
@@ -486,7 +489,6 @@ jogo = function(){
                                     var tempo = pesquisas[i].tempo;
                                     intervaloPesqui = false;
                                     let intervalo = setInterval(function(){
-
                                         txtPesqValor.setText("Tempo: "+tempo.hora+":"+tempo.min+":"+tempo.seg);
                                         if(intervaloPesqui){
                                             clearInterval(intervalo);
@@ -499,7 +501,14 @@ jogo = function(){
                         }
                     }
                 }else if(identificador=="melhoriasScene"){
-                    
+                    for (let i = 0; i < sceneMaquinasMenu.length; i++) {
+                        if(sceneMaquinasMenu[i]==gameObject){
+                            txtValor.setPosition(pointer.position.x,pointer.position.y);
+                            let valor = maquinas[i+1].valor*maquinas[i+1].pps*25;
+                            txtValor.setText("Valor: "+valor);
+                        }
+                        
+                    }
                 }
             },this);
             this.input.on('pointerout', function () {
@@ -603,6 +612,8 @@ jogo = function(){
             }else{ // Quando o valor vem true signigica que o menu está ativado, e quando vir false o menu esta dessativado;
             	menuMelAD = true;//quando o menu tá ativado
             }
+
+            //configurar possições das melhorias ao abrir o menu;
             var intervalo = setInterval(function(){
                 if(menuMelAD){
                     if(menuMel.x<0){
@@ -729,42 +740,33 @@ jogo = function(){
                 }
          	},1,this);
        	 
-       }
-    
-       melhorias(){ 
-    	   
+        }
+        
+        melhorias(){ 
             let intervalo = setInterval(function(){
                 for (let i = 1; i < maquinas.length; i++) {
-                    console.log(upgrade[i-1]);
                     if(!(upgrade[i-1])){
-                        let pps = 0;
-                        let multiplicador  = maquinas[i].multiplicador
-                        for(let i2 = 0;i2<multiplicador;i2++){
-                            pps = maquinas[i].pps+maquinas[i].pps;
-                        }
+                        let pps = maquinas[i].pps;
                         let valiador = maquinas[i].valor*pps*25;
                         console.log(valiador);
-                        if(cliente.dinheiroGeral>=valiador){
+                        if(cliente.dinheiroGeral>=valiador && maquinas[i].quantidade!=0){
                             upgrade[i-1] = true;
                         }
 
                     }
-       
                 }   
-                
             },10000,this);
-       }
-
+        }
         
         resetarJogo(){
-        	$.ajax({
+            $.ajax({
                 type:"POST",
                 data: cliente,
                 url: caminho+"ResetarJogo",
                 success: function(dados){
-                	console.log(dados);
+                    console.log(dados);
                 }
-        	})
+            })
         }
         
 	}
