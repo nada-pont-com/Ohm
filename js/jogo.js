@@ -8,7 +8,6 @@ var baterias = [];
 var pesquisas = [];
 var numeroMaquinas = 0;
 var pause = false;
-var fase = false;
 
 dadosJogo = function(){
     $.ajax({
@@ -543,7 +542,7 @@ jogo = function(){
                                     intervaloPesqui = false;
                                     let intervalo = setInterval(function(){
                                         txtPesqValor.setText("Tempo: "+tempo.hora+":"+tempo.min+":"+tempo.seg);
-                                        if(intervaloPesqui || fase){
+                                        if(intervaloPesqui){
                                             clearInterval(intervalo);
                                         }
                                     });
@@ -808,9 +807,6 @@ jogo = function(){
 
                     }
                 }  
-                if(fase){
-                    clearInterval(intervalo);
-                } 
             },10000,this);
         }
         
@@ -1117,9 +1113,7 @@ jogo = function(){
                     }
                     cliente.energia += ppsTotal;
                 }
-                if(fase){
-                    clearInterval(intervalo)
-                }
+
             },1000,this);
         }
 
@@ -1221,11 +1215,7 @@ jogo = function(){
                                 pesquisas[id].estado = "finalizada";
                             }
                             pesquisas[id].tempo = tempo;
-                            if(fase){
-                                clearInterval(intervalo);
-                            }
                             if(pesquisas[id].estado=="finalizada"){
-                                fase = true;
                                 clearInterval(intervalo);
                             }
                         },1000,this);
@@ -1251,12 +1241,8 @@ jogo = function(){
                             pesquisas[id].estado = "finalizada";
                         }
                         pesquisas[id].tempo = tempo;
-                        if(fase){
-                            clearInterval(intervalo);
-                        }
                         if(pesquisas[id].estado=="finalizada"){
                             clearInterval(intervalo);
-                            fase = true;
                             if(pesquisas[id].mudaFase!=0){
                                 cliente.fase++;
                                 console.log("oi");
