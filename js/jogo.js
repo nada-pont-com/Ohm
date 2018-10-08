@@ -149,7 +149,7 @@ jogo = function(){
     retornoGet = function(id){
         return retorno[id];
     }
-    retornoSet = function(id,info){
+    retornoSet = function(info, id){
         retorno[id] = info;
     }
 
@@ -176,16 +176,15 @@ jogo = function(){
                 progress.clear();
                 progress.fillStyle(0xffffff, 1);
                 progress.fillRect(422, 270, 20*value, 40);
-                console.log(retorno);
                 if(retornoGet(0)&&retornoGet(1)&&retornoGet(2)){
-                    console.log("foi desgraça");
-                }
-                if(value==150){
                     intervalo.remove(false);
                     txtLoad.destroy();
                     progress.destroy();
                     load.destroy();
                     game.scene.start("fases");
+                }
+                if(value==15){
+                    value = 0;
                 }
                 value++;
             }, callbackScope: this, loop: true },this);
