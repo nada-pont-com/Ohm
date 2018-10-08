@@ -615,33 +615,31 @@ jogo = function(){
                 menuAD = false; //quando o menu tá desativado
             else // Quando o valor vem true signigica que o menu está ativado, e quando vir false o menu esta dessativado;
                 menuAD = true; //quando o menu tá ativado
-            for(let i = 0;i<4;i++){
                 var intervalo = game.scene.scenes[4].time.addEvent({ delay: 1, callback: function(){
                     if(menuAD){
                         if(men.x<0){
-                            men.x++;
-                            seta.x++;
-                            conf.x++;
-                            melho.x++;
-                            pesq.x++;
-                            comp.x++;
+                            men.x+=4;
+                            seta.x+=4;
+                            conf.x+=4;
+                            melho.x+=4;
+                            pesq.x+=4;
+                            comp.x+=4;
                         }else{
                             intervalo.remove(false);
                         }
                     }else{
                         if(men.x>-136){
-                            men.x--;
-                            seta.x--;
-                            conf.x--;
-                            melho.x--;
-                            pesq.x--;
-                            comp.x--;
+                            men.x-=4;
+                            seta.x-=4;
+                            conf.x-=4;
+                            melho.x-=4;
+                            pesq.x-=4;
+                            comp.x-=4;
                         }else{
                             intervalo.remove(false)
                         }
                     }
                 }, callbackScope: this, loop: true });;
-            }
         }
 
         menuComp(){
@@ -650,29 +648,28 @@ jogo = function(){
             }else{ // Quando o valor vem true signigica que o menu está ativado, e quando vir false o menu esta dessativado;
                 menuCompAD = true;//quando o menu tá ativado
             }
-            for (let i = 0; i < 4; i++) {
-                var intervalo = game.scene.scenes[4].time.addEvent({ delay: 1, callback: function(){
-                    if(menuCompAD){
-                        if(menuComp.x<0){
-                            menuComp.x++;
-                            setaComp.x++;
-                            comprar.x++;
-                            vender.x++;
-                        }else{
-                            intervalo.remove(false);
-                        }
+            
+            var intervalo = game.scene.scenes[4].time.addEvent({ delay: 1, callback: function(){
+                if(menuCompAD){
+                    if(menuComp.x<0){
+                        menuComp.x+=4;
+                        setaComp.x+=4;
+                        comprar.x+=4;
+                        vender.x+=4;
                     }else{
-                        if(menuComp.x>-136){
-                            menuComp.x--;
-                            setaComp.x--;
-                            comprar.x--;
-                            vender.x--;
-                        }else{
-                            intervalo.remove(false);
-                        }
+                        intervalo.remove(false);
                     }
-                }, callbackScope: this, loop: true });;
-            }
+                }else{
+                    if(menuComp.x>-136){
+                        menuComp.x-=4;
+                        setaComp.x-=4;
+                        comprar.x-=4;
+                        vender.x-=4;
+                    }else{
+                        intervalo.remove(false);
+                    }
+                }
+            }, callbackScope: this, loop: true });;
         }
 
         menuMelho(){
@@ -683,33 +680,31 @@ jogo = function(){
             }
 
             //configurar possições das melhorias ao abrir o menu;
-            for (let i = 0; i < 4; i++) {
-                var intervalo = game.scene.scenes[4].time.addEvent({ delay: 1, callback: function(){
-                    if(menuMelAD){
-                        if(menuMel.x<0){
-                            menuMel.x++;
-                            setaMel.x++;
-                            for(let i = 1;i <maquinas.length; i++){
-                                melhorarMenu[i-1].x++;
-                                sceneMaquinasMenu[i-1].x++;
-                            }
-                        }else{
-                            intervalo.remove(false);
+            var intervalo = game.scene.scenes[4].time.addEvent({ delay: 1, callback: function(){
+                if(menuMelAD){
+                    if(menuMel.x<0){
+                        menuMel.x+=4;
+                        setaMel.x+=4;
+                        for(let i = 1;i <maquinas.length; i++){
+                            melhorarMenu[i-1].x+=4;
+                            sceneMaquinasMenu[i-1].x+=4;
                         }
                     }else{
-                        if(menuMel.x>-136){
-                            menuMel.x--;
-                            setaMel.x--;
-                            for(let i = 1;i <maquinas.length; i++){
-                                melhorarMenu[i-1].x--;
-                                sceneMaquinasMenu[i-1].x--;
-                            }
-                        }else{
-                            intervalo.remove(false);
-                        }
+                        intervalo.remove(false);
                     }
-                }, callbackScope: this, loop: true });;
-            }
+                }else{
+                    if(menuMel.x>-136){
+                        menuMel.x-=4;
+                        setaMel.x-=4;
+                        for(let i = 1;i <maquinas.length; i++){
+                            melhorarMenu[i-1].x-=4;
+                            sceneMaquinasMenu[i-1].x-=4;
+                        }
+                    }else{
+                        intervalo.remove(false);
+                    }
+                }
+            }, callbackScope: this, loop: true });;
         }
         
         menuComprarVender(){
@@ -718,35 +713,33 @@ jogo = function(){
             }else{ // Quando o valor vem true signigica que o menu está ativado, e quando vir false o menu esta dessativado;
                 menuComprarVenderAD = true;//quando o menu tá ativado
             }
-            for (let i = 0; i < 4; i++) {
-                var intervalo = game.scene.scenes[4].time.addEvent({ delay: 1, callback: function(){
-                    if(menuComprarVenderAD){
-                        if(menuComprar.x<0){
-                            menuComprar.x++;
-                            setaMenuComprar.x++;
-                            for (let i = 1; i < numeroMaquinas; i++) {
-                                comprarMenu[i-1].x++;
-                                sceneMaquinasMenu[i-1].x++;
-                                txtQuantidadeMaquinas[i-1].x++;
-                            }
-                        }else{
-                            intervalo.remove(false);
+            var intervalo = game.scene.scenes[4].time.addEvent({ delay: 1, callback: function(){
+                if(menuComprarVenderAD){
+                    if(menuComprar.x<0){
+                        menuComprar.x+=4;
+                        setaMenuComprar.x+=4;
+                        for (let i = 1; i < numeroMaquinas; i++) {
+                            comprarMenu[i-1].x+=4;
+                            sceneMaquinasMenu[i-1].x+=4;
+                            txtQuantidadeMaquinas[i-1].x+=4;
                         }
                     }else{
-                        if(menuComprar.x>-136){
-                            menuComprar.x--;
-                            setaMenuComprar.x--;
-                            for (let i = 1; i < numeroMaquinas; i++) {
-                                comprarMenu[i-1].x--;
-                                sceneMaquinasMenu[i-1].x--;
-                                txtQuantidadeMaquinas[i-1].x--;
-                            }
-                        }else{
-                            intervalo.remove(false);
-                        }
+                        intervalo.remove(false);
                     }
-                }, callbackScope: this, loop: true });;
-            }    
+                }else{
+                    if(menuComprar.x>-136){
+                        menuComprar.x-=4;
+                        setaMenuComprar.x-=4;
+                        for (let i = 1; i < numeroMaquinas; i++) {
+                            comprarMenu[i-1].x-=4;
+                            sceneMaquinasMenu[i-1].x-=4;
+                            txtQuantidadeMaquinas[i-1].x-=4;
+                        }
+                    }else{
+                        intervalo.remove(false);
+                    }
+                }
+            }, callbackScope: this, loop: true });;
         }
         
         menuPesq(){
@@ -755,33 +748,32 @@ jogo = function(){
             }else{
              	pesMenuAD = true;
             }  
-            for (let i = 0; i < 4; i++) {
-                var intervalo = game.scene.scenes[4].time.addEvent({ delay: 1, callback: function(){
-                    if(pesMenuAD){
-                        if(menuPesq.x<0){
-                            menuPesq.x++;
-                            setaPes.x++;
-                            for (let i = 0; i < pesquisas.length; i++) {
-                                pesquisarMenu[i].x++;
-                                scenePesquisasMenu[i].x++;
-                            }
-                        }else{
-                            intervalo.remove(false);
+
+            var intervalo = game.scene.scenes[4].time.addEvent({ delay: 1, callback: function(){
+                if(pesMenuAD){
+                    if(menuPesq.x<0){
+                        menuPesq.x+=4;
+                        setaPes.x+=4;
+                        for (let i = 0; i < pesquisas.length; i++) {
+                            pesquisarMenu[i].x+=4;
+                            scenePesquisasMenu[i].x+=4;
                         }
                     }else{
-                        if(menuPesq.x>-136){
-                            menuPesq.x--;
-                            setaPes.x--;
-                            for (let i = 0; i < pesquisas.length; i++) {
-                                pesquisarMenu[i].x--;
-                                scenePesquisasMenu[i].x--;
-                            }
-                        }else{
-                            intervalo.remove(false);
-                        }
+                        intervalo.remove(false);
                     }
-                }, callbackScope: this, loop: true });;
-            }
+                }else{
+                    if(menuPesq.x>-136){
+                        menuPesq.x-=4;
+                        setaPes.x-=4;
+                        for (let i = 0; i < pesquisas.length; i++) {
+                            pesquisarMenu[i].x-=4;
+                            scenePesquisasMenu[i].x-=4;
+                        }
+                    }else{
+                        intervalo.remove(false);
+                    }
+                }
+            }, callbackScope: this, loop: true });
         }
         
         menuConf(){
@@ -790,33 +782,31 @@ jogo = function(){
             }else{
             	confMenuAD = true;
             }
-            for (let i = 0; i < 4; i++) {
-                var intervalo = game.scene.scenes[4].time.addEvent({ delay: 1, callback: function(){
-                    if(confMenuAD){
-                        if(confMenu.x<0){
-                        confMenu.x++;
-                        setaConf.x++;
-                        resetaF.x++;
-                        resetaJ.x++;
-                        salvar.x++;
-                        pausar.x++;
-                        }else{
-                            intervalo.remove(false);
-                        }
+            var intervalo = game.scene.scenes[4].time.addEvent({ delay: 1, callback: function(){
+                if(confMenuAD){
+                    if(confMenu.x<0){
+                    confMenu.x+=4;
+                    setaConf.x+=4;
+                    resetaF.x+=4;
+                    resetaJ.x+=4;
+                    salvar.x+=4;
+                    pausar.x+=4;
                     }else{
-                        if(confMenu.x>-136){
-                            confMenu.x--;
-                            setaConf.x--;
-                            resetaF.x--;
-                            resetaJ.x--;
-                            salvar.x--;
-                            pausar.x--;
-                        }else{
-                            intervalo.remove(false);
-                        }
+                        intervalo.remove(false);
                     }
-                }, callbackScope: this, loop: true });;
-            }
+                }else{
+                    if(confMenu.x>-136){
+                        confMenu.x-=4;
+                        setaConf.x-=4;
+                        resetaF.x-=4;
+                        resetaJ.x-=4;
+                        salvar.x-=4;
+                        pausar.x-=4;
+                    }else{
+                        intervalo.remove(false);
+                    }
+                }
+            }, callbackScope: this, loop: true });
         }
         
         melhorias(){
@@ -918,12 +908,13 @@ jogo = function(){
 
     //-------------------------variaveis da fases -----------------------------------------------------------------
     var armazenamento = 0;
-    var frameWH = [{frameWidth: 46, frameHeight: 58},{frameWidth: 46, frameHeight: 58},{frameWidth: 739, frameHeight: 1148 },{frameWidth: 4, frameHeight: 4 },{frameWidth: 228, frameHeight: 414 },{frameWidth: 6, frameHeight: 6 },{frameWidth: 740, frameHeight: 1148 }];
-    var frameBateria = [{frameWidth: 1633, frameHeight: 814},{frameWidth: 690, frameHeight: 370}];
+    var frameWH = [{frameWidth: 46,/* 1 */frameHeight: 58},{frameWidth: 739,/* 2 */frameHeight: 1148 },{frameWidth: 1394,/* 3 */frameHeight: 952 },{frameWidth: 228,/* 4 */frameHeight: 414 },{frameWidth: 6, frameHeight: 6 },{frameWidth: 740, frameHeight: 1148 }];
+    console.log(frameWH);
+    var frameBateria = [{frameWidth: 1289, frameHeight: 655},{frameWidth: 690, frameHeight: 370}];
     var txtDin,txtEner,txtArm;
-    var sceneMaquinas = [];
-    var x,y,scale = {0:2,1:2,2:0.07};// cordenadas das maquinas e escala;
-    var numeroFrame = {1:4,2:4,3:9};
+    var sceneMaquinas = [], sceneBaterias = [];
+    var x,y,scaleMaquinas = {0:2,1:2,2:0.07,3:0.07,4:0.1},scaleBaterias = {0:0.1,1:0.5};// cordenadas das maquinas e escala;
+    var numeroFrame = {1:4,2:4,3:9,4:4};
     var casoEspecial = {0:-1,1:0};
     var setaMenu, menuMaquinas, menuMaquinaAD;
     
@@ -965,10 +956,12 @@ jogo = function(){
             for (let i = 0; i < baterias.length; i++) {
                 this.load.spritesheet("bateria"+baterias[i].id,"../../css/imagensJogo/bateria"+baterias[i].id+".png",frameBateria[baterias[i].id-1]);
             }
+            //var fase 2 maquinas inicio;
             for (let i = 0; i < pesquisas.length; i++) {
                 this.load.spritesheet("maquina"+((pesquisas[i].id)+2),"../../css/imagensJogo/maquina"+((pesquisas[i].id)+2)+".png",frameWH[((((pesquisas[i].id)+2))-1)]);
             }
             for (let i = 0; i < maquinas.length; i++) {
+                console.log(frameWH[((maquinas[i].id)-1)]);
                 this.load.spritesheet("maquina"+maquinas[i].id,"../../css/imagensJogo/maquina"+maquinas[i].id+".png",frameWH[((maquinas[i].id)-1)]);
             }
         }
@@ -991,8 +984,19 @@ jogo = function(){
                     x = 1284;
                     y += 165;
                 }
-                sceneMaquinas[i-1].setScale(scale[i]);
+                console.log(scaleMaquinas[i]);
+                sceneMaquinas[i-1].setScale(scaleMaquinas[i]);
                 sceneMaquinas[i-1].setInteractive();
+            }
+            for (let i = 0; i < baterias.length; i++) {
+                sceneBaterias[i] = this.add.sprite(x,y,"bateria"+baterias[i].id);
+                x += 146;
+                if(x==1430){
+                    x = 1284;
+                    y += 165;
+                }
+                sceneBaterias[i].setScale(scaleBaterias[i]);
+                sceneBaterias[i].setInteractive();
             }
             this.armazenamentoBaterias();
             this.maquinaEspecial.setScale(2);
@@ -1015,14 +1019,12 @@ jogo = function(){
             var txtDesc = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"}).setPadding(5);
             for (let i = 0; i < maquinas.length; i++) {
                 let  i2 = 0;
-                if(maquinas[i].id==1){
-                    i2 = 1;
-                }
+                console.log(maquinas[i].id);
                 this.anims.create({
                     key: ("maquinaAnimi"+maquinas[i].id+""),
                     frames: this.anims.generateFrameNumbers(("maquina"+maquinas[i].id+""), { start: 0, end: numeroFrame[maquinas[i].id] }),
                     frameRate: 10 ,
-                    repeat: casoEspecial[i2]
+                    repeat: -1
                 });
                 if(i!=0){
                     sceneMaquinas[i-1].anims.play("maquinaAnimi"+maquinas[i].id);
@@ -1042,31 +1044,36 @@ jogo = function(){
                             menuMaquinaAD = false; 
                         else 
                             menuMaquinaAD = true;
-                            for (let i = 0; i < 4; i++) {
-                                var intervalo = game.scene.scenes[0].time.addEvent({ delay: 1, callback: function(){
-                                    if(menuMaquinaAD){
-                                        if(menuMaquinas.x>846){
-                                            menuMaquinas.x--;
-                                            setaMenu.x--;
-                                            for (let i = 1; i < numeroMaquinas; i++) {
-                                                sceneMaquinas[i-1].x--;
-                                            }
-                                        }else{
-                                            intervalo.remove(false);
+                            
+                            var intervalo = game.scene.scenes[0].time.addEvent({ delay: 1, callback: function(){
+                                if(menuMaquinaAD){
+                                    if(menuMaquinas.x>846){
+                                        menuMaquinas.x-=2;
+                                        setaMenu.x-=2;
+                                        for (let i = 1; i < numeroMaquinas; i++) {
+                                            sceneMaquinas[i-1].x-=2;
+                                        }
+                                        for(let i = 0;i< baterias.length;i++){
+                                            sceneBaterias[i].x-=2
                                         }
                                     }else{
-                                        if(menuMaquinas.x<1144){
-                                            menuMaquinas.x++;
-                                            setaMenu.x++;
-                                            for (let i = 1; i < numeroMaquinas; i++) {
-                                                sceneMaquinas[i-1].x++;
-                                            }
-                                        }else{
-                                            intervalo.remove(false);
-                                        }
+                                        intervalo.remove(false);
                                     }
-                                }, callbackScope: this, loop: true });
-                            }
+                                }else{
+                                    if(menuMaquinas.x<1144){
+                                        menuMaquinas.x+=2;
+                                        setaMenu.x+=2;
+                                        for (let i = 1; i < numeroMaquinas; i++) {
+                                            sceneMaquinas[i-1].x+=2;
+                                        }
+                                        for(let i = 0;i< baterias.length;i++){
+                                            sceneBaterias[i].x-=2
+                                        }
+                                    }else{
+                                        intervalo.remove(false);
+                                    }
+                                }
+                            }, callbackScope: this, loop: true });
                     break;
                     case teste:
                     this.converter();
@@ -1106,16 +1113,7 @@ jogo = function(){
 
             this.maquinasAutomaticas();
 
-            let tempo = [];
-            let temp = new Object;
-            tempo = this.tempo(cliente.tempo);
-            temp.dia = tempo.data[2];
-            temp.mes = tempo.data[1];
-            temp.ano = tempo.data[0];
-            temp.seg = tempo.tempo[2];
-            temp.min = tempo.tempo[1];
-            temp.hora = tempo.tempo[0];
-            cliente.tempo = temp;
+            this.tempoJogo();
         }
 // -------------------------------------------------- update --------------------------------------------------------
         update(){
@@ -1126,6 +1124,44 @@ jogo = function(){
             txtEner.setText(cliente.energia);
             txtArm.setText(armazenamento);
             
+        }
+
+        tempoJogo(){
+            let tempo = [];
+            if(cliente.tempo.dia==undefined){
+                let temp = new Object;
+                tempo = this.tempo(cliente.tempo);
+                temp.dia = parseInt(tempo.data[2]);
+                temp.mes = parseInt(tempo.data[1]);
+                temp.ano = parseInt(tempo.data[0]);
+                temp.seg = parseInt(tempo.tempo[2]);
+                temp.min = parseInt(tempo.tempo[1]);
+                temp.hora = parseInt(tempo.tempo[0]);
+                cliente.tempo = temp;
+            }
+            tempo = cliente.tempo;
+            let intervalo = game.scene.scenes[3].time.addEvent({ delay: 1000, callback: function(){
+                tempo.seg++;
+                if(tempo.seg==60){
+                    tempo.seg = 0;
+                    tempo.min++;
+                }
+                if(tempo.min==60){
+                    tempo.min = 0;
+                    tempo.hora++;
+                }
+                if(tempo.hora==24){
+                    tempo.hora = 0;
+                    tempo.dia++;
+                }
+                if(tempo.mes == 12){
+                    tempo.dia = 0;
+                    tempo.mes++;
+                }
+                cliente.tempo = tempo;
+                
+            }, callbackScope: this, loop: true });;
+
         }
 
         armazenamentoBaterias(){
@@ -1232,13 +1268,14 @@ jogo = function(){
         pesquisas(id){
             var tempo = new Object;
             if(id==undefined){
+                var intervalo = []
                 for(let i = 0;i<pesquisas.length;i++){
                     var tempo2 = this.tempo(pesquisas[i].tempo);
                     tempo.hora = parseInt(tempo2[0]);
                     tempo.min  = parseInt(tempo2[1]);
                     tempo.seg  = parseInt(tempo2[2]);
                     if(pesquisas[i].estado=="iniciada"){
-                        var intervalo = game.scene.scenes[3].time.addEvent({ delay: 1000, callback: function(){
+                        intervalo[i] = game.scene.scenes[3].time.addEvent({ delay: 1000, callback: function(){
                             tempo.seg--;
                             if(tempo.seg==-1){
                                 tempo.seg = 59;
@@ -1249,11 +1286,18 @@ jogo = function(){
                                 tempo.hora--;
                             }
                             if(tempo.hora == 0 && tempo.min == 0 && tempo.seg ==0){
-                                pesquisas[id].estado = "finalizada";
+                                pesquisas[i].estado = "finalizada";
                             }
-                            pesquisas[id].tempo = tempo;
-                            if(pesquisas[id].estado=="finalizada"){
-                                intervalo.remove(false);
+                            pesquisas[i].tempo = tempo;
+                            if(pesquisas[i].estado=="finalizada"){
+                                intervalo[i].remove(false);
+                                if(pesquisas[i].mudaFase!=0){
+                                    cliente.fase++;
+                                    game.scene.pause("fases");
+                                    game.scene.pause("menu");
+                                    game.scene.bringToTop("proximaCena");
+                                    game.scene.start("proximaCena");
+                                }
                             }
                         }, callbackScope: this, loop: true });;
                     }
@@ -1264,7 +1308,7 @@ jogo = function(){
                 tempo.min  = parseInt(tempo2[1]);
                 tempo.seg  = parseInt(tempo2[2]);
                 if(pesquisas[id].estado=="iniciada"){
-                    var intervalo = game.scene.scenes[3].time.addEvent({ delay: 100, callback: function(){
+                    let intervalo = game.scene.scenes[3].time.addEvent({ delay: 100, callback: function(){
                         tempo.seg--;
                         if(tempo.seg==-1){
                             tempo.seg = 59;
@@ -1288,7 +1332,7 @@ jogo = function(){
                                 game.scene.start("proximaCena");
                             }
                         }
-                    }, callbackScope: this, loop: true });;
+                    }, callbackScope: this, loop: true });
                 }
             }
         }
@@ -1361,7 +1405,13 @@ jogo = function(){
             success:function(dados){
             }
         });
-        string  = "clienteId="+cliente.id+"&fase="+cliente.fase+"&"+cliente.dinheiro+"&franklin"+cliente.franklin+"&dinheiroGeral"+cliente.dinheiroGeral+"&energia"+cliente.energia+"&franklinGeral"+cliente.franklinGeral;
+        // ((dinheiroGeral*fase)+franklin_geral)-tempo(segundos)/1000
+        let tempo = (((((((((cliente.tempo.ano-2000)*12)+cliente.tempo.mes-1)*30+(cliente.tempo.dia-1))*24)+(cliente.tempo.hora))*60)+(cliente.tempo.min))*60)+cliente.tempo.seg;
+        console.log(tempo);
+        var maiorPontuacao = ((cliente.dinheiroGeral*cliente.fase)+cliente.franklinGeral)-(tempo/1000);
+        console.log(maiorPontuacao);
+
+        string  = "clienteId="+cliente.id+"&fase="+cliente.fase+"&dinheiro="+cliente.dinheiro+"&franklin="+cliente.franklin+"&dinheiroGeral="+cliente.dinheiroGeral+"&energia="+cliente.energia+"&franklinGeral="+cliente.franklinGeral+"&maiorPontuacao="+parseInt(maiorPontuacao)+"&tempo="+cliente.tempo.ano+"-"+cliente.tempo.mes+"-"+cliente.tempo.dia+" "+cliente.tempo.hora+":"+cliente.tempo.min+":"+cliente.tempo.seg;
         $.ajax({
             type:"POST",
             data:string+"&identificador=cliente",
