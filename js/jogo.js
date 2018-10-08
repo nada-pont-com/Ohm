@@ -1043,7 +1043,7 @@ jogo = function(){
                         else 
                             menuMaquinaAD = true;
                             for (let i = 0; i < 4; i++) {
-                                var intervalo = game.scene.scenes[0].time.addEvent({ delay: 500, callback: function(){
+                                var intervalo = game.scene.scenes[0].time.addEvent({ delay: 1, callback: function(){
                                     if(menuMaquinaAD){
                                         if(menuMaquinas.x>846){
                                             menuMaquinas.x--;
