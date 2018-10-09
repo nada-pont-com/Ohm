@@ -351,7 +351,7 @@ jogo = function(){
                 pesquisarMenu[i] = this.add.image(-132,py,"pesquisarMenu").setOrigin(0,0);
                 py += 134;
                 scenePesquisasMenu[i] = this.add.sprite(px,py2,"maquina"+((pesquisas[i].id)+2));
-                scenePesquisasMenu[i].setScale(0.08);
+                scenePesquisasMenu[i].setScale(scaleMaquinas[(pesquisas[i].id)+2]);
                 scenePesquisasMenu[i].setInteractive();
                 py2 += 134;
             }
@@ -360,21 +360,27 @@ jogo = function(){
                 melhorarMenu[i-1] = this.add.image(-132,my,"melhorarMenu").setOrigin(0,0);
                 my += 134;
             }
-            let y = 50,x = -68,y2 = 100;
+            let y = 50,x = -68,y2 = 95;
             for(let i = 1;i <maquinas.length; i++){
                 comprarMenu[i-1] = this.add.image(-132,y,"comprarMenu").setOrigin(0,0);
                 y += 134;
-                txtQuantidadeMaquinas[i-1] = this.add.text(x,y2+40,"Quantidade: "+maquinas[i].quantidade,{fontSize:"13px"});
+                txtQuantidadeMaquinas[i-1] = this.add.text(x,y2+45,"Quantidade: "+maquinas[i].quantidade,{fontSize:"13px"});
                 txtQuantidadeMaquinas[i-1].setDisplayOrigin(txtQuantidadeMaquinas[i-1].width/2,txtQuantidadeMaquinas[i-1].height/2);
                 upgrade[i-1] = false;
                 sceneMaquinasMenu[i-1] = this.add.sprite(x,y2,"maquina"+maquinas[i].id);
-                sceneMaquinasMenu[i-1].setScale(1);
+                sceneMaquinasMenu[i-1].setScale(scaleMaquinas[(maquinas[i].id)-1]);
                 sceneMaquinasMenu[i-1].setInteractive();
                 y2 += 134;
             }
+            for(let i = 0;i<baterias.length;i++){
+                let i2 = comprarMenu.length;
+                comprarMenu[i+i2] = this.add.image(-132,y,"comprarMenu").setOrigin(0,0);
+                sceneBateriasMenu[i] = this.add.sprite(x,y2,"bateria"+baterias[i].id);
+                sceneBateriasMenu[i].setScale(scaleBaterias[(baterias[i].id)-1]);
+                sceneBateriasMenu[i].setInteractive();
+            }
             var txtValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
             txtPesqValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
-
 			for (let i = 0; i < 8; i++) {
 				let i2 = 1;
 				if(i==0){
@@ -908,12 +914,12 @@ jogo = function(){
 
     //-------------------------variaveis da fases -----------------------------------------------------------------
     var armazenamento = 0;
-    var frameWH = [{frameWidth: 46,/* 1 */frameHeight: 58},{frameWidth: 739,/* 2 */frameHeight: 1148 },{frameWidth: 1394,/* 3 */frameHeight: 952 },{frameWidth: 228,/* 4 */frameHeight: 414 },{frameWidth: 6, frameHeight: 6 },{frameWidth: 740, frameHeight: 1148 }];
+    var frameWH = [{frameWidth: 46,/* 0 */frameHeight: 58},{frameWidth: 46,/* 1 */frameHeight: 58},{frameWidth: 739,/* 2 */frameHeight: 1148 },{frameWidth: 1394,/* 3 */frameHeight: 952 },{frameWidth: 228,/* 4 */frameHeight: 414 },{frameWidth: 6, frameHeight: 6 },{frameWidth: 740, frameHeight: 1148 }];
     console.log(frameWH);
     var frameBateria = [{frameWidth: 1289, frameHeight: 655},{frameWidth: 690, frameHeight: 370}];
     var txtDin,txtEner,txtArm;
     var sceneMaquinas = [], sceneBaterias = [];
-    var x,y,scaleMaquinas = {0:2,1:2,2:0.07,3:0.07,4:0.1},scaleBaterias = {0:0.1,1:0.5};// cordenadas das maquinas e escala;
+    var x,y,scaleMaquinas = {0:2,1:2,2:0.07,3:0.07,4:0.08},scaleBaterias = {0:0.1,1:0.5};// cordenadas das maquinas e escala;
     var numeroFrame = {1:4,2:4,3:9,4:4};
     var casoEspecial = {0:-1,1:0};
     var setaMenu, menuMaquinas, menuMaquinaAD;
@@ -984,8 +990,8 @@ jogo = function(){
                     x = 1284;
                     y += 165;
                 }
-                console.log(scaleMaquinas[i]);
-                sceneMaquinas[i-1].setScale(scaleMaquinas[i]);
+                console.log("i: " + (i-1) + "\n scala: "+scaleMaquinas[(maquinas[i].id)-1] )
+                sceneMaquinas[i-1].setScale(scaleMaquinas[(maquinas[i].id)-1]);
                 sceneMaquinas[i-1].setInteractive();
             }
             for (let i = 0; i < baterias.length; i++) {
@@ -1019,13 +1025,17 @@ jogo = function(){
             var txtDesc = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"}).setPadding(5);
             for (let i = 0; i < maquinas.length; i++) {
                 let  i2 = 0;
+                if(i==0){
+                    i2 = 1;
+                }
                 console.log(maquinas[i].id);
                 this.anims.create({
                     key: ("maquinaAnimi"+maquinas[i].id+""),
                     frames: this.anims.generateFrameNumbers(("maquina"+maquinas[i].id+""), { start: 0, end: numeroFrame[maquinas[i].id] }),
                     frameRate: 10 ,
-                    repeat: -1
+                    repeat: casoEspecial[i2]
                 });
+                console.log(sceneMaquinas[i-1]);
                 if(i!=0){
                     sceneMaquinas[i-1].anims.play("maquinaAnimi"+maquinas[i].id);
                 }
@@ -1034,8 +1044,7 @@ jogo = function(){
                 switch(gameObject){
                     case this.maquinaEspecial:
                         if(pause == false){
-                        	 cliente.energia+=10000;
-                             let tempo = pesquisas[0].tempo;
+                        	cliente.energia+=10000;
                         	this.maquinaEspecial.anims.play("maquinaAnimi1",true);
                         }
                     break;
@@ -1067,7 +1076,7 @@ jogo = function(){
                                             sceneMaquinas[i-1].x+=2;
                                         }
                                         for(let i = 0;i< baterias.length;i++){
-                                            sceneBaterias[i].x-=2
+                                            sceneBaterias[i].x+=2
                                         }
                                     }else{
                                         intervalo.remove(false);
@@ -1081,13 +1090,13 @@ jogo = function(){
                 }
             },this);
             this.input.on("pointerover",function(pointer,gameObject){
-                for(let i = 0;i < maquinas.length;i++){
-                    if(sceneMaquinas[i]==gameObject[0]){
+                for(let i = 1;i < maquinas.length;i++){
+                    if(sceneMaquinas[i-1]==gameObject[0]){
                         txtDesc.setPosition(pointer.position.x,pointer.position.y);
                         if(i%2==1){
-                            txtDesc.setDisplayOrigin(txtDesc.width,0);
-                        }else{
                             txtDesc.setDisplayOrigin(0,0);
+                        }else{
+                            txtDesc.setDisplayOrigin(txtDesc.width,0);
                         }
                         var textoSplit = maquinas[i].desc.split(" ");
                         var texto = [];
@@ -1382,6 +1391,7 @@ jogo = function(){
                 string += "&id"+i+"="+baterias[i].id+"&quantidade"+i+"="+baterias[i].quantidade;
             }
         }
+        console.log(string);
         $.ajax({
             type:"POST",
             data:string+"&identificador=baterias&fase="+cliente.fase+"&clienteId="+cliente.id,
