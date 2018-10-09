@@ -1445,7 +1445,7 @@ jogo = function(){
         });
     }
 
-    var t = [];
+    var t = [], continuar, plano;
     
     class tutorial extends Phaser.Scene{
         constructor(){
@@ -1453,15 +1453,21 @@ jogo = function(){
         }
         
         preload(){
-        	
+        	this.load.image("fundo", "../../css/imagensJogo/fundoTutorial.png");
         }
         
         create(){
         
+        	plano = this.add.image(100, 100,"fundo");
+        	
+        	continuar = this.add.text(925, 550,"Clique para continuar");
+        	continuar.setColor("000000");
+        	console.log(continuar);
+        	
 	        	for(let c = 1; c <= 6; c++){
 	        		
 	        		if(c == 1){
-	        			t[c] = this.add.text(220,480,"Seja bem vindo ao seu primeiro dia na empresa!\n Ensinar-te-ei a habilidade de manipular e gerir empresas de eletricidade!");
+	        			t[c] = this.add.text(220,480,"Seja bem vindo ao seu primeiro dia como empresário!\n Ensinar-te-ei a habilidade de manipular e gerir empresas de eletricidade!");
 	        			
 	        		}else if(c == 2){
 						t[c] = this.add.text(250,480,"O menu do jogo pode ser acessado ao clicar na seta à esquerda\n Já a seta à direita permite a visualização das máquinas que possuí!\n  Vamos! Clique nelas para ver a mágica!");
@@ -1478,44 +1484,44 @@ jogo = function(){
 					}else if(c == 6){
 						t[c] = this.add.text(180,480,"Após essas dicas básicas, desejo-te boa sorte neste ramo perigoso, e até a próxima!");
 						t[c].setAlpha(0);
-						t[1].setInteractive(); 
+						continuar.setInteractive(); 
 				  }
 					
-	        	
+	        	t[c].setColor("#000000");
 	        	 
 	        	}
 	        	
 	        
 	        	             	
 	        	
-	        	t[1].on("pointerdown", function (ev){	
+	        	continuar.on("pointerdown", function (ev){	
 	        		t[1].destroy();
 	        		t[2].setAlpha(1);
-	        		t[2].setInteractive();
+	        		continuar.setInteractive();
 	        		
-	        		t[2].on("pointerdown", function (ev){	
+	        		continuar.on("pointerdown", function (ev){	
 	        			t[2].destroy();
 		        		t[3].setAlpha(1);
-		        		t[3].setInteractive();
+		        		continuar.setInteractive();
 		        		
-		        		t[3].on("pointerdown", function (ev){	
+		        		continuar.on("pointerdown", function (ev){	
 		        			t[3].destroy();
 			        		t[4].setAlpha(1);
-			        		t[4].setInteractive();
+			        		continuar.setInteractive();
 			        		
-			        		t[4].on("pointerdown", function (ev){	
+			        		continuar.on("pointerdown", function (ev){	
 			        			t[4].destroy();
 				        		t[5].setAlpha(1);
-				        		t[5].setInteractive();
+				        		continuar.setInteractive();
 				        		
-				        		t[5].on("pointerdown", function (ev){	
+				        		continuar.on("pointerdown", function (ev){	
 				        			t[5].destroy();
 				        			t[6].setAlpha(1);
-					        		t[6].setInteractive();
+				        			continuar.setInteractive();
 					        		
-					        		t[6].on("pointerdown", function (ev){	
+				        			continuar.on("pointerdown", function (ev){	
 					        			t[6].destroy();
-					        			
+					        			continuar.destroy();
 						        		
 									}, this);
 								}, this);
