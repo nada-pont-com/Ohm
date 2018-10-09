@@ -194,7 +194,7 @@ jogo = function(){
 	var upgrade = {},intervaloPesqui = false,venderComprar,pausar, menuMel, setaMel, salvar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, menuPesq, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina",6:"resetarJ",7:"resetarF"}, animsI3 = {0:"pausar", 1:"salvar"};//variaveis para menu e a intro;
 	var texto1,texto2; //texto para o proximaFasa
     var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD,confMenuAD, menuMelAD; //serve para disser se o menu esta ativo ou não;
-    var melhorarMenu = [],comprarMenu = [],sceneMaquinasMenu = [],txtQuantidadeMaquinas = [],scenePesquisasMenu = [],pesquisarMenu = [];
+    var melhorarMenu = [],comprarMenu = [],sceneMaquinasMenu = [],sceneBateriasMenu = [],txtQuantidadeMaquinas = [],scenePesquisasMenu = [],pesquisarMenu = [];
     var txtPesqValor;
     var identificador;//Variavel que identifica qual texto ira 
 	class intro extends Phaser.Scene{
@@ -375,9 +375,11 @@ jogo = function(){
             for(let i = 0;i<baterias.length;i++){
                 let i2 = comprarMenu.length;
                 comprarMenu[i+i2] = this.add.image(-132,y,"comprarMenu").setOrigin(0,0);
+                y += 134;
                 sceneBateriasMenu[i] = this.add.sprite(x,y2,"bateria"+baterias[i].id);
                 sceneBateriasMenu[i].setScale(scaleBaterias[(baterias[i].id)-1]);
                 sceneBateriasMenu[i].setInteractive();
+                y2 += 134;
             }
             var txtValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
             txtPesqValor = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"});
