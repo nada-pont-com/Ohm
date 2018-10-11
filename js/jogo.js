@@ -1465,16 +1465,15 @@ jogo = function(){
         }
         
         preload(){
-        	this.load.image("fundo", "../../css/imagensJogo/fundoTutorial.png");
+        	this.load.image("fundot", "../../css/imagensJogo/fundoTutorial.png");
         }
         
         create(){
         
-        	plano = this.add.image(100, 100,"fundo");
+        	plano = this.add.image(500, 100,"fundot");
         	
         	continuar = this.add.text(925, 550,"Clique para continuar");
         	continuar.setColor("000000");
-        	console.log(continuar);
         	
 	        	for(let c = 1; c <= 6; c++){
 	        		
