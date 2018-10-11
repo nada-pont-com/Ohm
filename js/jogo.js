@@ -162,6 +162,12 @@ jogo = function(){
             this.load.image("fundo","../../css/imagensJogo/fundo.png");
         }
         create(){//fazer um validador para dizer qual cena inicial se deve carregar primeiro;
+        	
+        	if((cliente.dinheiroGeral == 10) && (cliente.energia == 0) && (cliente.fase == 1)){
+        		game.scene.start("tutorial");
+        		
+        	}
+        		
             console.log("ola1");
             retorno[0] = false;retorno[1] = false;retorno[2] = false;
             buscaMaquinas();
@@ -183,6 +189,8 @@ jogo = function(){
                     progress.destroy();
                     load.destroy();
                     game.scene.start("fases");
+                    
+                   
                 }
                 if(value==15){
                     value = 0;
@@ -1129,7 +1137,22 @@ jogo = function(){
 
             this.maquinasAutomaticas();
 
+
+            let tempo = [];
+            let temp = new Object;
+            tempo = this.tempo(cliente.tempo);
+            temp.dia = tempo.data[2];
+            temp.mes = tempo.data[1];
+            temp.ano = tempo.data[0];
+            temp.seg = tempo.tempo[2];
+            temp.min = tempo.tempo[1];
+            temp.hora = tempo.tempo[0];
+            cliente.tempo = temp;
+            
+            
+
             this.tempoJogo();
+
         }
 // -------------------------------------------------- update --------------------------------------------------------
         update(){
@@ -1444,13 +1467,107 @@ jogo = function(){
         });
     }
 
+    var t = [], continuar, plano;
+    
+    class tutorial extends Phaser.Scene{
+        constructor(){
+            super({key:"tutorial"});
+        }
+        
+        preload(){
+        	this.load.image("fundo", "../../css/imagensJogo/fundoTutorial.png");
+        }
+        
+        create(){
+        
+        	plano = this.add.image(100, 100,"fundo");
+        	
+        	continuar = this.add.text(925, 550,"Clique para continuar");
+        	continuar.setColor("000000");
+        	console.log(continuar);
+        	
+	        	for(let c = 1; c <= 6; c++){
+	        		
+	        		if(c == 1){
+	        			t[c] = this.add.text(220,480,"Seja bem vindo ao seu primeiro dia como empresário!\n Ensinar-te-ei a habilidade de manipular e gerir empresas de eletricidade!");
+	        			
+	        		}else if(c == 2){
+						t[c] = this.add.text(250,480,"O menu do jogo pode ser acessado ao clicar na seta à esquerda\n Já a seta à direita permite a visualização das máquinas que possuí!\n  Vamos! Clique nelas para ver a mágica!");
+						t[c].setAlpha(0);
+					}else if(c == 3){
+						t[c] = this.add.text(25,480,"No menu é possível visualizar 4 itens, eles são:\n Configurações: Permite que você reinicie o jogo ou a fase, além de pausar ou salvar o jogo.\n  Compras: Permite que você compre ou venda máquinas e baterias.\n   Pesquisas: Permite que você pesquise novas máquinas e baterias para que consiga progredir no jogo e no ranking!\n    Melhorias: Permite que você realize melhorias nas máquinas ou baterias que possuí.");
+						t[c].setAlpha(0);
+					}else if(c == 4){
+						t[c] = this.add.text(55,480,"O menu fixo que você enxerga no topo da tela é o menu de recursos.\n É possível encontrar nele, respectivamente, as quantidades de dinheiro, energia e armazenamento de energia.");
+						t[c].setAlpha(0);
+					}else if(c == 5){
+						t[c] = this.add.text(180,480,"E a máquina centralizada na tela é a sua manivela geradora de energia.\n Você utilizará ela durante toda sua tragetória, para girá-la, basta clicar nela!");
+						t[c].setAlpha(0);
+					}else if(c == 6){
+						t[c] = this.add.text(180,480,"Após essas dicas básicas, desejo-te boa sorte neste ramo perigoso, e até a próxima!");
+						t[c].setAlpha(0);
+						continuar.setInteractive(); 
+				  }
+					
+	        	t[c].setColor("#000000");
+	        	 
+	        	}
+	        	
+	        
+	        	             	
+	        	
+	        	continuar.on("pointerdown", function (ev){	
+	        		t[1].destroy();
+	        		t[2].setAlpha(1);
+	        		continuar.setInteractive();
+	        		
+	        		continuar.on("pointerdown", function (ev){	
+	        			t[2].destroy();
+		        		t[3].setAlpha(1);
+		        		continuar.setInteractive();
+		        		
+		        		continuar.on("pointerdown", function (ev){	
+		        			t[3].destroy();
+			        		t[4].setAlpha(1);
+			        		continuar.setInteractive();
+			        		
+			        		continuar.on("pointerdown", function (ev){	
+			        			t[4].destroy();
+				        		t[5].setAlpha(1);
+				        		continuar.setInteractive();
+				        		
+				        		continuar.on("pointerdown", function (ev){	
+				        			t[5].destroy();
+				        			t[6].setAlpha(1);
+				        			continuar.setInteractive();
+					        		
+				        			continuar.on("pointerdown", function (ev){	
+					        			t[6].destroy();
+					        			continuar.destroy();
+						        		
+									}, this);
+								}, this);
+							}, this);
+						}, this);
+					}, this);
+				}, this);
+        	
+        	
+        }
+        
+        update(){
+        	
+        }
+        
+    }
+    
     // ---------------- configuração do jogo ------------------------------------------------------------------
     var config = {
         type: Phaser.AUTO,
         width: 1144,//572 // 290
         height: 580,//ajeitar o css do jogo, de mim-height para height;
         parent :"jogo",
-        scene: [inicio,intro,proximaCena,fases,menu]
+        scene: [inicio,intro,proximaCena,fases,menu,tutorial]
     }
 
     game = new Phaser.Game(config);
