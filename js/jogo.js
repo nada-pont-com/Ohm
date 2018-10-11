@@ -374,6 +374,7 @@ jogo = function(){
             }
             for(let i = 0;i<baterias.length;i++){
                 let i2 = comprarMenu.length;
+                console.log(i2);
                 comprarMenu[i+i2] = this.add.image(-132,y,"comprarMenu").setOrigin(0,0);
                 y += 134;
                 sceneBateriasMenu[i] = this.add.sprite(x,y2,"bateria"+baterias[i].id);
