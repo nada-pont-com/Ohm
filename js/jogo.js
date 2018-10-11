@@ -145,7 +145,7 @@ buscaPesquisas = function(){
 }
 dadosJogo();
 jogo = function(){
-   
+   var pesquisaTemMaquinas = {1:3,2:4,3:5,4:6,5:7,6:8,7:9,8:10,9:11,10:12,11:13,12:14};
     retornoGet = function(id){
         return retorno[id];
     }
@@ -162,7 +162,14 @@ jogo = function(){
             this.load.image("fundo","../../css/imagensJogo/fundo.png");
         }
         create(){//fazer um validador para dizer qual cena inicial se deve carregar primeiro;
+        	
+        	if((cliente.dinheiroGeral == 10) && (cliente.energia == 0) && (cliente.fase == 1)){
+        		game.scene.start("tutorial");
+        		
+        	}
+        		
             console.log("ola1");
+            retorno[0] = false;retorno[1] = false;retorno[2] = false;
             buscaMaquinas();
             buscaBaterias();
             buscaPesquisas();
@@ -182,6 +189,8 @@ jogo = function(){
                     progress.destroy();
                     load.destroy();
                     game.scene.start("fases");
+                    
+                   
                 }
                 if(value==15){
                     value = 0;
@@ -194,7 +203,7 @@ jogo = function(){
 	var upgrade = {},intervaloPesqui = false,venderComprar,pausar, menuMel, setaMel, salvar, resetaJ, resetaF,pg, josh, bg, texto, txtContinuar, men,comprar,vender, comp, menuPesq, menuComp, confMenu ,menuComprar, conf, melho,seta,setaMenuComprar,setaComp, setaPes, setaConf, pesq,animsMenu = {0:"config",1:"compra",2:"pesquisa",3:"melhoria",4:"comprarMaquina",5:"venderMaquina",6:"resetarJ",7:"resetarF"}, animsI3 = {0:"pausar", 1:"salvar"};//variaveis para menu e a intro;
 	var texto1,texto2; //texto para o proximaFasa
     var menuAD,menuCompAD,pesMenuAD,menuComprarVenderAD,confMenuAD, menuMelAD; //serve para disser se o menu esta ativo ou não;
-    var melhorarMenu = [],comprarMenu = [],sceneMaquinasMenu = [],sceneBateriasMenu = [],txtQuantidadeMaquinas = [],scenePesquisasMenu = [],pesquisarMenu = [];
+    var melhorarMenu = [],comprarMenuBaterias = [],comprarMenu = [],sceneMaquinasMenu = [],sceneBateriasMenu = [],txtQuantidadeMaquinas = [],scenePesquisasMenu = [],pesquisarMenu = [];
     var txtPesqValor;
     var identificador;//Variavel que identifica qual texto ira 
 	class intro extends Phaser.Scene{
@@ -373,9 +382,7 @@ jogo = function(){
                 y2 += 134;
             }
             for(let i = 0;i<baterias.length;i++){
-                let i2 = comprarMenu.length;
-                console.log(i2);
-                comprarMenu[i+i2] = this.add.image(-132,y,"comprarMenu").setOrigin(0,0);
+                comprarMenuBaterias[i] = this.add.image(-132,y,"comprarMenu").setOrigin(0,0);
                 y += 134;
                 sceneBateriasMenu[i] = this.add.sprite(x,y2,"bateria"+baterias[i].id);
                 sceneBateriasMenu[i].setScale(scaleBaterias[(baterias[i].id)-1]);
@@ -578,8 +585,8 @@ jogo = function(){
                     for (let i = 0; i < sceneMaquinasMenu.length; i++) {
                         if(sceneMaquinasMenu[i]==gameObject){
                             txtValor.setPosition(pointer.position.x,pointer.position.y);
-                            let valor = maquinas[i+1].valor*maquinas[i+1].pps*25;
-                            txtValor.setText("Valor: "+valor);
+                            let valor = maquinas[i+1].valorOriginal*maquinas[i+1].pps*25;
+                            txtValor.setText("Valor: "+parseInt(valor));
                         }
                         
                     }
@@ -732,6 +739,12 @@ jogo = function(){
                             sceneMaquinasMenu[i-1].x+=4;
                             txtQuantidadeMaquinas[i-1].x+=4;
                         }
+
+                        for (let i2 = 0; i2 < baterias.length; i2++) {
+                            comprarMenuBaterias[i2].x+=4;
+                            sceneBateriasMenu[i2].x+=4;
+                            //txtQuantidadeBaterias[i2].x+=4;
+                        }
                     }else{
                         intervalo.remove(false);
                     }
@@ -743,6 +756,11 @@ jogo = function(){
                             comprarMenu[i-1].x-=4;
                             sceneMaquinasMenu[i-1].x-=4;
                             txtQuantidadeMaquinas[i-1].x-=4;
+                        }
+                        for (let i2 = 0; i2 < baterias.length; i2++) {
+                            comprarMenuBaterias[i2].x-=4;
+                            sceneBateriasMenu[i2].x-=4;
+                            //txtQuantidadeBaterias[i2].x+=4;
                         }
                     }else{
                         intervalo.remove(false);
@@ -823,7 +841,7 @@ jogo = function(){
                 for (let i = 1; i < maquinas.length; i++) {
                     if(!(upgrade[i-1])){
                         let pps = maquinas[i].pps;
-                        let valiador = maquinas[i].valor*pps*25;
+                        let valiador = maquinas[i].valorOriginal*pps*25;
                         if(cliente.dinheiroGeral>=valiador && maquinas[i].quantidade!=0){
                             upgrade[i-1] = true;
                         }
@@ -918,11 +936,10 @@ jogo = function(){
     //-------------------------variaveis da fases -----------------------------------------------------------------
     var armazenamento = 0;
     var frameWH = [{frameWidth: 46,/* 0 */frameHeight: 58},{frameWidth: 46,/* 1 */frameHeight: 58},{frameWidth: 739,/* 2 */frameHeight: 1148 },{frameWidth: 1394,/* 3 */frameHeight: 952 },{frameWidth: 228,/* 4 */frameHeight: 414 },{frameWidth: 6, frameHeight: 6 },{frameWidth: 740, frameHeight: 1148 }];
-    console.log(frameWH);
     var frameBateria = [{frameWidth: 1289, frameHeight: 655},{frameWidth: 690, frameHeight: 370}];
     var txtDin,txtEner,txtArm;
     var sceneMaquinas = [], sceneBaterias = [];
-    var x,y,scaleMaquinas = {0:2,1:2,2:0.07,3:0.07,4:0.08},scaleBaterias = {0:0.1,1:0.5};// cordenadas das maquinas e escala;
+    var x,y,scaleMaquinas = {0:2,1:1.5,2:0.07,3:0.07,4:0.08},scaleBaterias = {0:0.1,1:0.05,2:0.5};// cordenadas das maquinas e escala;
     var numeroFrame = {1:4,2:4,3:9,4:4};
     var casoEspecial = {0:-1,1:0};
     var setaMenu, menuMaquinas, menuMaquinaAD;
@@ -1047,7 +1064,7 @@ jogo = function(){
                 switch(gameObject){
                     case this.maquinaEspecial:
                         if(pause == false){
-                        	cliente.energia+=10000;
+                        	cliente.energia++;
                         	this.maquinaEspecial.anims.play("maquinaAnimi1",true);
                         }
                     break;
@@ -1125,7 +1142,22 @@ jogo = function(){
 
             this.maquinasAutomaticas();
 
+
+            let tempo = [];
+            let temp = new Object;
+            tempo = this.tempo(cliente.tempo);
+            temp.dia = tempo.data[2];
+            temp.mes = tempo.data[1];
+            temp.ano = tempo.data[0];
+            temp.seg = tempo.tempo[2];
+            temp.min = tempo.tempo[1];
+            temp.hora = tempo.tempo[0];
+            cliente.tempo = temp;
+            
+            
+
             this.tempoJogo();
+
         }
 // -------------------------------------------------- update --------------------------------------------------------
         update(){
@@ -1205,8 +1237,8 @@ jogo = function(){
                 validador = cliente.energia-2;
                 if(validador>=0){
                     cliente.energia-=2;
-                    cliente.dinheiro+=10000;
-                    cliente.dinheiroGeral+=10000;
+                    cliente.dinheiro++;
+                    cliente.dinheiroGeral++;
                 }else{
                     break;
                 }
@@ -1286,22 +1318,10 @@ jogo = function(){
                     tempo.hora = parseInt(tempo2[0]);
                     tempo.min  = parseInt(tempo2[1]);
                     tempo.seg  = parseInt(tempo2[2]);
-                    if(pesquisas[i].estado=="iniciada"){
+                    if(pesquisas[i].estado=="iniciada" && pesquisas[i].estado=="finalizada"){
+                    	                        	
                         intervalo[i] = game.scene.scenes[3].time.addEvent({ delay: 1000, callback: function(){
-                            tempo.seg--;
-                            if(tempo.seg==-1){
-                                tempo.seg = 59;
-                                tempo.min--;
-                            }
-                            if(tempo.min==-1){
-                                tempo.min = 59;
-                                tempo.hora--;
-                            }
-                            if(tempo.hora == 0 && tempo.min == 0 && tempo.seg ==0){
-                                pesquisas[i].estado = "finalizada";
-                            }
-                            pesquisas[i].tempo = tempo;
-                            if(pesquisas[i].estado=="finalizada"){
+                        	if(pesquisas[i].estado=="finalizada"){
                                 intervalo[i].remove(false);
                                 if(pesquisas[i].mudaFase!=0){
                                     cliente.fase++;
@@ -1310,7 +1330,23 @@ jogo = function(){
                                     game.scene.bringToTop("proximaCena");
                                     game.scene.start("proximaCena");
                                 }
+                            }else{
+
+                            	tempo.seg--;
+                            	if(tempo.seg==-1){
+                            		tempo.seg = 59;
+                            		tempo.min--;
+                            	}
+                            	if(tempo.min==-1){
+                            		tempo.min = 59;
+                            		tempo.hora--;
+                            	}
+                            	if(tempo.hora == 0 && tempo.min == 0 && tempo.seg ==0){
+                            		pesquisas[i].estado = "finalizada";
+                            	}
+                            	pesquisas[i].tempo = tempo;
                             }
+                            
                         }, callbackScope: this, loop: true });;
                     }
                 }
@@ -1321,28 +1357,31 @@ jogo = function(){
                 tempo.seg  = parseInt(tempo2[2]);
                 if(pesquisas[id].estado=="iniciada"){
                     let intervalo = game.scene.scenes[3].time.addEvent({ delay: 100, callback: function(){
-                        tempo.seg--;
-                        if(tempo.seg==-1){
-                            tempo.seg = 59;
-                            tempo.min--;
-                        }
-                        if(tempo.min==-1){
-                            tempo.min = 59;
-                            tempo.hora--;
-                        }
-                        if(tempo.hora == 0 && tempo.min == 0 && tempo.seg ==0){
-                            pesquisas[id].estado = "finalizada";
-                        }
-                        pesquisas[id].tempo = tempo;
-                        if(pesquisas[id].estado=="finalizada"){
-                            intervalo.remove(false);
-                            if(pesquisas[id].mudaFase!=0){
-                                cliente.fase++;
-                                game.scene.pause("fases");
-                                game.scene.pause("menu");
-                                game.scene.bringToTop("proximaCena");
-                                game.scene.start("proximaCena");
-                            }
+                    	if(pesquisas[id].estado=="finalizada"){
+                    		intervalo.remove(false);
+                    		if(pesquisas[id].mudaFase!=0){
+                    			cliente.fase++;
+                    			game.scene.pause("fases");
+                    			game.scene.pause("menu");
+                    			game.scene.bringToTop("proximaCena");
+                    			game.scene.start("proximaCena");
+                    		}
+                        }else{
+                        	pesquisas[id].tempo = tempo;
+                        	if(tempo.hora == 0 && tempo.min == 0 && tempo.seg ==0){
+                        		pesquisas[id].estado = "finalizada";
+                        		
+                        	} else{
+                        		tempo.seg--;
+                        		if(tempo.seg==-1){
+                        			tempo.seg = 59;
+                        			tempo.min--;
+                        		}
+                        		if(tempo.min==-1){
+                        			tempo.min = 59;
+                        			tempo.hora--;
+                        		}                        		
+                        	}
                         }
                     }, callbackScope: this, loop: true });
                 }
@@ -1405,8 +1444,13 @@ jogo = function(){
         string = "";
         for (let i = 0; i < pesquisas.length; i++) {
             if(string==""){
-                let tempo = pesquisas[i].tempo;
-                string += "id"+i+"="+pesquisas[i].id+"&estado"+i+"="+pesquisas[i].estado+"&tempo"+i+"="+tempo.hora+":"+tempo.min+":"+tempo.seg;
+                string += "id"+i+"="+pesquisas[i].id+"&estado"+i+"="+pesquisas[i].estado;
+                if(pesquisas[i].tempo.hora == null){
+                    string += "&tempo"+i+"="+pesquisas[i].tempo;
+                }else{
+                    let tempo = pesquisas[i].tempo;
+                    string+="&tempo"+i+"="+tempo.hora+":"+tempo.min+":"+tempo.seg
+                }
             }else{
                 string += "&id"+i+"="+pesquisas[i].id+"&estado"+i+"="+pesquisas[i].estado+"&tempo"+i+"="+tempo.hora+":"+tempo.min+":"+tempo.seg;
             }
@@ -1423,8 +1467,8 @@ jogo = function(){
         console.log(tempo);
         var maiorPontuacao = ((cliente.dinheiroGeral*cliente.fase)+cliente.franklinGeral)-(tempo/1000);
         console.log(maiorPontuacao);
-
         string  = "clienteId="+cliente.id+"&fase="+cliente.fase+"&dinheiro="+cliente.dinheiro+"&franklin="+cliente.franklin+"&dinheiroGeral="+cliente.dinheiroGeral+"&energia="+cliente.energia+"&franklinGeral="+cliente.franklinGeral+"&maiorPontuacao="+parseInt(maiorPontuacao)+"&tempo="+cliente.tempo.ano+"-"+cliente.tempo.mes+"-"+cliente.tempo.dia+" "+cliente.tempo.hora+":"+cliente.tempo.min+":"+cliente.tempo.seg;
+        console.log(string);
         $.ajax({
             type:"POST",
             data:string+"&identificador=cliente",
@@ -1435,13 +1479,107 @@ jogo = function(){
         });
     }
 
+    var t = [], continuar, plano;
+    
+    class tutorial extends Phaser.Scene{
+        constructor(){
+            super({key:"tutorial"});
+        }
+        
+        preload(){
+        	this.load.image("fundot", "../../css/imagensJogo/fundoTutorial.png");
+        }
+        
+        create(){
+        
+        	plano = this.add.image(100, 100,"fundot");
+        	
+        	continuar = this.add.text(925, 550,"Clique para continuar");
+        	continuar.setColor("000000");
+        	console.log(continuar);
+        	
+	        	for(let c = 1; c <= 6; c++){
+	        		
+	        		if(c == 1){
+	        			t[c] = this.add.text(220,480,"Seja bem vindo ao seu primeiro dia como empresário!\n Ensinar-te-ei a habilidade de manipular e gerir empresas de eletricidade!");
+	        			
+	        		}else if(c == 2){
+						t[c] = this.add.text(250,480,"O menu do jogo pode ser acessado ao clicar na seta à esquerda\n Já a seta à direita permite a visualização das máquinas que possuí!\n  Vamos! Clique nelas para ver a mágica!");
+						t[c].setAlpha(0);
+					}else if(c == 3){
+						t[c] = this.add.text(25,480,"No menu é possível visualizar 4 itens, eles são:\n Configurações: Permite que você reinicie o jogo ou a fase, além de pausar ou salvar o jogo.\n  Compras: Permite que você compre ou venda máquinas e baterias.\n   Pesquisas: Permite que você pesquise novas máquinas e baterias para que consiga progredir no jogo e no ranking!\n    Melhorias: Permite que você realize melhorias nas máquinas ou baterias que possuí.");
+						t[c].setAlpha(0);
+					}else if(c == 4){
+						t[c] = this.add.text(55,480,"O menu fixo que você enxerga no topo da tela é o menu de recursos.\n É possível encontrar nele, respectivamente, as quantidades de dinheiro, energia e armazenamento de energia.");
+						t[c].setAlpha(0);
+					}else if(c == 5){
+						t[c] = this.add.text(180,480,"E a máquina centralizada na tela é a sua manivela geradora de energia.\n Você utilizará ela durante toda sua tragetória, para girá-la, basta clicar nela!");
+						t[c].setAlpha(0);
+					}else if(c == 6){
+						t[c] = this.add.text(180,480,"Após essas dicas básicas, desejo-te boa sorte neste ramo perigoso, e até a próxima!");
+						t[c].setAlpha(0);
+						continuar.setInteractive(); 
+				  }
+					
+	        	t[c].setColor("#000000");
+	        	 
+	        	}
+	        	
+	        
+	        	             	
+	        	
+	        	continuar.on("pointerdown", function (ev){	
+	        		t[1].destroy();
+	        		t[2].setAlpha(1);
+	        		continuar.setInteractive();
+	        		
+	        		continuar.on("pointerdown", function (ev){	
+	        			t[2].destroy();
+		        		t[3].setAlpha(1);
+		        		continuar.setInteractive();
+		        		
+		        		continuar.on("pointerdown", function (ev){	
+		        			t[3].destroy();
+			        		t[4].setAlpha(1);
+			        		continuar.setInteractive();
+			        		
+			        		continuar.on("pointerdown", function (ev){	
+			        			t[4].destroy();
+				        		t[5].setAlpha(1);
+				        		continuar.setInteractive();
+				        		
+				        		continuar.on("pointerdown", function (ev){	
+				        			t[5].destroy();
+				        			t[6].setAlpha(1);
+				        			continuar.setInteractive();
+					        		
+				        			continuar.on("pointerdown", function (ev){	
+					        			t[6].destroy();
+					        			continuar.destroy();
+						        		
+									}, this);
+								}, this);
+							}, this);
+						}, this);
+					}, this);
+				}, this);
+        	
+        	
+        }
+        
+        update(){
+        	
+        }
+        
+    }
+    
     // ---------------- configuração do jogo ------------------------------------------------------------------
     var config = {
         type: Phaser.AUTO,
         width: 1144,//572 // 290
         height: 580,//ajeitar o css do jogo, de mim-height para height;
         parent :"jogo",
-        scene: [inicio,intro,proximaCena,fases,menu]
+        scene: [inicio,intro,proximaCena,fases,menu,tutorial]
     }
 
     game = new Phaser.Game(config);
