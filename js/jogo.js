@@ -775,6 +775,11 @@ jogo = function(){
                                 }
                             }
                         }
+                        for (let i2 = 0; i2 < baterias.length; i2++) {
+                            comprarMenuBaterias[i2].x-=4;
+                            sceneBateriasMenu[i2].x-=4;
+                            //txtQuantidadeBaterias[i2].x+=4;
+                        }
                     }else{
                         intervalo.remove(false);
                     }
@@ -1379,22 +1384,10 @@ jogo = function(){
                     tempo.hora = parseInt(tempo2[0]);
                     tempo.min  = parseInt(tempo2[1]);
                     tempo.seg  = parseInt(tempo2[2]);
-                    if(pesquisas[i].estado=="iniciada"){
+                    if(pesquisas[i].estado=="iniciada" && pesquisas[i].estado=="finalizada"){
+                    	                        	
                         intervalo[i] = game.scene.scenes[3].time.addEvent({ delay: 1000, callback: function(){
-                            tempo.seg--;
-                            if(tempo.seg==-1){
-                                tempo.seg = 59;
-                                tempo.min--;
-                            }
-                            if(tempo.min==-1){
-                                tempo.min = 59;
-                                tempo.hora--;
-                            }
-                            if(tempo.hora == 0 && tempo.min == 0 && tempo.seg ==0){
-                                pesquisas[i].estado = "finalizada";
-                            }
-                            pesquisas[i].tempo = tempo;
-                            if(pesquisas[i].estado=="finalizada"){
+                        	if(pesquisas[i].estado=="finalizada"){
                                 intervalo[i].remove(false);
                                 if(pesquisas[i].mudaFase!=0){
                                     cliente.fase++;
@@ -1403,7 +1396,23 @@ jogo = function(){
                                     game.scene.bringToTop("proximaCena");
                                     game.scene.start("proximaCena");
                                 }
+                            }else{
+
+                            	tempo.seg--;
+                            	if(tempo.seg==-1){
+                            		tempo.seg = 59;
+                            		tempo.min--;
+                            	}
+                            	if(tempo.min==-1){
+                            		tempo.min = 59;
+                            		tempo.hora--;
+                            	}
+                            	if(tempo.hora == 0 && tempo.min == 0 && tempo.seg ==0){
+                            		pesquisas[i].estado = "finalizada";
+                            	}
+                            	pesquisas[i].tempo = tempo;
                             }
+                            
                         }, callbackScope: this, loop: true });;
                     }
                 }
@@ -1414,28 +1423,31 @@ jogo = function(){
                 tempo.seg  = parseInt(tempo2[2]);
                 if(pesquisas[id].estado=="iniciada"){
                     let intervalo = game.scene.scenes[3].time.addEvent({ delay: 100, callback: function(){
-                        tempo.seg--;
-                        if(tempo.seg==-1){
-                            tempo.seg = 59;
-                            tempo.min--;
-                        }
-                        if(tempo.min==-1){
-                            tempo.min = 59;
-                            tempo.hora--;
-                        }
-                        if(tempo.hora == 0 && tempo.min == 0 && tempo.seg ==0){
-                            pesquisas[id].estado = "finalizada";
-                        }
-                        pesquisas[id].tempo = tempo;
-                        if(pesquisas[id].estado=="finalizada"){
-                            intervalo.remove(false);
-                            if(pesquisas[id].mudaFase!=0){
-                                cliente.fase++;
-                                game.scene.pause("fases");
-                                game.scene.pause("menu");
-                                game.scene.bringToTop("proximaCena");
-                                game.scene.start("proximaCena");
-                            }
+                    	if(pesquisas[id].estado=="finalizada"){
+                    		intervalo.remove(false);
+                    		if(pesquisas[id].mudaFase!=0){
+                    			cliente.fase++;
+                    			game.scene.pause("fases");
+                    			game.scene.pause("menu");
+                    			game.scene.bringToTop("proximaCena");
+                    			game.scene.start("proximaCena");
+                    		}
+                        }else{
+                        	pesquisas[id].tempo = tempo;
+                        	if(tempo.hora == 0 && tempo.min == 0 && tempo.seg ==0){
+                        		pesquisas[id].estado = "finalizada";
+                        		
+                        	} else{
+                        		tempo.seg--;
+                        		if(tempo.seg==-1){
+                        			tempo.seg = 59;
+                        			tempo.min--;
+                        		}
+                        		if(tempo.min==-1){
+                        			tempo.min = 59;
+                        			tempo.hora--;
+                        		}                        		
+                        	}
                         }
                     }, callbackScope: this, loop: true });
                 }
@@ -1551,6 +1563,7 @@ jogo = function(){
         
         create(){
         
+
         	plano = this.add.image(350, 525,"fundot");
         	plano.setScale(1.579);
         	
