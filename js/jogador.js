@@ -1,8 +1,8 @@
-var usuarioLogado;
 $(document).ready(function(){
     
     var caminho = "../../";
     
+    var usuarioLogado;
     
     //Cerifica se a sessao do adm logado esta ativa ou não
     verificaUsuario = function(){
@@ -55,6 +55,7 @@ $(document).ready(function(){
         if (data!="" && pagename=="main") {
             location.href="#"+data;
         }else if(data!="" && pagename=="rankingJogador"){
+            compartilharRank();
             BuscaDadosRank(data);
         }else if(data=="" && pagename=="dadosPessoaisJogador"){
             exibirDados();
@@ -102,7 +103,25 @@ $(document).ready(function(){
 				alert("Ocorreu um erro ao consultar seus dados pessoais: " + info.status + " - " + info.statusText);
 			}
 		});
-	};
+    };
+    
+    compartilharRank = function(){
+        $.ajax({
+			type: "POST",
+			url: caminho + "CarregaDadosJogador",
+			success: function(dados){
+                var texto = "Fiz%20"+dados.maiorPontuacao+"%20pontos%20no%20PGWYH!%20Jogue%20em:"; //(texto do tweet, separe cada palavra com “%20” para funcionar, e repare em vermelho na variável pontos, que deve ser trocada pela variável onde você possui os pontos do jogador logado)
+                var link = "http://35.232.177.172/ohm/"; //(link para o site online, troque tutorials pelo nome indicado pelo orientador)
+                var conta = "OhmJogo"; //(opcional, para colocar uma conta de twitter vinculada com o jogo)
+                var tags = "ohm,ClickerGame"; //(opcional, para colocar hashtags, sem espaço e separadas por vírgulas)
+        
+                document.getElementById("twitterlink").setAttribute('href', 'https://twitter.com/intent/tweet?text='+texto+'&via='+conta+'&url='+link+'&hashtags='+tags);
+			},
+			error: function(info){
+				alert("Ocorreu um erro ao carregar o botão de compartilhamento: " + info.status + " - " + info.statusText);
+			}
+		});
+    }
     
     //Gera uma tabela para ser exibida no exibir dados na página dadosPessoias do jogador.
 	gerarDados = function(dadosPessoais,usuario){
