@@ -37,6 +37,7 @@ buscaMaquinas = function(){
         data: cliente,
         url: caminho+"BuscaMaquinas",
         success:function(dados){
+            numeroMaquinas = 0;
             if(dados.msg==undefined){
                 var maquinasL = dados[1];
                 var maquinasDados = dados[0];
@@ -233,7 +234,7 @@ jogo = function(){
 			txtContinuar.setDisplayOrigin(0,txtContinuar.height);
 			
 			txtContinuar.setInteractive();
-			
+			// add a cena da nave caindo;
 			this.input.on("pointerdown", function (ev){
                 if(referencia==1){
                     texto.setText("Uma forma de vida bípede surge a frente do alien, \n E então, ambos acabam tendo uma conversa calorosa, \n  A criatura dependeu da IA para comunicar-se, mas logo entendeu a linguagem humana..."); 
@@ -268,7 +269,7 @@ jogo = function(){
 						}, this)
 					}
                 }, this) 
-            }, this) 
+            }, this);
 		}
         
 		
@@ -575,7 +576,7 @@ jogo = function(){
                                 
                                 }
                             }else{
-                                valor = baterias[i-i2].valor;
+                                valor = parseInt(baterias[i-i2].valor);
                             }
                             txtValor.setText("Valor: "+valor);
                         }
@@ -728,9 +729,12 @@ jogo = function(){
                         menuMel.x+=4;
                         setaMel.x+=4;
                         for(let i = 1;i <maquinas.length; i++){
-                            if(upgrade[i-1]){
-                                melhorarMenu[i-1].x+=4;
-                                sceneMaquinasMenu[i-1].x+=4;
+                            console.log(melhorarMenu[i-1].x);
+                            if(melhorarMenu[i-1].x<4){
+                                if(upgrade[i-1]){
+                                    melhorarMenu[i-1].x+=4;
+                                    sceneMaquinasMenu[i-1].x+=4;
+                                }
                             }
                         }
                     }else{
@@ -741,9 +745,11 @@ jogo = function(){
                         menuMel.x-=4;
                         setaMel.x-=4;
                         for(let i = 1;i <maquinas.length; i++){
-                            if(upgrade[i-1]){
-                                melhorarMenu[i-1].x-=4;
-                                sceneMaquinasMenu[i-1].x-=4;
+                            if(melhorarMenu[i-1].x>-132){
+                                if(upgrade[i-1]){
+                                    melhorarMenu[i-1].x-=4;
+                                    sceneMaquinasMenu[i-1].x-=4;
+                                }
                             }
                         }
                     }else{
@@ -877,6 +883,7 @@ jogo = function(){
                     if(!(upgrade[i-1])){
                         let pps = maquinas[i].pps;
                         let valiador = maquinas[i].valorOriginal*pps*250;
+                        console.log(valiador);
                         if(cliente.dinheiroGeral>=valiador && maquinas[i].quantidade!=0){
                             upgrade[i-1] = true;
                         }
@@ -906,7 +913,27 @@ jogo = function(){
             super({key:"proximaCena"});
         }
         preload(){
-            this.load.image("imgCena","../../css/imagens/faseCena"+cliente.fase+".png");
+            let referencia;
+            switch(cliente.fase){
+                case 1:
+                case 2:
+                    referencia = "faseCena1";
+                break;
+                case 3:
+                    referencia = "cenaFase3";
+                break;
+                case 4:
+                    referencia = "faseCena2";
+                break;
+                case 5:
+                    referencia = "cenaFase5"
+                break;
+                case 6:
+                    referencia = "faseCena3";
+                break;
+            }
+
+            this.load.image("imgCena","../../css/imagens/"+referencia+".png");
         }
         
         geraTextos(){
@@ -920,7 +947,7 @@ jogo = function(){
                 texto2 = "A segunda fase inicia-se com uma consciência maior por parte do Alien,\n ele nota que apesar da ciência ser capaz de realizar milagres, ela não\n  é capaz de impedir o prelúdio humano,o protagonista percebe que não\n   pode continuar com a mesma ilusão e resolve mudá-la, e assim\n   marca o início de uma nova fase.";
                 break;
                 case 3:
-                texto1="Sua nova forma elegeu-se dona da empresa e continua seu caminho solitário,\n ele desfaz-se das manivelas e permanece apenas com uma, para lembrar dos\n  velhos tempos, esta permanece no centro de sua mesa. Até que algum dia\n   enquanto trabalhava ele conhece uma bela secretária, uma ruiva que o\n    atrai, não por sua aparência, mas por seu intelecto e cultura, novamente\n     ele volta a criar vínculos humanos com desaprovação de sua inteligência\n      artificial, eles aproximam-se pelos dias, até o dia em que ele revela sua\n       aparência, a garota revela que o ama e ambos voltam a seus lares felizes,\n        no dia seguinte a garota não aparece no trabalho, um boato de que ela\n         foi encontrada morta em sua casa,dizem ter sido suicídio, novamente ele\n          volta a focar no trabalho para ocultar sua dor, que é moderadamente\n           apreciada por sua IA, esta fase então chega ao fim.";
+                texto1="Sua nova forma elegeu-se dono da empresa e continua seu caminho solitário,\n ele desfaz-se das manivelas e permanece apenas com uma, para lembrar dos\n  velhos tempos, esta permanece no centro de sua mesa. Até que algum dia\n   enquanto trabalhava ele conhece uma bela secretária, uma ruiva que o\n    atrai, não por sua aparência, mas por seu intelecto e cultura, novamente\n     ele volta a criar vínculos humanos com desaprovação de sua inteligência\n      artificial, eles aproximam-se pelos dias, até o dia em que ele revela sua\n       aparência, a garota revela que o ama e ambos voltam a seus lares felizes,\n        no dia seguinte a garota não aparece no trabalho, um boato de que ela\n         foi encontrada morta em sua casa,dizem ter sido suicídio, novamente ele\n          volta a focar no trabalho para ocultar sua dor, que é moderadamente\n           apreciada por sua IA, esta fase então chega ao fim.";
                 texto2="E como em todo marco de uma nova fase ele adapta-se a consciência global\n e muda de forma, os pecados das memórias anteriores são exilados da\n  mente do extraterrestre, o visual clássico valoriza-se junto a arte do oculto,\n   livros e jornais popularizam-se pelos mundanos,mostrando as geniali-\n    dades da ciência e do obscuro escravos são tomados, vidas são ceifadas,\n     trabalhadores assalariados passam fome e a miséria é encontrada em\n      abundância. As máquinas começam a moldar os trabalhadores em\n       sua vida sofrida, mas os planos da inteligência artificial estão cada\n        vez mais próximos, o trabalho humano mostra-se extremamente útil,\n         e a vida passa tranquilamente para um empresário centenário.";
                 break;
                 case 4:
@@ -960,7 +987,9 @@ jogo = function(){
                     txtContinuar.destroy();
                     txt.destroy();
                     salvarJogo("cliente");
-                    mudaFase();
+                    if(cliente.fase!=1){
+                        mudaFase();
+                    }
                 }
             },this);
         }
@@ -1013,7 +1042,23 @@ jogo = function(){
             this.load.image("energia", "../../css/imagensJogo/energia.png");
             this.load.image("armazenamento", "../../css/imagensJogo/armazenamento.png");
             this.load.image("fundoMaquina", "../../css/imagensJogo/fundoMaquina.png");
-            this.load.image("fabrica1","../../css/imagensJogo/fabrica"+cliente.fase+".png");
+            let ref;
+            switch(cliente.fase){
+                case 1:
+                case 2:
+                    ref = 1;
+                break;
+                case 3:
+                case 4:
+                    ref = 2;
+                break;
+                case 5:
+                case 6:
+                    ref = 3;
+                break;
+
+            }
+            this.load.image("fabrica1","../../css/imagensJogo/fabrica"+ref+".png");
 			this.load.image("menuMaquinas","../../css/imagensJogo/menuMaquinas.png");
 			this.load.image("setaMenuMaquinas","../../css/imagensJogo/setaMenuMaquinas.png");
 			this.load.image("venderEnergia","../../css/imagensJogo/venderEnergia.png");
@@ -1076,7 +1121,7 @@ jogo = function(){
             
             recursos.setDisplayOrigin(recursos.width/2,0);
             
-            this.add.image(120,7,"energia").setOrigin(0,0);
+            this.add.image(140,7,"energia").setOrigin(0,0);
             
             this.add.image(300,7,"energia").setOrigin(0,0);
             
@@ -1084,7 +1129,7 @@ jogo = function(){
             
             txtDin = this.add.text(700,5,cliente.dinheiro,{fontSize:"32px",fontFamily:"Arial",fill:"#000"});
             txtEner = this.add.text(300,5,cliente.energia,{fontSize:"32px",fontFamily:"Arial",fill:"#000"});
-            txtArm = this.add.text(120,5,armazenamento,{fontSize:"32px",fontFamily:"Arial",fill:"#000"});
+            txtArm = this.add.text(140,5,armazenamento,{fontSize:"32px",fontFamily:"Arial",fill:"#000"});
             
             
             var txtDesc = this.add.text(0,0,"",{fill:"#000",backgroundColor:"#fff"}).setPadding(5);
@@ -1440,7 +1485,11 @@ jogo = function(){
                                     game.scene.bringToTop("proximaCena");
                                     game.scene.start("proximaCena");
                                 }else{
-                                    maquinas[pesquisas[id].id-1].pesquisada = "S";
+                                    for (let i2 = 0; i2 < maquinas.length; i2++) {
+                                        if(maquinas[i2].id==(pesquisas[i].id+1)){                                           
+                                            maquinas[i2].pesquisada = "S";
+                                        }
+                                    }
                                 }
                             }else{
                                 tempo.seg--;
@@ -1476,7 +1525,11 @@ jogo = function(){
                                 game.scene.bringToTop("proximaCena");
                                 game.scene.start("proximaCena");
                             }else{
-                                maquinas[pesquisas[id].id-1].pesquisada = "S";
+                                for (let i2 = 0; i2 < maquinas.length; i2++) {
+                                    if(maquinas[i2].id==(pesquisas[id].id+1)){
+                                        maquinas[i2].pesquisada = "S";
+                                    }
+                                }
                             }
                         }else{
                             pesquisas[id].tempo = tempo;
@@ -1501,13 +1554,16 @@ jogo = function(){
         }
         
         pesquisar(id){
-            if(pesquisas[id].estado=="n iniciada"){
-                
-                let validador = cliente.dinheiro-pesquisas[id].valor;
-                if(validador>=0){
-                    cliente.dinheiro -= pesquisas[id].valor;
-                    pesquisas[id].estado="iniciada";
-                    this.pesquisas(id);
+            let validador = pesquisaValidador(id);
+            if(validador){
+                if(pesquisas[id].estado=="n iniciada"){
+                    
+                    let validador = cliente.dinheiro-pesquisas[id].valor;
+                    if(validador>=0){
+                        cliente.dinheiro -= pesquisas[id].valor;
+                        pesquisas[id].estado="iniciada";
+                        this.pesquisas(id);
+                    }
                 }
             }
         }
