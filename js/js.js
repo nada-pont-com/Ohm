@@ -85,7 +85,6 @@ $(document).ready(function(){
     }else if(nascimento()){
       document.getElementById("nascimento").focus();
     }else{
-      console.log($("#cadastro").serialize());
       cadastrar();
     }
 
@@ -98,7 +97,6 @@ $(document).ready(function(){
       data:$("#cadastro").serialize(),
       url:"CadastroUsuario",
       success:function(msg){
-        console.log(msg);
         var cfg = {
           title:"mensagem",
           modal:true,
@@ -118,14 +116,11 @@ $(document).ready(function(){
 
   //Faz login do usuario e manda para a página respequitiva dele.
   login = function(){
-    console.log($("#login").serialize());
-    console.log("ata");
     $.ajax({
       type:"POST",
       url:"Entrar",
       data:$("#login").serialize(),
       success: function(msg){
-        console.log(msg);
         if(msg.msg!=null){
 
           var cfg = {
@@ -158,7 +153,6 @@ $(document).ready(function(){
     try{
       data2 = dataN.split("/");
       if(data2.length != 3){
-        console.log(data2.length);
         msg = "Data fora do padrão dd/mm/aaaa!";
         retorno =  true;
       }
@@ -203,7 +197,6 @@ $(document).ready(function(){
         }
       }
     };
-    console.log(msg);
     $("#msg").html(msg);
     $("#msg").dialog(cfg);
     return retorno;

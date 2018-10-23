@@ -27,7 +27,6 @@ $(document).ready(function(){
 
     //Carrega os dados das paginas que o adm esta
     carregarDados = function(data,pagename,extra){
-        console.log("cheguei"+pagename+"\n"+data+"\n"+extra+";");
         if(pagename =="dadosPessoaisAdministrador"){
             exibirDados();
         }else if(pagename=="main" && data!="" && extra=="0"){
@@ -366,7 +365,6 @@ $(document).ready(function(){
     //Serve para denunciar um jogador e para mostrar o modal que permite o adm denunciar e dizer qual o motivo da denuncia.
     denunciar =  function(login){
         var denuncia = $("#denuncia").val();
-        console.log(login);
         if(denuncia=="" || denuncia==undefined){
             var html= "Denuncia: <input type=\"text\" name=\"denuncia\" id=\"denuncia\">";
             var cfg = {
@@ -428,7 +426,6 @@ $(document).ready(function(){
             type: "POST",
             url: caminho + "VisualizarDenuncia",
             success:function(denuncias){
-                console.log(denuncias);
                 var tabela = gerarTabelaDenuncias(denuncias,data);
                 $("#denuncias").html(tabela);
             }
@@ -453,7 +450,6 @@ $(document).ready(function(){
             var cont = parseFloat(data);
             var validador = denuncias[1].length;
             i = 5*cont;
-            console.log(denuncias);
             if(validador<=i){
                 html = gerarTabelaDenuncias(denuncias,(cont-1).toString());
                 return html;
@@ -481,7 +477,6 @@ $(document).ready(function(){
         "</table>";
         html+="<div class='imgs_tabela'><img src='../../css/imagens/seta_i.png' class='img_tabela' alt='Voltar ranking' title='Voltar ranking' onclick='carregarDados(\""+(cont-1)+"\",\"main\",\"1\")'>"+
               "<img src='../../css/imagens/seta.png' class='img_tabela' alt='Avançar ranking' title='Avançar ranking' onclick='carregarDados(\""+(cont+1)+"\",\"main\",\"1\")'></div>";
-        console.log(html);
         return html;
     }
     
@@ -629,7 +624,6 @@ $(document).ready(function(){
             url: caminho + "BuscaUsuario",
             data:"login="+login,
             success: function(dados){
-                console.log(dados[1]);
                 var cfg = {
                     modal:true,
                     width:360,

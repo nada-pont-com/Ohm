@@ -110,7 +110,7 @@ $(document).ready(function(){
 			type: "POST",
 			url: caminho + "CarregaDadosJogador",
 			success: function(dados){
-                var texto = "Fiz%20"+dados.maiorPontuacao+"%20pontos%20no%20PGWYH!%20Jogue%20em:"; //(texto do tweet, separe cada palavra com “%20” para funcionar, e repare em vermelho na variável pontos, que deve ser trocada pela variável onde você possui os pontos do jogador logado)
+                var texto = "Fiz%20"+dados[0].maiorPontuacao+"%20pontos%20no%20Ohm!%20Jogue%20em:"; //(texto do tweet, separe cada palavra com “%20” para funcionar, e repare em vermelho na variável pontos, que deve ser trocada pela variável onde você possui os pontos do jogador logado)
                 var link = "http://35.232.177.172/ohm/"; //(link para o site online, troque tutorials pelo nome indicado pelo orientador)
                 var conta = "OhmJogo"; //(opcional, para colocar uma conta de twitter vinculada com o jogo)
                 var tags = "ohm,ClickerGame"; //(opcional, para colocar hashtags, sem espaço e separadas por vírgulas)
