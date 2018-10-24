@@ -84,6 +84,21 @@ $(document).ready(function(){
       $("#msg").html("A senha escrita no campo 'Senha' deve ser igual a escrita no campo 'Confirmar Senha'!");
     }else if(nascimento()){
       document.getElementById("nascimento").focus();
+    }else if(validaLogin("loginC")){
+      var cfg = {
+        title:"mensagem",
+        modal:true,
+        width: 350,
+        heigth:500,
+        buttons: {
+            "OK" : function(){
+                $(this).dialog("close");
+        document.getElementById("nome").focus();
+            }
+        }
+      };
+      $("#msg").html("O login não pode ter caracteres especiais!");
+      $("#msg").dialog(cfg);
     }else{
       cadastrar();
     }
@@ -202,6 +217,13 @@ $(document).ready(function(){
     return retorno;
   }
 
+
+  validaLogin = function(id){
+    var login = document.getElementById(id).value;
+    var regex= new RegExp("[^a-zA-Z0-9]");
+    console.log(regex.test(login));
+   return regex.test(login);
+  }
   //Mostra um modal que serve para inserir o email para receber a nova senha.
   esqueci = function(){
     var cfg = {
