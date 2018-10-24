@@ -209,7 +209,9 @@ $(document).ready(function(){
             "<td>"+clientes[i].posicao+"</td>"+
             "<td>"+clientes[i].login+"</td>"+
             "<td>"+clientes[i].maiorPontuacao+"</td>"+
-            "<td><a class='denuncia' onclick=Denunciar(\""+clientes[i].login+"\")>Denunciar</a></td>"+
+            "<td><a class='denuncia' onclick=Denunciar(\"";
+            html+= clientes[i].login;
+            html+="\")>Denunciar</a></td>"+
             "</tr>";
             if(i==50*(cont+1)-1){
                 break;
